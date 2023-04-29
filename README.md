@@ -2,8 +2,8 @@
 
 - To install packages
 ›
-__pip freeze > requirements.txt__
+__pip install -r requirements.txt__
 
 - To preserve new packages
 ›
-__pip install -r requirements.txt__
+__pip freeze > requirements.txt__
