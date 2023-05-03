@@ -1,0 +1,64 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #ff0000, #0000ff);
+}
+
+.battery .battery-head {
+  width: 30px;
+  height: 10px;
+  background: #000;
+  margin: 0 auto;
+  border: 2px solid #9e9e9e;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.battery .battery-body {
+  width: 100px;
+  height: 200px;
+  background: #000;
+  position: relative;
+  margin: 0 auto;
+  border: 2px solid #9e9e9e;
+  border-radius: 18px;
+}
+
+.charge {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 14px;
+  transition: all 3s linear;
+  /* animation: battery-charge 8s linear infinite; */
+}
+
+.battery-charge {
+  transition: 3s linear;
+}
+/* 
+@keyframes battery-charge {
+  0% {
+    height: 0;
+    background: #ff0000;
+  }
+  25% {
+    height: 25%;
+    background: #ff9100;
+  }
+  50% {
+    height: 50%;
+    background: #fff200;
+  }
+  75% {
+    height: 75%;
+    background: #d7fc03;
+  }
+  100% {
+    height: 100%;
+    background: #00ff00;
+  }
+} */
