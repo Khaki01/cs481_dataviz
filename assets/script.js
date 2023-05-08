@@ -206,21 +206,22 @@ function indexInParent(node) {
 
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
   clientside: {
-    large_params_function: function (n_clicks, style) {
-      return someTransform(n_clicks, style);
+    large_params_function: function (n_clicks, phoneData, activityData) {
+      return someTransform(n_clicks, phoneData, activityData);
     },
   },
 });
 
-function someTransform(clicks, data) {
+function someTransform(clicks, phoneData, activityData) {
   let battery = document.getElementById("battery06052023");
-  console.log(Object.keys(data).length);
+  console.log(phoneData);
+  console.log(activityData);
   var key = 0;
   const interval = setInterval(function () {
     // method to be executed;
-    console.log(data[key]["score"]);
-    batteryLog(battery, data[key]["score"]);
-    if (key + 1 < Object.keys(data).length) key++;
+    console.log(phoneData[key]["score"]);
+    batteryLog(battery, phoneData[key]["score"]);
+    if (key + 1 < Object.keys(phoneData).length) key++;
     else key = 0;
   }, 3000);
 

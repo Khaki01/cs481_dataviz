@@ -16,9 +16,14 @@ external_stylesheets = [
     "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
     dbc.themes.BOOTSTRAP,
 ]
-json_file_path = "assets/dataset/dataActivity.json"
-with open(json_file_path) as f:
-    jsondata = json.load(f)
+phone_path = "assets/dataset/dataPhone.json"
+with open(phone_path) as f:
+    phonedata = json.load(f)
+f.close()
+activity_path = "assets/dataset/dataActivity.json"
+with open(activity_path) as f:
+    activitydata = json.load(f)
+f.close()
 
 app = dash.Dash(external_stylesheets=external_stylesheets)
 
@@ -230,7 +235,8 @@ app.layout = html.Div(
             ],
             id="testDiv",
         ),
-        dcc.Store(id="ss-idx", data=jsondata),
+        dcc.Store(id="phoneStore", data=phonedata),
+        dcc.Store(id="activityStore", data=activitydata),
     ],
     className="main",
 )
@@ -254,7 +260,8 @@ app.clientside_callback(
     ClientsideFunction(namespace="clientside", function_name="large_params_function"),
     Output("testh2", "children"),
     Input("testDiv", "n_clicks"),
-    State("ss-idx", "data"),
+    State("phoneStore", "data"),
+    State("activityStore", "data"),
     prevent_initial_call=True,
 )
 # def callback(n_clicks, style):
