@@ -29,40 +29,92 @@
   border-radius: 18px;
 }
 
-.charge {
+.battery .charge {
+  height: 0%;
   width: 100%;
   position: absolute;
   bottom: 0;
   border-radius: 14px;
+  /* background: hsl(0, 100%, 50%); */
   /* transition: all 3s linear; */
   /* animation: battery-charge 8s linear infinite; */
 }
 
-/* .battery-charge {
-  transition: 3s linear;
-} */
+.battery .battery-body-inner {
+  width: 80px;
+  height: 160px;
+  background: #000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  /* margin-left: auto;
+  margin-right: auto; */
+  margin: auto;
+  border: 2px solid #9e9e9e;
+  border-radius: 18px;
+}
 
-@keyframes battery-charge {
-  0% {
-    height: 0;
-    background: #ff0000;
-  }
-  25% {
-    height: 25%;
-    background: #ff9100;
-  }
-  50% {
-    height: 50%;
-    background: #fff200;
-  }
-  75% {
-    height: 75%;
-    background: #d7fc03;
-  }
-  100% {
-    height: 100%;
-    background: #00ff00;
-  }
+.battery .charge-inner {
+  height: 0%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 14px;
+  /* background: hsl(0, 100%, 50%); */
+  /* transition: all 3s linear; */
+  /* animation: battery-charge 8s linear infinite; */
+}
+
+.battery-small .battery-head {
+  width: 6px;
+  height: 2px;
+  background: #000;
+  margin: 0 auto;
+  border: 0.5px solid #9e9e9e;
+  border-top-right-radius: 1px;
+  border-top-left-radius: 1px;
+}
+
+.battery-small .battery-body {
+  width: 20px;
+  height: 40px;
+  background: #000;
+  position: relative;
+  margin: 0 auto;
+  border: 2px solid #9e9e9e;
+  border-radius: 4px;
+}
+
+.battery-small .charge {
+  height: 0%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 3px;
+}
+
+.battery-small .battery-body-inner {
+  width: 16px;
+  height: 32px;
+  background: #000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 2px solid #9e9e9e;
+  border-radius: 4px;
+}
+
+.battery-small .charge-inner {
+  height: 0%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 3px;
 }
 
 /* #add-button {
@@ -77,7 +129,7 @@
   overflow-y: scroll;
   height: 100%;
   width: 50%;
-  float: right;
+  /* float: right; */
   margin: 0px auto;
   display: inline-block;
   padding: 0px;

@@ -1,6 +1,9 @@
 window.addEventListener("load", function () {
+  // f();
+  var key = 0;
   var date = new Date();
   var today = date.getDate();
+  let battery = document.getElementById("battery06052023");
   //   click handler
   var rightBtn = document.getElementsByClassName("right-button")[0];
   var leftBtn = document.getElementsByClassName("left-button")[0];
@@ -17,11 +20,26 @@ window.addEventListener("load", function () {
       month_click(e, date, i);
     });
   }
-  addBtn.addEventListener("click", toggleFunction);
+  // addBtn.addEventListener("click", toggleFunction);
+  // useFetch("http://localhost:8050");
+  // fetch("http://localhost:8050/dataset/dataPhone.json")
+  //   .then((response) => response.json())
+  //   .then((json) => {
+  //     const interval = setInterval(function () {
+  //       // method to be executed;
+  //       batteryLog(battery, scores[key]);
+  //       if (key < scores.length) key++;
+  //       else key = 0;
+  //     }, 3000);
 
-  function toggleFunction() {
-    console.log(today);
-  }
+  //     clearInterval(interval);
+  //     console.log(json);
+  //   });
+  // function toggleFunction() {
+  //   if (key < scores.length) key++;
+  //   else key = 0;
+  //   batteryLog(battery, scores[key]);
+  // }
   init_calendar(date);
 });
 
@@ -69,7 +87,14 @@ function init_calendar(date) {
     } else {
       var curr_date = document.createElement("td");
       curr_date.classList.add("table-date", "nil");
+      // var dayBattery = document.createElement("div");
+      // console.log();
+      var dayBattery = createBattery(day, month, year);
+      // dayBattery.innerHTML = "asdf";
       curr_date.innerHTML = day;
+      curr_date.appendChild(dayBattery);
+      batteryLog(dayBattery, 10);
+
       //   var curr_date = $("<td class='table-date'>" + day + "</td>");
       //   var events = check_events(day, month + 1, year);
       var activeDate = document.getElementsByClassName("active-date");
@@ -104,7 +129,6 @@ function days_in_month(month, year) {
 
 // Event handler for when a month is clicked
 function month_click(event, date, index) {
-  console.log("asdf");
   var eventsContainer = document.getElementsByClassName("events-container")[0];
   eventsContainer.style.display = "block";
   //   $(".events-container").show(250);
@@ -112,17 +136,19 @@ function month_click(event, date, index) {
   dialogBox.style.display = "none";
   var date = date;
   var activeMonth = document.getElementsByClassName("active-month")[0];
+  // console.log(document.getElementsByClassName("active-month"));
   if (activeMonth) activeMonth.classList.remove("active-month");
   event.target.classList.add("active-month");
   //   $(this).addClass("active-month");
   //   var new_month = $(".month").index(this);
+  index = indexInParent(event.target);
   date.setMonth(index);
-  console.log(index);
-  //   init_calendar(date);
+  init_calendar(date);
 }
 
 // Event handler for when the year right-button is clicked
 function next_year(date) {
+  // console.log("CLICKED NEXT YEAR");
   var dialogBox = document.getElementById("dialog");
   dialogBox.style.display = "none";
   var date = date;
@@ -130,7 +156,7 @@ function next_year(date) {
   var yearBox = document.getElementsByClassName("year")[0];
   yearBox.innerHTML = new_year;
   date.setFullYear(new_year);
-  //   init_calendar(date);
+  init_calendar(date);
 }
 
 // Event handler for when the year left-button is clicked
@@ -146,8 +172,12 @@ function prev_year(date) {
   var yearBox = document.getElementsByClassName("year")[0];
   yearBox.innerHTML = new_year;
   date.setFullYear(new_year);
-  //   init_calendar(date);
+  init_calendar(date);
 }
+
+var scores = [
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+];
 
 const months = [
   "January",
@@ -163,3 +193,39 @@ const months = [
   "November",
   "December",
 ];
+
+function indexInParent(node) {
+  var children = node.parentNode.childNodes;
+  var num = 0;
+  for (var i = 0; i < children.length; i++) {
+    if (children[i] == node) return num;
+    if (children[i].nodeType == 1) num++;
+  }
+  return -1;
+}
+
+window.dash_clientside = Object.assign({}, window.dash_clientside, {
+  clientside: {
+    large_params_function: function (n_clicks, style) {
+      return someTransform(n_clicks, style);
+    },
+  },
+});
+
+function someTransform(clicks, data) {
+  let battery = document.getElementById("battery06052023");
+  console.log(Object.keys(data).length);
+  var key = 0;
+  const interval = setInterval(function () {
+    // method to be executed;
+    console.log(data[key]["score"]);
+    batteryLog(battery, data[key]["score"]);
+    if (key + 1 < Object.keys(data).length) key++;
+    else key = 0;
+  }, 3000);
+
+  // interval();
+  // clearInterval(interval);
+
+  return "HI";
+}
