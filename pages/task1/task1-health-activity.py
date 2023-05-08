@@ -40,7 +40,6 @@ y_data = ['Instagram', 'Kakao talk', 'Youtube', 'Tiktok']
 
 for i in range(0, len(x_data[0])):
     for k, (xd, yd) in enumerate(zip(x_data, y_data)):
-        print(yd)
         fig.add_trace(go.Bar(
             x=[xd[i]], y=[yd],
             orientation='h',
@@ -74,9 +73,7 @@ fig.add_vline(x=80, line_color="red", annotation=dict(x=87.5, y=1.5), fillcolor=
 @callback(Output("distplot", "figure", allow_duplicate=True), Input("barplot", 'clickData'),
           config_prevent_initial_callbacks=True)
 def update_graph(clickData):
-    print(clickData)
     label = clickData['points'][0]['label']
-    print(label)
     newplot = ff.create_distplot([*hist_data_total,])
     # dist_plot.add_scatter(x=hist_data[0], y=group_labels[0], fill="tozeroy", fillcolor="red")
     return clickData

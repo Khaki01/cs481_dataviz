@@ -4,6 +4,7 @@ from dash import html
 pathname_map = {
     'Task1-health-activity': "Physical activity",
     'Task1-phone-usage': "Phone usage",
+    'Task3-calendar': "Calendar exploration"
 }
 
 SIDEBAR_STYLE = {

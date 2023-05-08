@@ -3,10 +3,10 @@ import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
 from components.navbar import navbar
-from dash.dependencies import Input, Output, State
 from components.sidebar import SIDEBAR_HIDDEN
 from components.sidebar import SIDEBAR_STYLE
 from components.sidebar import sidebar
+from dash.dependencies import Input, Output, State
 
 app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.DARKLY, dbc.icons.BOOTSTRAP], meta_tags=[
     {"name": "viewport", "content": "width=device-width, initial-scale=1"},
@@ -65,6 +65,8 @@ app.layout = html.Main([
     sidebar(dash),
     main
 ])
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

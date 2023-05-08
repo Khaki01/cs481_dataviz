@@ -1,0 +1,27 @@
+{
+  "0": {
+    "activity": "run",
+    "score": 90,
+    "calories": 2341
+  },
+  "1": {
+    "activity": "run",
+    "score": 10,
+    "calories": 2341
+  },
+  "2": {
+    "activity": "run",
+    "score": 30,
+    "calories": 2341
+  },
+  "3": {
+    "activity": "run",
+    "score": -50,
+    "calories": 2341
+  },
+  "4": {
+    "activity": "run",
+    "score": -15,
+    "calories": 2341
+  }
+}
