@@ -9,6 +9,28 @@
   background: #c8c8c8;
 }
 
+.task3-main-dashboard {
+  display: flex;
+  width: 30%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.result-outer {
+  width: 50%;
+}
+.result-outer .phone-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.result-outer .activity-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
 .battery .battery-head {
   width: 30px;
   height: 10px;

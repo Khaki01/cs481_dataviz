@@ -1,27 +1,37 @@
 {
   "0": {
-    "activity": "run",
+    "run": 10,
     "score": 90,
-    "calories": 2341
+    "calories": 2341,
+    "steps": 1230,
+    "gym": 143
   },
   "1": {
-    "activity": "run",
+    "run": 30,
     "score": 10,
-    "calories": 2341
+    "calories": 1002,
+    "steps": 1230,
+    "gym": 143
   },
   "2": {
-    "activity": "run",
+    "run": 15,
     "score": 30,
-    "calories": 2341
+    "calories": 123,
+    "steps": 1230,
+    "gym": 143
   },
   "3": {
-    "activity": "run",
+    "run": 60,
     "score": -50,
-    "calories": 2341
+    "calories": 888,
+    "steps": 1230,
+    "gym": 143
   },
   "4": {
-    "activity": "run",
+    "run": 34,
     "score": -15,
-    "calories": 2341
+    "calories": 555,
+    "steps": 1230,
+    "gym": 143
   }
 }
