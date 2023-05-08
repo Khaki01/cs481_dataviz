@@ -37,9 +37,6 @@ def sidebar(dash):
             [
                 html.H2("2/cent", className="display-4"),
                 html.Hr(),
-                html.P(
-                    "Navigation sidebar", className="lead"
-                ),
                 dbc.Nav(
                     [
 

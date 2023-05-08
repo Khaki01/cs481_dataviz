@@ -10,7 +10,7 @@ from components.sidebar import sidebar
 
 app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.DARKLY, dbc.icons.BOOTSTRAP], meta_tags=[
     {"name": "viewport", "content": "width=device-width, initial-scale=1"},
-], )
+])
 
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
