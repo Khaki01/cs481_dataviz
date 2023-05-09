@@ -3,8 +3,9 @@ from dash import html, dcc, callback, Output, Input
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import numpy as np
-from assets.dataset.task1 import activities_names, activities_data, activities_data_total, linebar_values
 from utils.index import dim_opacity
+from assets.dataset.task1 import activities_names, activities_data, activities_data_total, linebar_values, days,\
+    running, cycling, workout, goal, done
 
 dash.register_page(
     __name__,
@@ -14,17 +15,27 @@ dash.register_page(
     description='Explore health activity'
 )
 
-# GALA
-days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
-running = [500, 600, 800, 700, 900, 750, 850]
-cycling = [350, 400, 500, 450, 550, 600, 700]
-workout = [600, 700, 650, 800, 750, 700, 900]
-goal = [100, 312, 550, 816, 1114, 1447, 1819]
-done = np.add(running, np.add(cycling, workout))
-# GALA
+# Plot
+colors1 = ['rgba(0, 0, 255, 0.7)'] * 7
+goal1 = list(np.asarray(goal))
+extra = np.subtract(done, goal1)
+days_subset = days[-7:]
+goal_subset = goal1[-7:]
+done_subset = done[-7:]
+extra_subset = extra[-7:]
+colors = ['green' if x >= 0 else 'red' for x in extra_subset]
+plot_data = [
+    go.Bar(x=days_subset, y=goal_subset, name="goal", marker=dict(color=colors1, opacity=0.7)),
+    go.Bar(x=days_subset, y=extra_subset, name="extra/left", marker=dict(color=colors, opacity=0.7))
+]
+plot = go.Figure(data=plot_data)
+plot.add_trace(go.Scatter(x=days_subset, y=goal_subset, name="goal"))
+plot.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
+plot.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
+# Plot
+
 
 fig = go.Figure()
-
 colors = ["#BB86FC", "#3700B3", "#03DAC6", "#FFDE03", "#808080"]
 
 data = [
@@ -72,7 +83,7 @@ fig.add_vline(x=sum(linebar_values) * 1.1, line_color="red", annotation=dict(x=s
               annotation_position="top left", annotation_text="100%")
 
 
-@callback(Output("distplot", "figure", allow_duplicate=True), Input("barplot", 'clickData'),
+@callback(Output("dist_plot", "figure", allow_duplicate=True), Input("bar_plot", 'clickData'),
           config_prevent_initial_callbacks=True)
 def update_graph(clickData):
     label = clickData['points'][0]['customdata']
@@ -104,7 +115,7 @@ layout = html.Div([
         html.Div([
 
             dcc.Dropdown(
-                id='daysdropdown',
+                id='days_dropdown',
                 options=[
                     {'label': '1 week', 'value': 7},
                     {'label': '5 days', 'value': 5},
@@ -114,7 +125,7 @@ layout = html.Div([
                 style={'width': '150px', 'margin-left': '20px'}
             ),
             dcc.Dropdown(
-                id='activitydropdown',
+                id='activity_dropdown',
                 options=[
                     {'label': 'All activities', 'value': 'all'},
                     {'label': 'Running', 'value': 'running'},
@@ -127,19 +138,24 @@ layout = html.Div([
             html.Div([
                 html.Label('End Goal(joul):', style={'margin-left': '20px'}),
                 dcc.Slider(
-                    id='goalslider',
+                    id='goal_slider',
                     min=2000,
                     max=4500,
                     step=250,
                     value=2000,
-                    marks={i: str(i) for i in range(10)},
+                    marks={
+                        2000: {'label': '2000J'},
+                        4500: {'label': '4500J'}
+                    },
                     tooltip={"placement": "bottom", "always_visible": True}
                 ),
             ], style={'width': '16%', 'margin-left': '20px', 'margin-top': '5px'}),
         ], style={'display': 'flex'}),
         dcc.Graph(
             id='plot',
-            style={'margin-top': '10px'}
+            style={'margin-top': '10px'},
+            hoverData={'points': [{'pointNumber': None}]},
+            figure=plot
         )
     ]),
     dbc.Card([
@@ -147,62 +163,74 @@ layout = html.Div([
         dbc.CardBody([
             html.H4("Explore phone usage")
         ]),
-        dbc.Card([dcc.Graph(id="distplot", figure=dict(data=data))]),
-        dbc.Card([dcc.Graph(id="barplot", figure=fig)]),
+        dbc.Card([dcc.Graph(id="dist_plot", figure=dict(data=data))]),
+        dbc.Card([dcc.Graph(id="bar_plot", figure=fig)]),
     ])
 ])
 
 
 @callback(
     Output('plot', 'figure', allow_duplicate=True),
-    Input('daysdropdown', 'value'),
-    Input('activitydropdown', 'value'),
-    Input('goalslider', 'value'),
+    Input('days_dropdown', 'value'),
+    Input('activity_dropdown', 'value'),
+    Input('goal_slider', 'value'),
     Input('plot', 'hoverData'),
     config_prevent_initial_callbacks=True
 )
-def update_plot(daysdropdown, appsdropdown, goalslider, hoverData):
-    # = days if days else len(days)
-    goal1 = list(np.asarray(goal) + (goalslider - 2000))
+def update_plot(days_dropdown, activity_dropdown, goal_slider, hoverData):
+
+    goal1 = list(np.asarray(goal) + (goal_slider - 2000))
     extra = np.subtract(done, goal1)
-    daysdropdown = daysdropdown * -1
-    days_subset = days[daysdropdown:]
-    goal_subset = goal1[daysdropdown:]
-    done_subset = done[daysdropdown:]
-    extra_subset = extra[daysdropdown:]
+    days_dropdown = days_dropdown * -1
+    days_subset = days[days_dropdown:]
+    goal_subset = goal1[days_dropdown:]
+    done_subset = done[days_dropdown:]
+    extra_subset = extra[days_dropdown:]
 
     physical_data = []
-    if appsdropdown != "all":
-        if appsdropdown == 'running':
-            physical_data = running[daysdropdown:]
-        elif appsdropdown == 'cycling':
-            physical_data = cycling[daysdropdown:]
-        elif appsdropdown == 'workout':
-            physical_data = workout[daysdropdown:]
+    if activity_dropdown != "all":
+        if activity_dropdown == 'running':
+            physical_data = running[days_dropdown:]
+        elif activity_dropdown == 'cycling':
+            physical_data = cycling[days_dropdown:]
+        elif activity_dropdown == 'workout':
+            physical_data = workout[days_dropdown:]
         other_subset = np.subtract(done_subset, physical_data)
-        trace3 = go.Bar(x=days_subset, y=physical_data, name=appsdropdown, marker=dict(color='orange'))
-        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Activities", marker=dict(color='green', opacity=0.2))
+
+        colors3 = ["orange"] * 7
+        colors4 = ["green"] * 7
+        # check if there is hover data and update trace2 marker color accordingly
+        if hoverData:
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors3[point_number] = 'dark' + colors3[point_number]
+                colors4[point_number] = 'dark' + colors4[point_number]
+
+        trace3 = go.Bar(x=days_subset, y=physical_data, name=activity_dropdown, marker=dict(color=colors3))
+        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Activities", marker=dict(color=colors4, opacity=0.2))
         data = [trace3, trace4]
-        fig = go.Figure(data=data)
+        updated_plot = go.Figure(data=data)
         # fig.add_trace(go.Scatter(x=days_subset, y=physical_data))
-        fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
-        fig.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
+        updated_plot.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
+        updated_plot.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
 
 
 
     else:
         colors = ['green' if x >= 0 else 'red' for x in extra_subset]
-
-        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal", marker=dict(opacity=0.7))
+        colors1 = ['rgba(0, 0, 255, 0.7)'] * 7
+        # check if there is hover data and update trace2 marker color accordingly
+        if hoverData:
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors[point_number] = 'dark' + colors[point_number]
+                colors1[point_number] = 'rgba(0, 0, 255, 0.9)'
+        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal", marker=dict(color=colors1, opacity=0.7))
         trace2 = go.Bar(x=days_subset, y=extra_subset, name="extra/left", marker=dict(color=colors, opacity=0.7))
-        # if hoverData:
-        #     point_index = hoverData['points'][0]['pointNumber']
-        #     trace1['marker']['opacity'] = [0.7 if i != point_index else 1.0 for i in range(daysdropdown)]
-        #     trace2['marker']['opacity'] = [0.7 if i != point_index else 1.0 for i in range(daysdropdown)]
         data = [trace1, trace2]
-        fig = go.Figure(data=data)
-        fig.add_trace(go.Scatter(x=days_subset, y=goal_subset, name="goal"))
-        fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
-        fig.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
+        updated_plot = go.Figure(data=data)
+        updated_plot.add_trace(go.Scatter(x=days_subset, y=goal_subset, name="goal"))
+        updated_plot.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
+        updated_plot.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
 
-    return fig
+    return updated_plot

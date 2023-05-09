@@ -15,9 +15,10 @@ colors = [color.hex_to_rgba(col) for col in colors_hex]
 days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
 goal = [2, 1.5, 1.2, 1., 0.8, 0.7, 0.65]
 insta = [2, 1.5, 1.2, 1., 0.8, 0.7, 0.65]
-tiktok = [1, 1.2, 1.5, 1.4, 0.2, 0.3, 1.]
-play = [0.1, 0.3, 0.4, 0.6, 1.5, 0, .35]
-done = np.add(insta, np.add(tiktok, play))
+kakao = [0.1, 0.3, 0.4, 0.6, 1.5, 0, .35]
+utub = [1, 1.2, 1.5, 1.4, 0.2, 0.3, 1.]
+tiktok = [0.2, 0.2, 0.5, 0.4, 0.6, 0.3, 0.4]
+done = np.add(kakao, np.add(insta, np.add(tiktok, utub)))
 # GALA
 
 pie = px.pie(labels=app_names, values=piechart_values,  hover_data=[piechart_values], template="plotly_dark", width=600, height=500,
@@ -45,7 +46,6 @@ dash.register_page(
 layout = html.Div([
     dbc.Card([
         html.Div([
-
             dcc.Dropdown(
                 id='daysdropdown',
                 options=[
@@ -60,9 +60,10 @@ layout = html.Div([
                 id='appsdropdown',
                 options=[
                     {'label': 'All apps', 'value': 'all'},
-                    {'label': 'TikTok', 'value': 'tiktok'},
                     {'label': 'Instagram', 'value': 'insta'},
-                    {'label': 'Play Market', 'value': 'play'},
+                    {'label': 'KakaoTalk', 'value': 'kakao'},
+                    {'label': 'Youtube', 'value': 'utub'},
+                    {'label': 'TikTok', 'value': 'tiktok'}
                 ],
                 value='all',
                 style={'width': '150px', 'margin-left': '20px'}
@@ -80,7 +81,7 @@ layout = html.Div([
                 ),
             ], style={'width': '16%', 'margin-left': '20px', 'margin-top': '5px'}),
         ], style={'display': 'flex'}),
-        dcc.Graph(id='plot', style={'margin-top': '10px'})
+        dcc.Graph(id='plot', style={'margin-top': '10px'}, hoverData={'points': [{'pointNumber': None}]})
     ]),
     dbc.Card([
         dbc.CardHeader("Health activity"),
@@ -139,9 +140,10 @@ def update_graph(clickData):
     Input('daysdropdown', 'value'),
     Input('appsdropdown', 'value'),
     Input('goalslider', 'value'),
+    Input('plot', 'hoverData'),
     config_prevent_initial_callbacks=True
     )
-def update_plot(daysdropdown, appsdropdown, goalslider):
+def update_plot(daysdropdown, appsdropdown, goalslider, hoverData):
     # = days if days else len(days)
     goal1 = list(np.asarray(goal) + goalslider)
     extra = np.subtract(done, goal1)
@@ -157,21 +159,39 @@ def update_plot(daysdropdown, appsdropdown, goalslider):
             app_data = tiktok[daysdropdown:]
         elif appsdropdown == 'insta':
             app_data = insta[daysdropdown:]
-        elif appsdropdown == 'play':
-            app_data = play[daysdropdown:]
+        elif appsdropdown == 'kakao':
+            app_data = kakao[daysdropdown:]
+        elif appsdropdown == 'utub':
+            app_data = utub[daysdropdown:]
         other_subset = np.subtract(done_subset, app_data)
-        trace3 = go.Bar(x=days_subset, y=app_data, name=appsdropdown, marker=dict(color='orange'))
-        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Apps", marker=dict(color='rgba(0, 128, 0, 0.2)'))
+
+        colors3 = ["orange"] * 7
+        colors4 = ["green"] * 7
+        # check if there is hover data and update trace2 marker color accordingly
+        if hoverData:
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors3[point_number] = 'dark' + colors3[point_number]
+                colors4[point_number] = 'dark' + colors4[point_number]
+
+        trace3 = go.Bar(x=days_subset, y=app_data, name=appsdropdown, marker=dict(color=colors3))
+        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Apps", marker=dict(color=colors4, opacity=0.2))
         fig = go.Figure(data=[trace3, trace4])
         # fig.add_trace(go.Scatter(x=days_subset, y=app_data))
         fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
         fig.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
         return fig
     else:
-        colors = ['green' if x >= 0 else 'red' for x in extra_subset]
-
-        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal")
-        trace2 = go.Bar(x=days_subset, y=extra_subset, name="extra", marker=dict(color=colors))
+        colors = ['grdaeen' if x >= 0 else 'red' for x in extra_subset]
+        colors1 = ['rgba(0, 0, 255, 0.7)'] * 7
+        # check if there is hover data and update trace2 marker color accordingly
+        if hoverData:
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors[point_number] = 'dark' + colors[point_number]
+                colors1[point_number] = 'rgba(0, 0, 255, 0.9)'
+        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal", marker=dict(color=colors1, opacity=0.7))
+        trace2 = go.Bar(x=days_subset, y=extra_subset, name="extra", marker=dict(color=colors, opacity=0.7))
         fig = go.Figure(data=[trace1, trace2])
         fig.add_trace(go.Scatter(x=days_subset, y=goal_subset, name="goal"))
         fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))

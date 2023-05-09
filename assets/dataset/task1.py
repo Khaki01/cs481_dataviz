@@ -1,6 +1,15 @@
 import numpy as np
 import random
 
+# Task 1 health activity
+
+days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+running = [500, 600, 800, 700, 900, 750, 850]
+cycling = [350, 400, 500, 450, 550, 600, 700]
+workout = [600, 700, 650, 800, 750, 700, 900]
+goal = [100, 312, 550, 816, 1114, 1447, 1819]
+done = np.add(running, np.add(cycling, workout))
+
 # App usage data
 app_names = ['Instagram', 'Kakao talk', 'Youtube', 'Tiktok']
 app_data = [[random.randint(12, 40) for j in range(60)] for i in range(4)]
