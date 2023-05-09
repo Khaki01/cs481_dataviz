@@ -50,10 +50,13 @@ app.layout = html.Div([
                 max=4500,
                 step=250,
                 value=2000,
-                marks={i: str(i) for i in range(10)},
+                marks={
+                    2000: {'label': '2000J'},
+                    4500: {'label': '4500J'}
+                },
                 tooltip={"placement": "bottom", "always_visible": True}
             ),
-        ], style={'width': '50%', 'margin-left': '20px', 'margin-top': '5px'}),
+        ], style={'width': '16%', 'margin-left': '20px', 'margin-top': '5px'}),
     ], style={'display': 'flex'}),
     dcc.Graph(
                 id='plot', 

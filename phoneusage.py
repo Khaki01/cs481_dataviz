@@ -7,9 +7,10 @@ from dash import html
 days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
 goal = [2, 1.5, 1.2, 1., 0.8, 0.7, 0.65]
 insta = [2, 1.5, 1.2, 1., 0.8, 0.7, 0.65]
-tiktok = [1, 1.2, 1.5, 1.4, 0.2, 0.3, 1.]
-play = [0.1, 0.3, 0.4, 0.6, 1.5, 0, .35]
-done = np.add(insta, np.add(tiktok, play))
+kakao = [0.1, 0.3, 0.4, 0.6, 1.5, 0, .35]
+utub = [1, 1.2, 1.5, 1.4, 0.2, 0.3, 1.]
+tiktok = [0.2, 0.2, 0.5, 0.4, 0.6, 0.3, 0.4]
+done = np.add(kakao, np.add(insta, np.add(tiktok, utub)))
 
 
 # create a Dash app
@@ -33,10 +34,11 @@ app.layout = html.Div([
             id='appsdropdown',
             options=[
                 {'label': 'All apps', 'value': 'all'},
-                {'label': 'TikTok', 'value': 'tiktok'},
                 {'label': 'Instagram', 'value': 'insta'},
-                {'label': 'Play Market', 'value': 'play'},
-            ],
+                {'label': 'KakaoTalk', 'value': 'kakao'},
+                {'label': 'Youtube', 'value': 'utub'},
+                {'label': 'TikTok', 'value': 'tiktok'}
+            ], 
             value='all',
             style={'width': '150px', 'margin-left': '20px'}
         ),
@@ -81,8 +83,10 @@ def update_plot(daysdropdown, appsdropdown, goalslider, hoverData):
             app_data = tiktok[daysdropdown:]
         elif appsdropdown == 'insta':
             app_data = insta[daysdropdown:]
-        elif appsdropdown == 'play':
-            app_data = play[daysdropdown:]
+        elif appsdropdown == 'kakao':
+            app_data = kakao[daysdropdown:]
+        elif appsdropdown == 'utub':
+            app_data = utub[daysdropdown:]
         other_subset = np.subtract(done_subset, app_data)
 
         colors3 = ["orange"]*7
