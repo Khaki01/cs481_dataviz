@@ -17,7 +17,8 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "padding": "1rem",
     "transition": "all 0.5s",
-    "border-right": "0.5px solid"
+    "border-right": "0.5px solid",
+    "background": "#fff !important"
 }
 
 SIDEBAR_HIDDEN = {

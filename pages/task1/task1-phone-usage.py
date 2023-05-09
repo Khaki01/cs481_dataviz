@@ -3,15 +3,14 @@ from app import dash
 import dash_bootstrap_components as dbc
 from dash import dcc, callback, Output, Input
 import plotly.express as px
-import plotly.figure_factory as ff
 from color_convert import color
 import numpy as np
 import plotly.graph_objects as go
-density = [[150, 120, 130, 140, 140, 130, 120, 110], [100, 120, 130, 100, 90, 80, 70, 70], [100, 120, 130, 100, 90, 80, 70, 70], [100, 120, 130, 100, 90, 80, 70, 70]]
-labels = ['Instagram', 'Kakaotalk', 'Youtube', 'Netflix']
-values = [4500, 2500, 1053, 500]
-colors = [color.hex_to_rgba(col) for col in px.colors.sequential.Plasma[:len(labels) + 1]]
+from assets.dataset.task1 import app_data, app_names, app_data_total, piechart_values, app_data_total_by_category
+from utils.index import dim_opacity, convert_to_hh_mm
 
+colors_hex = ["#BB86FC", "#3700B3", "#03DAC6", "#FFDE03", "#808080"]
+colors = [color.hex_to_rgba(col) for col in colors_hex]
 # GALA
 days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
 goal = [2, 1.5, 1.2, 1., 0.8, 0.7, 0.65]
@@ -21,11 +20,19 @@ play = [0.1, 0.3, 0.4, 0.6, 1.5, 0, .35]
 done = np.add(insta, np.add(tiktok, play))
 # GALA
 
-pie = px.pie(labels=labels, values=values, template="plotly_dark", width=600, height=500,
+pie = px.pie(labels=app_names, values=piechart_values,  hover_data=[piechart_values], template="plotly_dark", width=600, height=500,
              color_discrete_sequence=colors)
-
-dist = ff.create_distplot(density, labels, colors=colors, show_rug=False)
-
+data = [
+    go.Scatter(
+        x=[i for i in range(1, 25)],
+        y=app_data_total,
+        mode='lines',
+        name="Total",
+        line=dict(color=colors[-1], shape="spline", width=3),
+        fill="tozeroy",
+        fillcolor=dim_opacity(colors_hex[-1], opacity=0.3)
+    ),
+]
 
 dash.register_page(
     __name__,
@@ -81,24 +88,51 @@ layout = html.Div([
             html.H4("Explore health activity")
         ])
     ]),
-    dbc.Card([dcc.Graph(id="distplot", figure=dist)]),
-    dbc.Card([dcc.Graph(id="pie", figure=pie)])
+    dbc.Card([dcc.Graph(id="distplot", figure=dict(data=data))]),
+    dbc.Card([dcc.Graph(id="pie", figure=pie)]),
 ])
 
 
 @callback(
     Output(component_id="pie", component_property="figure", allow_duplicate=True),
+    Output("distplot", "figure", allow_duplicate=True),
     Input(component_id="pie", component_property="clickData"),
     config_prevent_initial_callbacks=True
 )
+
 def update_graph(clickData):
     pos = int(clickData['points'][0]['label'])
-    array = [0 for i in range(len(labels))]
+    array = [0 for i in range(len(app_names))]
     array[pos] = 0.5
     colors_updated = [color[:-2] + "0.5)" if i != pos else color for (i, color) in enumerate(colors)]
-    pie.update_traces(pull=array, selector=dict(type="pie"), marker=dict(colors=colors_updated))
-    pie.update_layout()
-    return pie
+    pie.update_traces(pull=array,
+                      selector=dict(type="pie"),
+                      marker=dict(colors=colors_updated))
+    updated_data = [
+        go.Scatter(
+            x=[i for i in range(1, 25)],
+            y=app_data_total,
+            mode='lines',
+            name="Total",
+            line=dict(color=colors[-1], shape="spline", width=3),
+            fill="tozeroy",
+            fillcolor=dim_opacity(colors_hex[-1], opacity=0.3)
+        ),
+        go.Scatter(
+            x=[i for i in range(1, 25)],
+            y=app_data[pos],
+            mode='lines',
+            name=app_names[pos],
+            line=dict(color=colors[pos], shape="spline", width=3),
+            fill="tozeroy"
+        )
+    ]
+    pie.layout.annotations = ()
+    pie.add_annotation(text=app_names[pos], showarrow=False, x=0.5, y=1.15, font=dict(size=16, color=colors[pos]))
+    pie.add_annotation(text="You have used {} for {} hours today".format(app_names[pos],
+             convert_to_hh_mm(app_data_total_by_category[pos])), showarrow=False, x=1, y=1.05, font=dict(size=14))
+    return pie, dict(data=updated_data)
+
 
 @callback(
     Output('plot', 'figure', allow_duplicate=True),
@@ -129,12 +163,11 @@ def update_plot(daysdropdown, appsdropdown, goalslider):
         trace3 = go.Bar(x=days_subset, y=app_data, name=appsdropdown, marker=dict(color='orange'))
         trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Apps", marker=dict(color='rgba(0, 128, 0, 0.2)'))
         fig = go.Figure(data=[trace3, trace4])
-        #fig.add_trace(go.Scatter(x=days_subset, y=app_data))
+        # fig.add_trace(go.Scatter(x=days_subset, y=app_data))
         fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
         fig.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
         return fig
     else:
-        app_data = []
         colors = ['green' if x >= 0 else 'red' for x in extra_subset]
 
         trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal")
