@@ -1,5 +1,7 @@
+import json
+
 import dash_bootstrap_components as dbc
-from dash import html
+from dash import ClientsideFunction, Input, Output, State, dcc, html
 
 pathname_map = {
     "Task1-health-activity": "Physical activity",
@@ -33,6 +35,14 @@ SIDEBAR_HIDDEN = {
 
 
 def sidebar(dash):
+    dash.clientside_callback(
+        ClientsideFunction(
+            namespace="clientside", function_name="initial_params_function"
+        ),
+        Output("testDiv", "style", allow_duplicate=True),
+        Input("Task3-calendar", "n_clicks"),
+        prevent_initial_call=True,
+    )
     return html.Div(
         [
             html.H2("2/cent", className="display-4"),
@@ -43,14 +53,22 @@ def sidebar(dash):
                         f"{pathname_map[page['name']]}",
                         href=f"{page['path']}",
                         active="exact",
+                        id=f"{page['name']}",
+                        # className="sidebar",
                     )
                     for page in dash.page_registry.values()
                     if page["name"] != "Index"
                 ],
                 vertical=True,
                 pills=True,
+                # class_name="sidebar",
+            ),
+            html.Div(
+                [],
+                id="testDiv",
+                className="hidden",
             ),
         ],
         id="sidebar",
-        style=SIDEBAR_STYLE,
+        className="sidebar",
     )

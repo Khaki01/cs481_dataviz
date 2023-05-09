@@ -6,6 +6,11 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
       init();
       return someTransform(n_clicks, phoneData, activityData);
     },
+    initial_params_function: function (n_clicks) {
+      var date = new Date();
+      init_calendar(date);
+      return;
+    },
   },
 });
 function init() {
@@ -43,12 +48,6 @@ function init_calendar(date) {
   while (tbodyBox.lastChild) {
     tbodyBox.removeChild(tbodyBox.lastChild);
   }
-  //   $(".tbody").empty();
-  var eventsContainer = document.getElementsByClassName("events-container")[0];
-  while (eventsContainer.lastChild) {
-    eventsContainer.removeChild(eventsContainer.lastChild);
-  }
-  //   $(".events-container").empty();
   var calendar_days = tbodyBox;
   var month = date.getMonth();
   var year = date.getFullYear();
@@ -124,11 +123,6 @@ function days_in_month(month, year) {
 
 // Event handler for when a month is clicked
 function month_click(event, date, index) {
-  var eventsContainer = document.getElementsByClassName("events-container")[0];
-  eventsContainer.style.display = "block";
-  //   $(".events-container").show(250);
-  var dialogBox = document.getElementById("dialog");
-  dialogBox.style.display = "none";
   var date = date;
   var activeMonth = document.getElementsByClassName("active-month")[0];
   // console.log(document.getElementsByClassName("active-month"));
@@ -144,8 +138,6 @@ function month_click(event, date, index) {
 // Event handler for when the year right-button is clicked
 function next_year(date) {
   // console.log("CLICKED NEXT YEAR");
-  var dialogBox = document.getElementById("dialog");
-  dialogBox.style.display = "none";
   var date = date;
   var new_year = date.getFullYear() + 1;
   var yearBox = document.getElementsByClassName("year")[0];
@@ -156,12 +148,6 @@ function next_year(date) {
 
 // Event handler for when the year left-button is clicked
 function prev_year(date) {
-  var dialogBox = document.getElementById("dialog");
-  dialogBox.style.display = "none";
-  //   setTimeout(() => {
-  //     // 👇️ removes element from DOM
-  //     dialogBox.style.display = "block";
-  //   }, 250);
   var date = date;
   var new_year = date.getFullYear() - 1;
   var yearBox = document.getElementsByClassName("year")[0];
