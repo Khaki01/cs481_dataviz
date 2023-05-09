@@ -111,19 +111,22 @@ layout = html.Div(
             ],
             class_name="graph-container",
         ),
+        # dbc.Card(
+        #     [
+        #         dbc.CardHeader("Health activity"),
+        #         dbc.CardBody([html.H4("Explore health activity")]),
+        #     ],
+        #     class_name="graph-details-card",
+        # ),
         dbc.Card(
             [
                 dbc.CardHeader("Health activity"),
                 dbc.CardBody([html.H4("Explore health activity")]),
-            ]
-        ),
-        dbc.Card(
-            [
                 dcc.Graph(
                     id="distplot",
                     figure=dist,
                     className="graph-style",
-                )
+                ),
             ],
             class_name="graph-container",
         ),

@@ -19,7 +19,7 @@ SIDEBAR_STYLE = {
     "overflowX": "hidden",
     "padding": "1rem",
     "transition": "all 0.5s",
-    "borderRight": "0.5px solid",
+    # "borderRight": "0.5px solid",
 }
 
 SIDEBAR_HIDDEN = {
@@ -45,7 +45,7 @@ def sidebar(dash):
     )
     return html.Div(
         [
-            html.H2("2/cent", className="display-4"),
+            html.H2("2/cent", className="display-title"),
             html.Hr(),
             dbc.Nav(
                 [
@@ -54,7 +54,8 @@ def sidebar(dash):
                         href=f"{page['path']}",
                         active="exact",
                         id=f"{page['name']}",
-                        # className="sidebar",
+                        style={"color": "#697a8d"}
+                        # class_name="sidebar",
                     )
                     for page in dash.page_registry.values()
                     if page["name"] != "Index"

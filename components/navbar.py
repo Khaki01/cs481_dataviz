@@ -12,6 +12,7 @@ navbar = dbc.Navbar(
                         color="secondary",
                         # className="mr-1",
                         id="btn_sidebar",
+                        style={"display": "none"},
                     )
                 ),
                 dbc.Col(
@@ -24,6 +25,7 @@ navbar = dbc.Navbar(
             ],
             # align="center",
             class_name="navbar-container-inner",
+            style={"display": "none"},
         )
     ],
     # dark=True,

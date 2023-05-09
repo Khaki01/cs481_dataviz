@@ -15,7 +15,7 @@ external_stylesheets = [
 app = dash.Dash(
     __name__,
     use_pages=True,
-    external_stylesheets=[dbc.themes.DARKLY, dbc.icons.BOOTSTRAP]
+    external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP]
     + external_stylesheets,
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"},
@@ -46,7 +46,7 @@ CONTENT_HIDDEN = {
 def toggle_sidebar(n, nclick):
     if n:
         if nclick == "SHOW":
-            sidebar_style = SIDEBAR_HIDDEN
+            # sidebar_style = SIDEBAR_HIDDEN
             content_style = CONTENT_HIDDEN
             cur_nclick = "HIDDEN"
         else:

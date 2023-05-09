@@ -173,32 +173,34 @@ layout = html.Div(
             ],
             class_name="graph-container",
         ),
+        # dbc.Card(
+        #     [
+        #         dbc.CardHeader("Phone usage"),
+        #         dbc.CardBody([html.H4("Explore phone usage")]),
+        #     ],
+        #     class_name="graph-details-card",
+        # ),
         dbc.Card(
             [
                 dbc.CardHeader("Phone usage"),
                 dbc.CardBody([html.H4("Explore phone usage")]),
-                dbc.Card(
-                    [
-                        dcc.Graph(
-                            id="distplot",
-                            figure=dist_plot,
-                            className="graph-style",
-                        )
-                    ],
-                    class_name="graph-container",
-                ),
-                dbc.Card(
-                    [
-                        dcc.Graph(
-                            id="barplot",
-                            figure=fig,
-                            className="graph-style",
-                        )
-                    ],
-                    className="graph-container",
+                dcc.Graph(
+                    id="distplot",
+                    figure=dist_plot,
+                    className="graph-style",
                 ),
             ],
-            class_name="graph-details-card",
+            class_name="graph-container",
+        ),
+        dbc.Card(
+            [
+                dcc.Graph(
+                    id="barplot",
+                    figure=fig,
+                    className="graph-style",
+                )
+            ],
+            className="graph-container",
         ),
     ],
     className="main-container-task1",

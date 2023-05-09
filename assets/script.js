@@ -45,7 +45,7 @@ function init() {
 
 function init_calendar(date) {
   var tbodyBox = document.getElementsByClassName("tbody")[0];
-  if (tbodyBox.lastChild) {
+  if (tbodyBox) {
     while (tbodyBox.lastChild) {
       tbodyBox.removeChild(tbodyBox.lastChild);
     }
