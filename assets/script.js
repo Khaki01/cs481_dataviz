@@ -1,68 +1,44 @@
+let batteryInd = "battery06052023";
 
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
   clientside: {
-    large_params_function: function (n_clicks, style) {
-      init()
-      return someTransform(n_clicks, style);
+    large_params_function: function (n_clicks, phoneData, activityData) {
+      init();
+      return someTransform(n_clicks, phoneData, activityData);
     },
   },
 });
 function init() {
   try {
     // f();
-  var key = 0;
-  var date = new Date();
-  var today = date.getDate();
-  let battery = document.getElementById("battery06052023");
-  //   click handler
-    console.log(battery)
-  var rightBtn = document.getElementsByClassName("right-button")[0];
-  var leftBtn = document.getElementsByClassName("left-button")[0];
-  var monthBox = document.getElementsByClassName("month");
-  var addBtn = document.getElementById("add-button");
-  rightBtn.addEventListener("click", () => {
-    next_year(date);
-  });
-  leftBtn.addEventListener("click", () => {
-    prev_year(date);
-  });
-    console.log("lskdflskfd")
-
-  for (var i = 0; i < monthBox.length; i++) {
-    monthBox[i].addEventListener("click", (e) => {
-      month_click(e, date, i);
+    var key = 0;
+    var date = new Date();
+    var today = date.getDate();
+    let battery = document.getElementById("battery06052023");
+    //   click handler
+    var rightBtn = document.getElementsByClassName("right-button")[0];
+    var leftBtn = document.getElementsByClassName("left-button")[0];
+    var monthBox = document.getElementsByClassName("month");
+    var addBtn = document.getElementById("add-button");
+    rightBtn.addEventListener("click", () => {
+      next_year(date);
     });
-  }
-    console.log("lskdflskfd")
+    leftBtn.addEventListener("click", () => {
+      prev_year(date);
+    });
 
-  // addBtn.addEventListener("click", toggleFunction);
-  // useFetch("http://localhost:8050");
-  // fetch("http://localhost:8050/dataset/dataPhone.json")
-  //   .then((response) => response.json())
-  //   .then((json) => {
-  //     const interval = setInterval(function () {
-  //       // method to be executed;
-  //       batteryLog(battery, scores[key]);
-  //       if (key < scores.length) key++;
-  //       else key = 0;
-  //     }, 3000);
-
-  //     clearInterval(interval);
-  //     console.log(json);
-  //   });
-  // function toggleFunction() {
-  //   if (key < scores.length) key++;
-  //   else key = 0;
-  //   batteryLog(battery, scores[key]);
-  // }
-  init_calendar(date);
+    for (var i = 0; i < monthBox.length; i++) {
+      monthBox[i].addEventListener("click", (e) => {
+        month_click(e, date, i);
+      });
+    }
+    init_calendar(date);
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
 }
 
 function init_calendar(date) {
-  console.log("afasda")
   var tbodyBox = document.getElementsByClassName("tbody")[0];
   while (tbodyBox.lastChild) {
     tbodyBox.removeChild(tbodyBox.lastChild);
@@ -112,7 +88,7 @@ function init_calendar(date) {
       // dayBattery.innerHTML = "asdf";
       curr_date.innerHTML = day;
       curr_date.appendChild(dayBattery);
-      batteryLog(dayBattery, 10);
+      // batteryLogPhone(dayBattery, 10);
 
       //   var curr_date = $("<td class='table-date'>" + day + "</td>");
       //   var events = check_events(day, month + 1, year);
@@ -223,22 +199,127 @@ function indexInParent(node) {
   return -1;
 }
 
+function someTransform(clicks, phoneData, activityData) {
+  let battery = document.getElementById("big-battery-view");
 
-
-function someTransform(clicks, data) {
-  let battery = document.getElementById("battery06052023");
-  console.log(Object.keys(data).length);
+  // let chargeBox = battery.querySelector(".battery-body .charge");
   var key = 0;
   const interval = setInterval(function () {
     // method to be executed;
-    console.log(data[key]["score"]);
-    batteryLog(battery, data[key]["score"]);
-    if (key + 1 < Object.keys(data).length) key++;
+
+    batteryLogPhone(battery, phoneData[key]["score"], phoneData[key]["hours"]);
+    batteryLogActivity(
+      battery,
+      activityData[key]["score"],
+      activityData[key]["calories"],
+      activityData[key]["run"],
+      activityData[key]["gym"],
+      activityData[key]["steps"]
+    );
+    if (key + 1 < Object.keys(phoneData).length) key++;
     else key = 0;
+    console.log(batteryInd);
   }, 3000);
 
   // interval();
   // clearInterval(interval);
 
-  return "HI";
+  return;
+}
+
+function batteryLogPhone(battery, score, mins) {
+  let chargeBox = battery.querySelector(".charge");
+  let percentageText = document.getElementById("phone-percentage-text");
+  let phoneHoursText = document.getElementById("phone-hours-text");
+  let hours = Math.floor(parseInt(mins) / 60);
+  let minutes = parseInt(mins) - hours * 60;
+  let parentHeight = parseInt(chargeBox.parentNode.offsetHeight);
+  let currHeight = parseInt(chargeBox.offsetHeight);
+  let newHeight = Math.round(
+    (currHeight / (parentHeight + 0.001) + score / 100) * 100
+  );
+  newHeight = newHeight < 100 ? newHeight : 100;
+  chargeBox.style.height = `${newHeight}%`;
+  percentageText.innerHTML = `${newHeight}%`;
+  phoneHoursText.innerHTML = `${hours} hours ${minutes} min`;
+
+  var res = percentageToHsl(newHeight / 100, 0, 120);
+  chargeBox.style.background = res;
+}
+
+function batteryLogActivity(
+  battery,
+  score,
+  totalCal,
+  runTime,
+  gymCal,
+  stepsCount
+) {
+  let chargeBox = battery.querySelector(".charge-inner");
+  let percentageText = document.getElementById("activity-percentage-text");
+  let TotalCaloriesText = document.getElementById("total-calories-text");
+  let RunningText = document.getElementById("running-text");
+  let GymText = document.getElementById("gym-calories-text");
+  let StepsText = document.getElementById("steps-count-text");
+
+  let parentHeight = parseInt(chargeBox.parentNode.offsetHeight);
+  let currHeight = parseInt(chargeBox.offsetHeight);
+  let newHeight = Math.round(
+    (currHeight / (parentHeight + 0.001) + score / 100) * 100
+  );
+  newHeight = newHeight < 100 ? newHeight : 100;
+  chargeBox.style.height = `${newHeight}%`;
+  percentageText.innerHTML = `${newHeight}%`;
+  TotalCaloriesText.innerHTML = `${totalCal}/3000 kcal`;
+  RunningText.innerHTML = `${runTime} min`;
+  GymText.innerHTML = `${gymCal} kcal`;
+  StepsText.innerHTML = `${stepsCount}`;
+
+  var res = percentageToHsl(newHeight / 100, 0, 120);
+  chargeBox.style.background = res;
+}
+
+function percentageToHsl(percentage, hue0, hue1) {
+  var hue = percentage * (hue1 - hue0) + hue0;
+  return "hsl(" + hue + ", 100%, 50%)";
+}
+
+function createBattery(day, month, year) {
+  let batteryDiv = document.createElement("div");
+  batteryDiv.id = `battery${day}${month}${year}`;
+  batteryDiv.classList.add("battery-small");
+
+  let batteryHead = document.createElement("div");
+  batteryHead.classList.add("battery-head");
+
+  let batteryBody = document.createElement("div");
+  batteryBody.classList.add("battery-body");
+  batteryBody.id = "battery-head";
+
+  let chargeDiv = document.createElement("div");
+  chargeDiv.classList.add("charge");
+  chargeDiv.id = "charge";
+
+  let batterBodyInner = document.createElement("div");
+  batterBodyInner.classList.add("battery-body-inner");
+  batterBodyInner.id = "battery-body-inner";
+
+  let chargeDivInner = document.createElement("div");
+  chargeDivInner.classList.add("charge-inner");
+  chargeDivInner.id = "charge-inner";
+
+  batterBodyInner.appendChild(chargeDivInner);
+  batteryBody.appendChild(chargeDiv);
+  batteryBody.appendChild(batterBodyInner);
+  batteryDiv.appendChild(batteryHead);
+  batteryDiv.appendChild(batteryBody);
+  openDetailListener(batteryDiv);
+  return batteryDiv;
+}
+
+function openDetailListener(element) {
+  element.addEventListener("click", function () {
+    batteryInd = element.id;
+    // console.log(element.id);
+  });
 }
