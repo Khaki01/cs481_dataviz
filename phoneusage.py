@@ -53,7 +53,7 @@ app.layout = html.Div([
             ),
         ], style={'width': '16%', 'margin-left': '20px', 'margin-top': '5px'}),
     ], style={'display': 'flex'}),
-    dcc.Graph(id='plot', style={'margin-top': '10px'})
+    dcc.Graph(id='plot', style={'margin-top': '10px'},hoverData={'points': [{'pointNumber': None}]})
 ])
 
 
@@ -62,9 +62,10 @@ app.layout = html.Div([
     dash.dependencies.Output('plot', 'figure'),
     dash.dependencies.Input('daysdropdown', 'value'),
     dash.dependencies.Input('appsdropdown', 'value'),
-    dash.dependencies.Input('goalslider', 'value')
+    dash.dependencies.Input('goalslider', 'value'),
+    dash.dependencies.Input('plot', 'hoverData')
     )
-def update_plot(daysdropdown, appsdropdown, goalslider):
+def update_plot(daysdropdown, appsdropdown, goalslider, hoverData):
     # = days if days else len(days)
     goal1 = list(np.asarray(goal) + goalslider)
     extra = np.subtract(done, goal1)
@@ -83,8 +84,18 @@ def update_plot(daysdropdown, appsdropdown, goalslider):
         elif appsdropdown == 'play':
             app_data = play[daysdropdown:]
         other_subset = np.subtract(done_subset, app_data)
-        trace3 = go.Bar(x=days_subset, y=app_data, name=appsdropdown, marker=dict(color='orange'))
-        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Apps", marker=dict(color='rgba(0, 128, 0, 0.2)'))
+
+        colors3 = ["orange"]*7
+        colors4 = ["green"] * 7
+        # check if there is hover data and update trace2 marker color accordingly
+        if hoverData:
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors3[point_number] = 'dark' + colors3[point_number]
+                colors4[point_number] = 'dark' + colors4[point_number]
+
+        trace3 = go.Bar(x=days_subset, y=app_data, name=appsdropdown, marker=dict(color=colors3))
+        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Apps", marker=dict(color=colors4, opacity = 0.2))
         fig = go.Figure(data=[trace3, trace4])
         #fig.add_trace(go.Scatter(x=days_subset, y=app_data))
         fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
@@ -93,9 +104,15 @@ def update_plot(daysdropdown, appsdropdown, goalslider):
     else:
         app_data = []
         colors = ['green' if x >= 0 else 'red' for x in extra_subset]
-
-        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal")
-        trace2 = go.Bar(x=days_subset, y=extra_subset, name="extra", marker=dict(color=colors))
+        colors1 = ['rgba(0, 0, 255, 0.7)'] * 7
+        # check if there is hover data and update trace2 marker color accordingly
+        if hoverData:
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors[point_number] = 'dark' + colors[point_number]
+                colors1[point_number] = 'rgba(0, 0, 255, 0.9)'   
+        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal", marker=dict(color=colors1, opacity = 0.7))
+        trace2 = go.Bar(x=days_subset, y=extra_subset, name="extra", marker=dict(color=colors, opacity = 0.7))
         fig = go.Figure(data=[trace1, trace2])
         fig.add_trace(go.Scatter(x=days_subset, y=goal_subset, name="goal"))
         fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
