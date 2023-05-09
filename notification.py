@@ -4,10 +4,10 @@ from dash import Input, Output, State, html
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, "/assets/custom.css"])
 
-app.layout = html.Div(
+app.layout = dbc.Container(
     [
-        dbc.Button("Open modal1", id="open1", n_clicks=0),
-        dbc.Button("Open modal2", id="open2", n_clicks=0),
+        dbc.Button("Open modal1", id="open1", n_clicks=0, className="mr-2"),
+        dbc.Button("Open modal2", id="open2", n_clicks=0, className="mr-2"),
         dbc.Button("Open modal3", id="open3", n_clicks=0),
         dbc.Modal(
             [
@@ -45,7 +45,7 @@ app.layout = html.Div(
             id="modal2",
             is_open=False,
             className="custom-modal2",
-            style={"backgroundColor": "#f7f7f7"}
+            style={"backgroundColor": "#f7f7f7",}
         ),
         dbc.Modal(
             [
@@ -66,9 +66,9 @@ app.layout = html.Div(
             className="custom-modal3",
             style={"backgroundColor": "#f7f7f7"}
         ),
-    ]
+    ],style={"margin": "20px"},
+    fluid=True,
 )
-
 @app.callback(
     [Output("modal1", "is_open"),
      Output("modal2", "is_open"),
