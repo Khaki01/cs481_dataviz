@@ -13,10 +13,6 @@ dash.register_page(
     image="logo.png",
     description="Explore calendar",
 )
-external_stylesheets = [
-    "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
-    dbc.themes.BOOTSTRAP,
-]
 phone_path = "assets/dataset/dataPhone.json"
 with open(phone_path) as f:
     phonedata = json.load(f)
@@ -79,14 +75,22 @@ layout = html.Div(
                                 html.Div(
                                     [
                                         html.H4("Phone usage"),
-                                        html.H4("51%", id="phone-percentage-text"),
+                                        html.H4(
+                                            "51%",
+                                            id="phone-percentage-text",
+                                            className="dashboard-text",
+                                        ),
                                     ],
                                     className="phone-container",
                                 ),
                                 html.Div(
                                     [
                                         html.H4("Physical Activity"),
-                                        html.H4("51%", id="activity-percentage-text"),
+                                        html.H4(
+                                            "51%",
+                                            id="activity-percentage-text",
+                                            className="dashboard-text",
+                                        ),
                                     ],
                                     className="activity-container",
                                 ),
@@ -98,7 +102,9 @@ layout = html.Div(
                                     [
                                         html.H4("Burned Calorie:"),
                                         html.H4(
-                                            "2000/3000 kcal", id="total-calories-text"
+                                            "2000/3000 kcal",
+                                            id="total-calories-text",
+                                            className="dashboard-text",
                                         ),
                                     ],
                                     className="activity-container",
@@ -108,22 +114,35 @@ layout = html.Div(
                                         html.Div(
                                             [
                                                 html.H4("Running"),
-                                                html.H4("10min", id="running-text"),
-                                            ]
+                                                html.H4(
+                                                    "10min",
+                                                    id="running-text",
+                                                    className="dashboard-text",
+                                                ),
+                                            ],
+                                            className="ml-2",
                                         ),
                                         html.Div(
                                             [
                                                 html.H4("Gym"),
                                                 html.H4(
-                                                    "1500 kcal", id="gym-calories-text"
+                                                    "1500 kcal",
+                                                    id="gym-calories-text",
+                                                    className="dashboard-text",
                                                 ),
-                                            ]
+                                            ],
+                                            className="ml-2",
                                         ),
                                         html.Div(
                                             [
                                                 html.H4("Steps"),
-                                                html.H4("500", id="steps-count-text"),
-                                            ]
+                                                html.H4(
+                                                    "500",
+                                                    id="steps-count-text",
+                                                    className="dashboard-text",
+                                                ),
+                                            ],
+                                            className="ml-2",
                                         ),
                                     ],
                                     className="activity-container",
@@ -132,7 +151,9 @@ layout = html.Div(
                                     [
                                         html.H4("Phone Usage:"),
                                         html.H4(
-                                            "3 hours 13 min", id="phone-hours-text"
+                                            "3 hours 13 min",
+                                            id="phone-hours-text",
+                                            className="dashboard-text",
                                         ),
                                     ],
                                     className="phone-container",
@@ -147,15 +168,12 @@ layout = html.Div(
         ),
         calendar_container,
         html.Div(
-            [
-                html.H2("asdf"),
-                html.H2(id="testh2"),
-            ],
+            [],
             id="testDiv",
             className="hidden",
         ),
         dcc.Store(id="phoneStore", data=phonedata),
         dcc.Store(id="activityStore", data=activitydata),
     ],
-    className="main",
+    className="main-task3",
 )

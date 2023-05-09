@@ -135,30 +135,6 @@ calendar_container = dbc.Container(
                             ],
                             className="calendar-container",
                         ),
-                        html.Div(
-                            [],
-                            className="events-container",
-                        ),
-                        html.Div(
-                            [
-                                html.H2(
-                                    "Add New Event",
-                                    className="dialog-header",
-                                ),
-                                html.Form(
-                                    [
-                                        html.Div(
-                                            [],
-                                            className="form-container",
-                                        ),
-                                    ],
-                                    className="form",
-                                    id="form",
-                                ),
-                            ],
-                            className="dialog",
-                            id="dialog",
-                        ),
                     ],
                     className="col-md-12",
                 ),
@@ -166,5 +142,5 @@ calendar_container = dbc.Container(
             className="row",
         ),
     ],
-    class_name="container",
+    class_name="container-task3",
 )

@@ -12,9 +12,6 @@ from utils.index import dim_opacity, convert_to_hh_mm
 
 colors_hex = ["#BB86FC", "#3700B3", "#03DAC6", "#FFDE03", "#808080"]
 colors_pie = [color.hex_to_rgba(col) for col in colors_hex]
-# GALA
-
-# GALA
 
 # Plot
 colors1 = ['rgba(0, 0, 255, 0.7)'] * 7
@@ -33,7 +30,7 @@ plot.add_trace(go.Scatter(x=days_subset, y=goal_subset, name="goal"))
 plot.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
 plot.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
 # Plot
-pie = px.pie(labels=app_names, values=piechart_values,  hover_data=[piechart_values], template="plotly_dark", width=600, height=500,
+pie = px.pie(labels=app_names, values=piechart_values,  hover_data=[piechart_values], width=600, height=500,
              color_discrete_sequence=colors_pie)
 data = [
     go.Scatter(
@@ -49,68 +46,104 @@ data = [
 
 dash.register_page(
     __name__,
-    path='/phone-usage',
-    title='Phone usage',
-    image='logo.png',
-    description='Explore phone usage'
+    path="/phone-usage",
+    title="Phone usage",
+    image="logo.png",
+    description="Explore phone usage",
 )
 
-layout = html.Div([
-    dbc.Card([
-        html.Div([
-            dcc.Dropdown(
-                id='days_dropdown',
-                options=[
-                    {'label': '1 week', 'value': 7},
-                    {'label': '5 days', 'value': 5},
-                    {'label': '3 days', 'value': 3},
-                ],
-                value=7,
-                style={'width': '150px', 'margin-left': '20px'}
-            ),
-            dcc.Dropdown(
-                id='apps_dropdown',
-                options=[
-                    {'label': 'All apps', 'value': 'all'},
-                    {'label': 'Instagram', 'value': 'insta'},
-                    {'label': 'KakaoTalk', 'value': 'kakao'},
-                    {'label': 'Youtube', 'value': 'utub'},
-                    {'label': 'TikTok', 'value': 'tiktok'}
-                ],
-                value='all',
-                style={'width': '150px', 'margin-left': '20px'}
-            ),
-            html.Div([
-                html.Label('End Goal(hour):', style={'margin-left': '20px'}),
-                dcc.Slider(
-                    id='goal_slider',
-                    min=0,
-                    max=10,
-                    step=1,
-                    value=0,
-                    marks={i: str(i) for i in range(11)},
-                    tooltip={"placement": "bottom", "always_visible": True}
+layout = html.Div(
+    [
+        dbc.Card(
+            [
+                html.Div(
+                    [
+                        dcc.Dropdown(
+                            id="days_dropdown",
+                            options=[
+                                {"label": "1 week", "value": 7},
+                                {"label": "5 days", "value": 5},
+                                {"label": "3 days", "value": 3},
+                            ],
+                            value=7,
+                            style={"width": "150px", "marginLeft": "20px"},
+                        ),
+                        dcc.Dropdown(
+                            id="apps_dropdown",
+                            options=[
+                                {"label": "All apps", "value": "all"},
+                                {"label": "TikTok", "value": "tiktok"},
+                                {"label": "Instagram", "value": "insta"},
+                                {"label": "Play Market", "value": "play"},
+                            ],
+                            value="all",
+                            style={"width": "150px", "marginLeft": "20px"},
+                        ),
+                        html.Div(
+                            [
+                                html.Label('End Goal(hour):', style={'margin-left': '20px'}),
+                                dcc.Slider(
+                                    id='goal_slider',
+                                    min=0,
+                                    max=10,
+                                    step=1,
+                                    value=0,
+                                    marks={i: str(i) for i in range(11)},
+                                    tooltip={"placement": "bottom", "always_visible": True}
+                                ),
+                            ],
+                            style={
+                                "width": "16%",
+                                "marginLeft": "20px",
+                                "marginTop": "5px",
+                            },
+                        ),
+                    ],
+                    className="graph-dropdown-container",
                 ),
-            ], style={'width': '16%', 'margin-left': '20px', 'margin-top': '5px'}),
-        ], style={'display': 'flex'}),
-        dcc.Graph(id='plot', style={'margin-top': '10px'}, figure=plot, hoverData={'points': [{'pointNumber': None}]})
-    ]),
-    dbc.Card([
-        dbc.CardHeader("Health activity"),
-        dbc.CardBody([
-            html.H4("Explore health activity")
-        ])
-    ]),
-    dbc.Card([dcc.Graph(id="dist_plot", figure=dict(data=data), style={'display': 'none'})]),
-    dbc.Card([dcc.Graph(id="pie", figure=pie, style={'display': 'none'})]),
-])
-
+                dcc.Graph(
+                    id="plot",
+                    className="graph-style",
+                    style={'margin-top': '10px'},
+                    figure=plot,
+                    hoverData={'points': [{'pointNumber': None}]}
+                ),
+            ],
+            class_name="graph-container",
+        ),
+        dbc.Card(
+            [
+                dbc.CardHeader("Health activity"),
+                dbc.CardBody([html.H4("Explore health activity")]),
+                dcc.Graph(
+                    id="dist_plot",
+                    className="graph-style",
+                    figure=dict(data=data),
+                    style={'display': 'none'}
+                ),
+            ],
+            class_name="graph-container",
+        ),
+        dbc.Card(
+            [
+                dcc.Graph(
+                    id="pie",
+                    figure=pie,
+                    className="graph-style",
+                    style={'display': 'none'}
+                )
+            ],
+            class_name="graph-container",
+        ),
+    ],
+    className="main-container-task1",
+)
 
 @callback(
     Output(component_id="pie", component_property="figure", allow_duplicate=True),
     Output("dist_plot", "figure", allow_duplicate=True),
     Input(component_id="pie", component_property="clickData"),
-    config_prevent_initial_callbacks=True
+    config_prevent_initial_callbacks=True,
 )
 
 def update_graph(clickData):

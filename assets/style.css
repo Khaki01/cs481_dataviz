@@ -1,3 +1,7 @@
+* {
+  color: #000;
+}
+
 .main {
   margin-top: 50px;
   width: 100vw;
@@ -9,27 +13,68 @@
   background: #c8c8c8;
 }
 
+.display-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: #566a7f;
+}
+
+.main-task3 {
+  margin-top: 50px;
+  width: 100%;
+  /* height: 100vh; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background: #c8c8c8; */
+}
+
 .task3-main-dashboard {
   display: flex;
-  width: 30%;
+  width: 70%;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .result-outer {
-  width: 50%;
+  color: #2b2b2b;
+  margin-left: 30px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  /* width: 100%; */
+  /* font-size: small; */
+  /* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
+}
+
+.ml-2 {
+  margin-left: 10px;
+}
+.result-outer h4 {
+  font-size: medium;
 }
 .result-outer .phone-container {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: left;
+  /* align-items: flex-start; */
+}
+
+.result-outer .dashboard-text {
+  margin-left: 10px;
+  color: #7e0cf5;
 }
 
 .result-outer .activity-container {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: left;
+  /* align-items: flex-start; */
 }
 .battery .battery-head {
   width: 30px;
@@ -187,7 +232,7 @@
 @media (max-width: 767.98px) {
   .event-card {
     margin: 0;
-    background: #e6e6e6;
+    background: #f5f5f9;
   }
 }
 
@@ -219,12 +264,13 @@
   position: relative;
   margin: 0 auto;
   height: 100%;
-  width: 50%;
+  width: 100%;
   background: #fff;
   font: 13px Helvetica, Arial, san-serif;
   display: inline-block;
   padding: 20px;
-  float: left;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
 }
 @media (max-width: 991.98px) {
   .calendar-container {
@@ -557,7 +603,118 @@
 }
 
 .custom-modal3 .modal-footer .btn {
-    background-color: #007bff;
-    border-color: #007bff;
-    font-size: 16px;
+  background-color: #007bff;
+  border-color: #007bff;
+  font-size: 16px;
+}
+.graph-style {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  width: 95%;
+}
+
+.graph-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+  margin: 24px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
+}
+
+/* .graph-container:hover {
+  scale: 1.005;
+} */
+
+.main-container-task1 {
+  background-color: #f5f5f9;
+}
+
+.main-outer-container {
+  min-height: 100vh;
+  background-color: #f5f5f9;
+}
+
+.graph-dropdown-container {
+  display: flex;
+  width: 100%;
+  padding-top: 20px;
+  border-radius: 30px;
+}
+
+.graph-details-card {
+  border-radius: 25px;
+  margin: 24px;
+  background-color: #f5f5f9;
+  border: none;
+}
+
+.container-task3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-container {
+  /* margin: 10px; */
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  /* border-radius: 20px; */
+}
+
+.navbar-container-inner {
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  /* border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px; */
+}
+
+/* .page-content {
+  background-color: #fff;
+} */
+/* .card {
+  background-color: #fff;
+  color: #000;
+  margin-top: 10px;
+  margin: 24px;
+  border-radius: 25px;
+  /* background-color: #f5f5f9; */
+/* border: none; */
+
+.card-header {
+  border: none;
+  border-radius: 20px;
+  background-color: #fff;
+  color: #000;
+  margin-top: 10px;
+}
+.sidebar {
+  border: none;
+  background-color: #fff;
+  color: #000;
+  margin-top: 10px;
+  box-shadow: 0 0.125rem 0.375rem 0 rgba(161, 172, 184, 0.12);
+}
+
+.nav {
+  color: #000;
+  text-decoration: none;
+}
+
+.nav-pills .nav-link.active {
+  background-color: rgba(105, 108, 255, 0.16);
+  /* color: #000; */
 }

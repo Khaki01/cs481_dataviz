@@ -58,7 +58,7 @@ notifications = html.Div(
             className="custom-modal3",
             style={"backgroundColor": "#f7f7f7"}
         ),
-    ],style={"margin": "20px", "opacity": 0.5},
+    ],style={"opacity": 0.5},
 )
 
 @callback(

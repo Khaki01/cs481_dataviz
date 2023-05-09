@@ -9,10 +9,10 @@ from assets.dataset.task1 import activities_names, activities_data, activities_d
 
 dash.register_page(
     __name__,
-    path='/health-activity',
-    title='Health activity',
-    image='logo.png',
-    description='Explore health activity'
+    path="/health-activity",
+    title="Health activity",
+    image="logo.png",
+    description="Explore health activity",
 )
 
 # Plot
@@ -73,8 +73,8 @@ fig.update_layout(
         showticklabels=False,
     ),
     barmode="stack",
-    paper_bgcolor='rgb(248, 248, 255)',
-    plot_bgcolor='rgb(248, 248, 255)',
+    paper_bgcolor="rgb(248, 248, 255)",
+    plot_bgcolor="rgb(248, 248, 255)",
 )
 
 fig.add_vrect(x0=-sum(linebar_values) * 0.015, x1=sum(linebar_values) * 1.3)
@@ -110,63 +110,91 @@ def update_graph(clickData):
     return dict(data=updated_data)
 
 
-layout = html.Div([
-    dbc.Card([
-        html.Div([
-
-            dcc.Dropdown(
-                id='days_dropdown',
-                options=[
-                    {'label': '1 week', 'value': 7},
-                    {'label': '5 days', 'value': 5},
-                    {'label': '3 days', 'value': 3},
-                ],
-                value=7,
-                style={'width': '150px', 'margin-left': '20px'}
-            ),
-            dcc.Dropdown(
-                id='activity_dropdown',
-                options=[
-                    {'label': 'All activities', 'value': 'all'},
-                    {'label': 'Running', 'value': 'running'},
-                    {'label': 'Cycling', 'value': 'cycling'},
-                    {'label': 'Workout', 'value': 'workout'},
-                ],
-                value='all',
-                style={'width': '150px', 'margin-left': '20px'}
-            ),
-            html.Div([
-                html.Label('End Goal(joul):', style={'margin-left': '20px'}),
-                dcc.Slider(
-                    id='goal_slider',
-                    min=2000,
-                    max=4500,
-                    step=250,
-                    value=2000,
-                    marks={
-                        2000: {'label': '2000J'},
-                        4500: {'label': '4500J'}
-                    },
-                    tooltip={"placement": "bottom", "always_visible": True}
+layout = html.Div(
+    [
+        dbc.Card(
+            [
+                html.Div(
+                    [
+                        dcc.Dropdown(
+                            id="days_dropdown",
+                            options=[
+                                {"label": "1 week", "value": 7},
+                                {"label": "5 days", "value": 5},
+                                {"label": "3 days", "value": 3},
+                            ],
+                            value=7,
+                            style={"width": "150px", "marginLeft": "20px"},
+                        ),
+                        dcc.Dropdown(
+                            id="activity_dropdown",
+                            options=[
+                                {"label": "All activities", "value": "all"},
+                                {"label": "Running", "value": "running"},
+                                {"label": "Cycling", "value": "cycling"},
+                                {"label": "Workout", "value": "workout"},
+                            ],
+                            value="all",
+                            style={"width": "150px", "marginLeft": "20px"},
+                        ),
+                        html.Div(
+                            [
+                                html.Label(
+                                    "End Goal(joul):", style={"marginLeft": "20px"}
+                                ),
+                                dcc.Slider(
+                                    id='goal_slider',
+                                    min=2000,
+                                    max=4500,
+                                    step=250,
+                                    value=2000,
+                                    marks={
+                                        2000: {'label': '2000J'},
+                                        4500: {'label': '4500J'}
+                                    },
+                                    tooltip={"placement": "bottom", "always_visible": True}
+                                ),
+                            ],
+                            style={
+                                "width": "16%",
+                                "marginLeft": "20px",
+                                "marginTop": "5px",
+                            },
+                        ),
+                    ],
+                    className="graph-dropdown-container",
                 ),
-            ], style={'width': '16%', 'margin-left': '20px', 'margin-top': '5px'}),
-        ], style={'display': 'flex'}),
-        dcc.Graph(
-            id='plot',
-            style={'margin-top': '10px'},
-            hoverData={'points': [{'pointNumber': None}]},
-            figure=plot
-        )
-    ]),
-    dbc.Card([
-        dbc.CardHeader("Phone usage"),
-        dbc.CardBody([
-            html.H4("Explore phone usage")
-        ]),
-        dbc.Card([dcc.Graph(id="dist_plot", figure=dict(data=data), style={'display': 'none'})]),
-        dbc.Card([dcc.Graph(id="bar_plot", figure=fig, style={'display': 'none'})]),
-    ])
-])
+                dcc.Graph(id="plot", hoverData={'points': [{'pointNumber': None}]}, figure=plot, className="graph-style"),
+            ],
+            class_name="graph-container",
+        ),
+        dbc.Card(
+            [
+                dbc.CardHeader("Physical activity"),
+                dbc.CardBody([html.H4("Explore physical activity")]),
+                dcc.Graph(
+                    id="dist_plot",
+                    figure=dict(data=data),
+                    style={'display': 'none'},
+                    className="graph-style",
+                ),
+            ],
+            class_name="graph-container",
+        ),
+        dbc.Card(
+            [
+                dcc.Graph(
+                    id="bar_plot",
+                    figure=fig,
+                    style={'display': 'none'},
+                    className="graph-style",
+                )
+            ],
+            className="graph-container",
+        ),
+    ],
+    className="main-container-task1",
+)
 
 
 @callback(
