@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import numpy as np
 from utils.index import dim_opacity
 from assets.dataset.task1 import activities_names, activities_data, activities_data_total, linebar_values, days,\
-    running, cycling, workout, goal, done
+    running, cycling, workout, goal_health_activity, done_health_activity
 
 dash.register_page(
     __name__,
@@ -17,11 +17,11 @@ dash.register_page(
 
 # Plot
 colors1 = ['rgba(0, 0, 255, 0.7)'] * 7
-goal1 = list(np.asarray(goal))
-extra = np.subtract(done, goal1)
+goal1 = list(np.asarray(goal_health_activity))
+extra = np.subtract(done_health_activity, goal1)
 days_subset = days[-7:]
 goal_subset = goal1[-7:]
-done_subset = done[-7:]
+done_subset = done_health_activity[-7:]
 extra_subset = extra[-7:]
 colors = ['green' if x >= 0 else 'red' for x in extra_subset]
 plot_data = [
@@ -163,31 +163,35 @@ layout = html.Div([
         dbc.CardBody([
             html.H4("Explore phone usage")
         ]),
-        dbc.Card([dcc.Graph(id="dist_plot", figure=dict(data=data))]),
-        dbc.Card([dcc.Graph(id="bar_plot", figure=fig)]),
+        dbc.Card([dcc.Graph(id="dist_plot", figure=dict(data=data), style={'display': 'none'})]),
+        dbc.Card([dcc.Graph(id="bar_plot", figure=fig, style={'display': 'none'})]),
     ])
 ])
 
 
 @callback(
     Output('plot', 'figure', allow_duplicate=True),
+    Output('dist_plot', 'style', allow_duplicate=True),
+    Output('bar_plot', 'style', allow_duplicate=True),
     Input('days_dropdown', 'value'),
     Input('activity_dropdown', 'value'),
     Input('goal_slider', 'value'),
+    Input('plot', 'clickData'),
     Input('plot', 'hoverData'),
     config_prevent_initial_callbacks=True
 )
-def update_plot(days_dropdown, activity_dropdown, goal_slider, hoverData):
+def update_plot(days_dropdown, activity_dropdown, goal_slider, plot_click, hoverData):
 
-    goal1 = list(np.asarray(goal) + (goal_slider - 2000))
-    extra = np.subtract(done, goal1)
+    goal1 = list(np.asarray(goal_health_activity) + (goal_slider - 2000))
+    extra = np.subtract(done_health_activity, goal1)
     days_dropdown = days_dropdown * -1
     days_subset = days[days_dropdown:]
     goal_subset = goal1[days_dropdown:]
-    done_subset = done[days_dropdown:]
+    done_subset = done_health_activity[days_dropdown:]
     extra_subset = extra[days_dropdown:]
 
     physical_data = []
+    updated_plot = None
     if activity_dropdown != "all":
         if activity_dropdown == 'running':
             physical_data = running[days_dropdown:]
@@ -233,4 +237,5 @@ def update_plot(days_dropdown, activity_dropdown, goal_slider, hoverData):
         updated_plot.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
         updated_plot.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
 
-    return updated_plot
+    style = {'display': 'block'} if plot_click else {'display': 'none'}
+    return updated_plot, style, style
