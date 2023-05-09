@@ -49,15 +49,16 @@ app.layout = html.Div([
                 min=2000,
                 max=4500,
                 step=250,
-                value=0,
+                value=2000,
                 marks={i: str(i) for i in range(10)},
                 tooltip={"placement": "bottom", "always_visible": True}
             ),
-        ], style={'width': '16%', 'margin-left': '20px', 'margin-top': '5px'}),
+        ], style={'width': '50%', 'margin-left': '20px', 'margin-top': '5px'}),
     ], style={'display': 'flex'}),
     dcc.Graph(
                 id='plot', 
-                style={'margin-top': '10px'}
+                style={'margin-top': '10px'},
+                hoverData={'points': [{'pointNumber': None}]} 
             )
 ])
 
@@ -92,8 +93,18 @@ def update_plot(daysdropdown, appsdropdown, goalslider, hoverData):
         elif appsdropdown == 'workout':
             physical_data = workout[daysdropdown:]
         other_subset = np.subtract(done_subset, physical_data)
-        trace3 = go.Bar(x=days_subset, y=physical_data, name=appsdropdown, marker=dict(color='orange'))
-        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Activities", marker=dict(color='green', opacity=0.2))
+
+        colors3 = ["orange"]*7
+        colors4 = ["green"] * 7
+        # check if there is hover data and update trace2 marker color accordingly
+        if hoverData:
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors3[point_number] = 'dark' + colors3[point_number]
+                colors4[point_number] = 'dark' + colors4[point_number]
+
+        trace3 = go.Bar(x=days_subset, y=physical_data, name=appsdropdown, marker=dict(color=colors3))
+        trace4 = go.Bar(x=days_subset, y=other_subset, name="Other Activities", marker=dict(color=colors4, opacity=0.2))
         data=[trace3, trace4]
         fig = go.Figure(data=data)
         #fig.add_trace(go.Scatter(x=days_subset, y=physical_data))
@@ -105,21 +116,21 @@ def update_plot(daysdropdown, appsdropdown, goalslider, hoverData):
     else:
         physical_data = []
         colors = ['green' if x >= 0 else 'red' for x in extra_subset]
-
-        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal", marker=dict(opacity = 0.7))
-        trace2 = go.Bar(x=days_subset, y=extra_subset, name="extra/left", marker=dict(color=colors, opacity = 0.7))
+        colors1 = ['rgba(0, 0, 255, 0.7)'] * 7
+        # check if there is hover data and update trace2 marker color accordingly
         if hoverData:
-            point_index = hoverData['points'][0]['pointNumber']
-            trace1['marker']['opacity'] = [0.7 if i != point_index else 1.0 for i in range(daysdropdown)]
-            trace2['marker']['opacity'] = [0.7 if i != point_index else 1.0 for i in range(daysdropdown)]
+            point_number = hoverData['points'][0]['pointNumber']
+            if point_number is not None:
+                colors[point_number] = 'dark' + colors[point_number]
+                colors1[point_number] = 'rgba(0, 0, 255, 0.9)'
+        trace1 = go.Bar(x=days_subset, y=goal_subset, name="goal", marker=dict(color= colors1, opacity=0.7))
+        trace2 = go.Bar(x=days_subset, y=extra_subset, name="extra/left", marker=dict(color=colors, opacity=0.7))
         data=[trace1, trace2]
         fig = go.Figure(data=data)
         fig.add_trace(go.Scatter(x=days_subset, y=goal_subset, name="goal"))
         fig.add_trace(go.Scatter(x=days_subset, y=done_subset, name="done"))
         fig.update_layout(title="Test Plot", xaxis_title="X axis", yaxis_title="Y axis", barmode="stack")
     
-        
-
     return fig
 
 # start the app
