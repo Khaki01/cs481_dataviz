@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output, State
 
 from components.navbar import navbar
 from components.sidebar import SIDEBAR_HIDDEN, SIDEBAR_STYLE, sidebar
+from components.notifications import notifications
 
 app = dash.Dash(
     __name__,
@@ -58,6 +59,7 @@ main = html.Div(
     id="page-content",
     style=CONTENT_STYLE,
     children=[
+        notifications,
         navbar,
         dcc.Store(id="side_click"),
         html.Div([dash.page_container], style={"padding": "1rem"}),
