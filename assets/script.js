@@ -45,8 +45,10 @@ function init() {
 
 function init_calendar(date) {
   var tbodyBox = document.getElementsByClassName("tbody")[0];
-  while (tbodyBox.lastChild) {
-    tbodyBox.removeChild(tbodyBox.lastChild);
+  if (tbodyBox.lastChild) {
+    while (tbodyBox.lastChild) {
+      tbodyBox.removeChild(tbodyBox.lastChild);
+    }
   }
   var calendar_days = tbodyBox;
   var month = date.getMonth();

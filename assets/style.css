@@ -1,3 +1,7 @@
+* {
+  color: #000;
+}
+
 .main {
   margin-top: 50px;
   width: 100vw;
@@ -589,7 +593,7 @@
 
 .graph-details-card {
   margin: 50px 0;
-  background-color: #bfbbbb;
+  background-color: #e6e6e6;
   border: none;
 }
 
@@ -626,13 +630,22 @@
 /* .page-content {
   background-color: #fff;
 } */
-
+.card-header,
+.card {
+  border: none;
+  border-radius: 20px;
+  background-color: #fff;
+  color: #000;
+  margin-top: 10px;
+}
 .sidebar {
   border: none;
   background-color: #fff;
   color: #000;
+  margin-top: 10px;
 }
 
-.nav-link {
+.nav {
   color: #000;
+  text-decoration: none;
 }
