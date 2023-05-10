@@ -1,5 +1,7 @@
+# Olzhas
 import dash_bootstrap_components as dbc
 from dash import ClientsideFunction, Input, Output, State, dcc, html
+
 from components.notifications import notifications
 
 pathname_map = {
@@ -9,10 +11,16 @@ pathname_map = {
 }
 
 icon_map = {
-    'Task1-health-activity': html.I(className="bi bi-activity", style={'color': '#697a8d', 'margin-right': '8px'}),
-    "Task1-phone-usage": html.I(className="bi bi-phone", style={'color': '#697a8d', 'margin-right': '8px'}),
-    "Task3-calendar": html.I(className="bi bi-calendar-check", style={'color': '#697a8d', 'margin-right': '8px'}),
-
+    "Task1-health-activity": html.I(
+        className="bi bi-activity", style={"color": "#697a8d", "margin-right": "8px"}
+    ),
+    "Task1-phone-usage": html.I(
+        className="bi bi-phone", style={"color": "#697a8d", "margin-right": "8px"}
+    ),
+    "Task3-calendar": html.I(
+        className="bi bi-calendar-check",
+        style={"color": "#697a8d", "margin-right": "8px"},
+    ),
 }
 
 SIDEBAR_STYLE = {
@@ -55,11 +63,11 @@ def sidebar(dash):
             dbc.Nav(
                 [
                     dbc.NavLink(
-                        [icon_map[page['name']], f"{pathname_map[page['name']]}"],
+                        [icon_map[page["name"]], f"{pathname_map[page['name']]}"],
                         href=f"{page['path']}",
                         active="exact",
                         id=f"{page['name']}",
-                        style={"color": "#697a8d"}
+                        style={"color": "#697a8d"},
                     )
                     for page in dash.page_registry.values()
                     if page["name"] != "Index"
@@ -67,7 +75,7 @@ def sidebar(dash):
                 vertical=True,
                 pills=True,
             ),
-            notifications
+            notifications,
         ],
         id="sidebar",
         className="sidebar",
