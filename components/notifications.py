@@ -16,7 +16,7 @@ notifications = html.Div(
                             src="https://cdn-icons-png.flaticon.com/512/2550/2550322.png",
                             height=30,
                         ),
-                        html.P("You just charged 5% by taking a walk! Well done!"),
+                        html.P("You just charged 5% by taking a walk!"),
                         dbc.Button("X", id="close1", className="ms-auto", n_clicks=0),
                     ]
                 ),
@@ -24,7 +24,6 @@ notifications = html.Div(
             id="modal1",
             is_open=False,
             className="custom-modal1",
-            style={"backgroundColor": "#f7f7f7"},
         ),
         dbc.Modal(
             [
@@ -42,9 +41,6 @@ notifications = html.Div(
             id="modal2",
             is_open=False,
             className="custom-modal2",
-            style={
-                "backgroundColor": "#f7f7f7",
-            },
         ),
         dbc.Modal(
             [
@@ -64,7 +60,6 @@ notifications = html.Div(
             id="modal3",
             is_open=False,
             className="custom-modal3",
-            style={"backgroundColor": "#f7f7f7"},
         ),
     ],
     style={"opacity": 0.5},
