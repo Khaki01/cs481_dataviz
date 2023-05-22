@@ -1,7 +1,7 @@
 # Olzhas
 import dash_bootstrap_components as dbc
 from dash import ClientsideFunction, Input, Output, html
-from components.notifications import notifications
+# from components.notifications import notifications
 
 pathname_map = {
     "Task1-health-activity": "Physical activity",
@@ -41,7 +41,7 @@ def sidebar(dash):
     )
     return html.Div(
         [
-            html.H2([html.A("2/cent", href="/", style={'all': 'unset'})], className="sidebar-title", style={'cursor': 'pointer'}),
+            html.H2([html.A("2/cent", href="/health-activity", style={'all': 'unset'})], className="sidebar-title", style={'cursor': 'pointer'}),
             dbc.Nav(
                 [
                     dbc.NavLink(
@@ -56,7 +56,7 @@ def sidebar(dash):
                 vertical=True,
                 pills=True,
             ),
-            notifications,
+            # notifications,
         ],
         id="sidebar",
         className="sidebar",

@@ -134,7 +134,7 @@ layout = html.Div(
                                     className="slider",
                                     marks={i: str(i) for i in range(11)},
                                     tooltip={
-                                        "placement": "bottom",
+                                        "placement": "top",
                                         "always_visible": True,
                                     },
                                 ),
@@ -230,7 +230,8 @@ def update_graph(clickData):
         y=1.05,
         font=dict(size=14),
     )
-    return pie, dict(data=updated_data)
+    updated_dist_plot = go.Figure(data=updated_data, layout=dist_plot_layout)
+    return pie, updated_dist_plot
 
 
 # attribution Image by <a href="https://www.freepik.com/free-vector/set-young-people-using-smartphones_12557558.htm#query=animated%20person%20using%20phone&position=9&from_view=search&track=ais">Freepik</a>
