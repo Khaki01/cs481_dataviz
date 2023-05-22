@@ -64,11 +64,11 @@ dist_plot_data = [
     go.Scatter(
         x=[i for i in range(1, 25)],
         y=app_data_total,
-        mode='lines',
+        mode="lines",
         name="Total",
         line=dict(color=colors_pie[-1], shape="spline", width=3),
         fill="tozeroy",
-        fillcolor=dim_opacity(colors_hex[-1], opacity=0.3)
+        fillcolor=dim_opacity(colors_hex[-1], opacity=0.3),
     ),
 ]
 
@@ -126,14 +126,17 @@ layout = html.Div(
                         html.Div(
                             [
                                 dcc.Slider(
-                                    id='goal_slider',
+                                    id="goal_slider",
                                     min=0,
                                     max=10,
                                     step=1,
                                     value=0,
                                     className="slider",
                                     marks={i: str(i) for i in range(11)},
-                                    tooltip={"placement": "bottom", "always_visible": True}
+                                    tooltip={
+                                        "placement": "bottom",
+                                        "always_visible": True,
+                                    },
                                 ),
                             ],
                             className="slider-container",
@@ -147,7 +150,7 @@ layout = html.Div(
                     className="graph-style",
                     style={'marginTop': '10px'},
                     figure=plot,
-                    hoverData={'points': [{'pointNumber': None}]}
+                    hoverData={"points": [{"pointNumber": None}]},
                 ),
             ],
             class_name="graph-container",
@@ -184,33 +187,49 @@ def update_graph(clickData):
     pos = int(clickData['points'][0]['label'])
     array = [0 for app in app_names]
     array[pos] = 0.5
-    colors_updated = [color[:-2] + "0.5)" if i != pos else color for (i, color) in enumerate(colors_pie)]
-    pie.update_traces(pull=array,
-                      selector=dict(type="pie"),
-                      marker=dict(colors=colors_updated))
+    colors_updated = [
+        color[:-2] + "0.5)" if i != pos else color
+        for (i, color) in enumerate(colors_pie)
+    ]
+    pie.update_traces(
+        pull=array, selector=dict(type="pie"), marker=dict(colors=colors_updated)
+    )
     updated_data = [
         go.Scatter(
             x=[i for i in range(1, 25)],
             y=app_data_total,
-            mode='lines',
+            mode="lines",
             name="Total",
             line=dict(color=colors_pie[-1], shape="spline", width=3),
             fill="tozeroy",
-            fillcolor=dim_opacity(colors_hex[-1], opacity=0.3)
+            fillcolor=dim_opacity(colors_hex[-1], opacity=0.3),
         ),
         go.Scatter(
             x=[i for i in range(1, 25)],
             y=app_data[pos],
-            mode='lines',
+            mode="lines",
             name=app_names[pos],
             line=dict(color=colors_pie[pos], shape="spline", width=3),
-            fill="tozeroy"
-        )
+            fill="tozeroy",
+        ),
     ]
     pie.layout.annotations = ()
-    pie.add_annotation(text=app_names[pos], showarrow=False, x=0.5, y=1.15, font=dict(size=16, color=colors_pie[pos]))
-    pie.add_annotation(text="You have used {} for {} hours today".format(app_names[pos],
-             convert_to_hh_mm(app_data_total_by_category[pos])), showarrow=False, x=1, y=1.05, font=dict(size=14))
+    pie.add_annotation(
+        text=app_names[pos],
+        showarrow=False,
+        x=0.5,
+        y=1.15,
+        font=dict(size=16, color=colors_pie[pos]),
+    )
+    pie.add_annotation(
+        text="You have used {} for {} hours today".format(
+            app_names[pos], convert_to_hh_mm(app_data_total_by_category[pos])
+        ),
+        showarrow=False,
+        x=1,
+        y=1.05,
+        font=dict(size=14),
+    )
     return pie, dict(data=updated_data)
 
 
@@ -252,7 +271,7 @@ def update_plot(days_dropdown, apps_dropdown, goal_slider, plot_click, hoverData
         colors4 = [palette['success']] * 7
         # check if there is hover data and update trace2 marker color accordingly
         if hoverData:
-            point_number = hoverData['points'][0]['pointNumber']
+            point_number = hoverData["points"][0]["pointNumber"]
             if point_number is not None:
                 colors3[point_number] = dim_opacity(colors3[point_number], 0.6)
                 colors4[point_number] = dim_opacity(colors4[point_number], 0.6)

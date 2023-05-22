@@ -1,3 +1,4 @@
+// Khaknazar
 let batteryInd = "battery06052023";
 
 window.dash_clientside = Object.assign({}, window.dash_clientside, {

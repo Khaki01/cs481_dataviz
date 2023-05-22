@@ -1,3 +1,4 @@
+# Olzhas
 import dash_bootstrap_components as dbc
 from dash import ClientsideFunction, Input, Output, html
 from components.notifications import notifications
@@ -15,7 +16,6 @@ icon_map = {
     'Task1-health-activity': html.I(className="bi bi-activity nav-link", style=ICON_STYLE),
     "Task1-phone-usage": html.I(className="bi bi-phone nav-link", style=ICON_STYLE),
     "Task3-calendar": html.I(className="bi bi-calendar-check nav-link", style=ICON_STYLE),
-
 }
 
 SIDEBAR_STYLE = {
@@ -45,7 +45,7 @@ def sidebar(dash):
             dbc.Nav(
                 [
                     dbc.NavLink(
-                        [icon_map[page['name']], f"{pathname_map[page['name']]}"],
+                        [icon_map[page["name"]], f"{pathname_map[page['name']]}"],
                         href=f"{page['path']}",
                         active="exact",
                         id=f"{page['name']}",
@@ -56,7 +56,7 @@ def sidebar(dash):
                 vertical=True,
                 pills=True,
             ),
-            notifications
+            notifications,
         ],
         id="sidebar",
         className="sidebar",

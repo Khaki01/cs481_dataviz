@@ -1,3 +1,4 @@
+// Khaknazar
 // function batteryLogPhone(battery, score, mins) {
 //   let chargeBox = battery.querySelector(".charge");
 //   let percentageText = document.getElementById("phone-percentage-text");

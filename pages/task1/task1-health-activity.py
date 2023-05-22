@@ -126,26 +126,26 @@ fig.add_vline(x=sum(linebar_values) * 1.1, line_color=palette['error'],
 @callback(Output("dist_plot_activity", "figure", allow_duplicate=True), Input("bar_plot", 'clickData'),
           config_prevent_initial_callbacks=True)
 def update_graph(clickData):
-    label = clickData['points'][0]['customdata']
+    label = clickData["points"][0]["customdata"]
     index = activities_names.index(label)
     updated_data = [
         go.Scatter(
             x=[i for i in range(1, 25)],
             y=activities_data_total,
-            mode='lines',
+            mode="lines",
             name="Total",
             line=dict(color=colors[-1], shape="spline", width=3),
             fill="tozeroy",
-            fillcolor=dim_opacity(colors[-1], opacity=0.3)
+            fillcolor=dim_opacity(colors[-1], opacity=0.3),
         ),
         go.Scatter(
             x=[i for i in range(1, 25)],
             y=activities_data[index],
-            mode='lines',
+            mode="lines",
             name=activities_names[index],
             line=dict(color=colors[index], shape="spline", width=3),
-            fill="tozeroy"
-        )
+            fill="tozeroy",
+        ),
     ]
     updated_dist_plot = go.Figure(data=updated_data, layout=dist_plot_layout)
     return updated_dist_plot
@@ -190,7 +190,7 @@ layout = html.Div(
                         html.Div(
                             [
                                 dcc.Slider(
-                                    id='goal_slider',
+                                    id="goal_slider",
                                     min=2000,
                                     max=4500,
                                     step=250,
@@ -274,7 +274,7 @@ def update_plot(days_dropdown, activity_dropdown, goal_slider, plot_click, hover
         colors4 = [palette['success']] * 7
         # check if there is hover data and update trace2 marker color accordingly
         if hoverData:
-            point_number = hoverData['points'][0]['pointNumber']
+            point_number = hoverData["points"][0]["pointNumber"]
             if point_number is not None:
                 colors3[point_number] = dim_opacity(colors3[point_number], 0.6)
                 colors4[point_number] = dim_opacity(colors4[point_number], 0.6)
@@ -292,7 +292,7 @@ def update_plot(days_dropdown, activity_dropdown, goal_slider, plot_click, hover
         colors1 = [palette['primary']] * 7
         # check if there is hover data and update trace2 marker color accordingly
         if hoverData:
-            point_number = hoverData['points'][0]['pointNumber']
+            point_number = hoverData["points"][0]["pointNumber"]
             if point_number is not None:
                 colors[point_number] = dim_opacity(colors[point_number], 0.6)
                 colors1[point_number] = dim_opacity(colors1[point_number], 0.6)
