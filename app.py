@@ -1,7 +1,6 @@
 import dash
 import dash_bootstrap_components as dbc
 from dash import dcc, html
-from dash.dependencies import Input, Output, State
 
 from components.navbar import navbar
 from components.sidebar import SIDEBAR_STYLE, sidebar
@@ -22,45 +21,6 @@ app = dash.Dash(
     ],
 )
 
-CONTENT_STYLE = {
-    "transition": "marginLeft .5s",
-    "marginLeft": "16rem",
-    "height": "100%",
-}
-CONTENT_HIDDEN = {
-    "transition": "marginLeft .5s",
-}
-
-
-@app.callback(
-    [
-        Output("sidebar", "style"),
-        Output("page-content", "style"),
-        Output("side_click", "data"),
-    ],
-    [Input("btn_sidebar", "n_clicks")],
-    [
-        State("side_click", "data"),
-    ],
-)
-def toggle_sidebar(n, nclick):
-    if n:
-        if nclick == "SHOW":
-            # sidebar_style = SIDEBAR_HIDDEN
-            content_style = CONTENT_HIDDEN
-            cur_nclick = "HIDDEN"
-        else:
-            sidebar_style = SIDEBAR_STYLE
-            content_style = CONTENT_STYLE
-            cur_nclick = "SHOW"
-    else:
-        sidebar_style = SIDEBAR_STYLE
-        content_style = CONTENT_STYLE
-        cur_nclick = "SHOW"
-
-    return sidebar_style, content_style, cur_nclick
-
-
 main = html.Div(
     id="page-content",
     className="page-content",
@@ -68,11 +28,8 @@ main = html.Div(
         navbar,
         dcc.Store(id="side_click"),
         html.Div([
-            # dbc.Card([
-            #     dbc.CardHeader(dash.get_relative_path()),
-            # ], class_name="graph-container"),
             dash.page_container
-        ], style={"padding": "1rem"}),
+        ]),
     ],
 )
 
