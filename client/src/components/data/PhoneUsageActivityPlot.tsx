@@ -109,6 +109,7 @@ const PhoneUsageActivityPlot = () => {
                   .value
               )
         ) ?? [];
+
     const bar2Data =
       dailyActivityData
         .find((item) => item.name === 'Extra')
