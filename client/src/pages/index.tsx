@@ -1,12 +1,21 @@
-import { Inter } from 'next/font/google';
 import Container from '@mui/material/Container';
-
-const inter = Inter({ subsets: ['latin'] });
+import TypeWriter from 'typewriter-effect';
+import Typography from '@mui/material/Typography';
 
 export default function Home() {
   return (
     <Container>
-      <main>here</main>
+      <main>
+        <Typography variant="h1" color="primary">
+          <TypeWriter
+            options={{
+              strings: ['Explore patterns towards healthier life!'],
+              autoStart: true,
+              loop: true,
+            }}
+          />
+        </Typography>
+      </main>
     </Container>
   );
 }

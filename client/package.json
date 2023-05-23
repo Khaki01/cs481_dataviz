@@ -11,14 +11,17 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.1",
     "@types/node": "20.2.3",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
+    "bootstrap": "^5.2.3",
     "csv-parser": "^3.0.0",
     "dash": "^3.24.4",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
+    "jsnumpy": "^1.1.10",
     "moment": "^2.29.4",
     "moment-range": "^4.0.2",
     "next": "13.4.3",
@@ -27,10 +30,14 @@
     "plotly": "^1.0.6",
     "plotly.js": "^2.23.2",
     "react": "18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
     "react-plotly.js": "^2.6.0",
+    "react-spinners": "^0.13.8",
+    "react-spring": "^9.7.1",
     "react-use": "^17.4.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {
     "@types/moment": "^2.13.0",
