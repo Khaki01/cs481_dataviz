@@ -3,8 +3,7 @@ import { styled } from '@mui/system';
 import { Box, TextField, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { CalendarToday } from '@mui/icons-material';
-import { DatePicker, StaticDatePicker, DateCalendar } from '@mui/x-date-pickers';
+import { DateCalendar } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import Badge from '@mui/material/Badge';
 
@@ -39,7 +38,7 @@ function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
 
 const initialValue = dayjs('2019-04-30');
 
-const AnimatedText3 = ({ text }) => {
+const AnimatedText3 = ({ text }: { text: Record<string, any>}) => {
   const styles = useSpring({
     margin: 'auto',
     overflowY: 'visible',
@@ -50,7 +49,7 @@ const AnimatedText3 = ({ text }) => {
 
   if (text.length > 2) {
     let finalCharge = 100;
-    let arr = [];
+    let arr = [] as Record<string, any>;
     let reward = 0;
     for (let i = 0; i < text.length; i++) {
       let elem = text[i];
@@ -74,7 +73,7 @@ const AnimatedText3 = ({ text }) => {
       </animated.div>
     );
   } else {
-    let percentage = parseFloat(text[1]).toFixed(2);
+    let percentage = Number(parseFloat(text[1]).toFixed(2));
     return (
       <animated.div style={styles}>
         <h1>{text[0]}</h1>
@@ -93,7 +92,7 @@ const AnimatedText3 = ({ text }) => {
   }
 };
 
-const AnimatedText = ({ text }) => {
+const AnimatedText = ({ text }: { text: (Record<any, any>)[]}) => {
   const styles = useSpring({
     margin: 'auto',
     overflowY: 'visible',
@@ -104,7 +103,7 @@ const AnimatedText = ({ text }) => {
 
   if (text.length > 2) {
     let finalCharge = 100;
-    let arr = [];
+    let arr = [] as any;
     for (let i = 0; i < text.length; i++) {
       let elem = text[i];
       if (elem['penalty_points'] < finalCharge) finalCharge = elem['penalty_points'];
@@ -119,7 +118,7 @@ const AnimatedText = ({ text }) => {
     items.sort(function (first, second) {
       return second[1] - first[1];
     });
-    let percentage = parseFloat(finalCharge).toFixed(2);
+    let percentage = parseFloat(String(finalCharge)).toFixed(2);
     return (
       <animated.div style={styles}>
         <h1>Total Charge {percentage}%</h1>
@@ -127,10 +126,10 @@ const AnimatedText = ({ text }) => {
       </animated.div>
     );
   } else {
-    let percentage = parseFloat(text[1]).toFixed(2);
+    let percentage = parseFloat(String(text[1])).toFixed(2);
     return (
       <animated.div style={styles}>
-        <h1>{text[0]}</h1>
+        <h1>{text[0] as React.ReactNode}</h1>
         <h1
           style={{
             color: 'red',
@@ -139,14 +138,14 @@ const AnimatedText = ({ text }) => {
             // marginBottom: '10px',
           }}
         >
-          {percentage >= 0 ? percentage + '%' : ''}
+          {Number(percentage) >= 0 ? percentage + '%' : ''}
         </h1>
       </animated.div>
     );
   }
 };
 
-const AnimatedText2 = ({ text, color }) => {
+const AnimatedText2 = ({ text, color }: { text: Record<string, any>; color: string}) => {
   const styles = useSpring({
     margin: 'auto',
     display: 'flex',
@@ -194,13 +193,19 @@ const AnimatedText2 = ({ text, color }) => {
   );
 };
 
+interface JsonType {
+  datetime: string;
+  name: string;
+  category: string;
+  duration_ms: number;
+}
 const BatteryComponent = () => {
   const CalendarOuterWrapper = styled('div')`
     display: grid;
     grid-template-columns: 35% 30% 35%;
     width: 70%;
     margin: auto;
-    align-items: top;
+    align-items: flex-start;
     position: relative;
   `;
 
@@ -240,7 +245,7 @@ const BatteryComponent = () => {
   const [chargeHeight, setChargeHeight] = useState(0);
   const [todayDate, setTodayDate] = useState('2019-04-30');
   const [value, setValue] = useState(new Date());
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<JsonType[] | null>(null);
   const [sortedData, setSortedData] = useState({});
   const [physicalSortedData, setPhysicalSortedData] = useState({});
   const [displayText, setDisplayText] = useState('');
@@ -324,7 +329,7 @@ const BatteryComponent = () => {
       interval = setInterval(() => {
         // Animation logic
 
-        if (currentIndex < dailyData.length) {
+        if (currentIndex < (dailyData as any[])?.length) {
           setRestHeight(0);
           let heightChange = 0;
           if (currentIndex > 0) {
@@ -333,7 +338,7 @@ const BatteryComponent = () => {
               dailyData[currentIndex]['penalty_points'];
           }
           setChargeHeight(dailyData[currentIndex]['penalty_points']);
-          setPhoneText([dailyData[currentIndex]['name'], heightChange]);
+          setPhoneText([dailyData[currentIndex]['name'], heightChange as never]);
 
           var hue = Math.floor(
             (parseFloat(dailyData[currentIndex]['penalty_points']) * 120) / 100
@@ -347,24 +352,23 @@ const BatteryComponent = () => {
           setChargeHeight(dailyData[currentIndex - 1]['penalty_points']);
           setPhoneText(dailyData);
           setIsAnimating((prevState) => !prevState);
-          let temp = [];
-          for (let i = 0; i < dailyData.length; i++) {
+          let temp = [] as any[];
+          for (let i = 0; i < (dailyData as never[])?.length; i++) {
             let elem = dailyData[i];
             temp[elem['name']] = elem['penalty_points'];
           }
-          console.log(temp);
-          setAppList(temp);
+          setAppList(temp as never);
         }
       }, 1000);
     } else {
       // setPhoneText([]);
       // setChargeHeight();
       // setRestHeight(0);
-      clearInterval(interval);
+
     }
 
     return () => {
-      clearInterval(interval);
+      clearInterval(interval ?? 0);
     };
   }, [isAnimating]);
 
@@ -435,7 +439,7 @@ const BatteryComponent = () => {
       interval1 = setInterval(() => {
         // Animation logic
 
-        if (currentIndex < dailyData.length) {
+        if (currentIndex < (dailyData as never[]).length) {
           setPhysicalRestHeight(0);
           let heightChange = 0;
           if (currentIndex > 0) {
@@ -443,10 +447,10 @@ const BatteryComponent = () => {
           }
           reward += dailyData[currentIndex]['reward'];
           setPhysicalChargeHeight(reward);
-          setPhysicalText([dailyData[currentIndex]['type'], heightChange]);
+          setPhysicalText([dailyData[currentIndex]['type'], heightChange as never]);
 
-          var hue = Math.floor((parseFloat(reward) * 120) / 100); // go from green to red
-          var saturation = Math.abs(parseFloat(reward) - 50) * 2;
+          var hue = Math.floor((parseFloat(String(reward)) * 120) / 100); // go from green to red
+          var saturation = Math.abs(parseFloat(String(reward)) - 50) * 2;
           setPhysicalBoxColor(hslToHex(hue, 100, 50));
           currentIndex = currentIndex + 1;
         } else {
@@ -455,12 +459,11 @@ const BatteryComponent = () => {
           setPhysicalText(dailyData);
           setIsPhysicalAnimating((prevState) => !prevState);
 
-          let temp = [];
-          for (let i = 0; i < dailyData.length; i++) {
+          let temp = [] as never[];
+          for (let i = 0; i < (dailyData as never[]).length; i++) {
             let elem = dailyData[i];
             temp[elem['type']] = elem['reward'];
           }
-          console.log(temp);
           setActivityList(temp);
         }
       }, 1000);
@@ -468,11 +471,10 @@ const BatteryComponent = () => {
       // setPhoneText([]);
       // setChargeHeight();
       // setRestHeight(0);
-      clearInterval(interval1);
     }
 
     return () => {
-      clearInterval(interval1);
+      clearInterval(interval1 ?? 0);
     };
   }, [isPhysicalAnimating]);
 
