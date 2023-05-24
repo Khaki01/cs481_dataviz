@@ -1,0 +1,1221 @@
+[
+  {
+    "day": "2019-04-30",
+    "data": [
+      {
+        "timestamp": "2019-04-30 10:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": 0.0,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 11:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": 112.0,
+        "OTHERS": 0.0,
+        "TOTAL": 112.0
+      },
+      {
+        "timestamp": "2019-04-30 12:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 13:00:00",
+        "ON_FOOT": 112.0,
+        "STILL": 15.0,
+        "TILTING": 11.0,
+        "OTHERS": 3.0,
+        "TOTAL": 141.0
+      },
+      {
+        "timestamp": "2019-04-30 14:00:00",
+        "ON_FOOT": 1.0,
+        "STILL": 76.0,
+        "TILTING": 4.0,
+        "OTHERS": 15.0,
+        "TOTAL": 96.0
+      },
+      {
+        "timestamp": "2019-04-30 15:00:00",
+        "ON_FOOT": 4.0,
+        "STILL": 18.0,
+        "TILTING": 81.0,
+        "OTHERS": 2.0,
+        "TOTAL": 105.0
+      },
+      {
+        "timestamp": "2019-04-30 16:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 17:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 18:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 19:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 20:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 21:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 22:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-04-30 23:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      }
+    ]
+  },
+  {
+    "day": "2019-05-01",
+    "data": [
+      {
+        "timestamp": "2019-05-01 00:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 01:00:00",
+        "ON_FOOT": 1.0,
+        "STILL": 715.0,
+        "TILTING": 33.0,
+        "OTHERS": 1.0,
+        "TOTAL": 750.0
+      },
+      {
+        "timestamp": "2019-05-01 02:00:00",
+        "ON_FOOT": 11.0,
+        "STILL": 20.0,
+        "TILTING": 8.0,
+        "OTHERS": 37.0,
+        "TOTAL": 76.0
+      },
+      {
+        "timestamp": "2019-05-01 03:00:00",
+        "ON_FOOT": 9.0,
+        "STILL": 17.0,
+        "TILTING": 50.0,
+        "OTHERS": 14.0,
+        "TOTAL": 90.0
+      },
+      {
+        "timestamp": "2019-05-01 04:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": 8.0,
+        "OTHERS": 0.0,
+        "TOTAL": 8.0
+      },
+      {
+        "timestamp": "2019-05-01 05:00:00",
+        "ON_FOOT": null,
+        "STILL": 18.0,
+        "TILTING": 134.0,
+        "OTHERS": 2.0,
+        "TOTAL": 154.0
+      },
+      {
+        "timestamp": "2019-05-01 06:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 07:00:00",
+        "ON_FOOT": 7.0,
+        "STILL": 23.0,
+        "TILTING": 116.0,
+        "OTHERS": 38.0,
+        "TOTAL": 184.0
+      },
+      {
+        "timestamp": "2019-05-01 08:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 09:00:00",
+        "ON_FOOT": 83.0,
+        "STILL": 10.0,
+        "TILTING": 65.0,
+        "OTHERS": 14.0,
+        "TOTAL": 172.0
+      },
+      {
+        "timestamp": "2019-05-01 10:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": 77.0,
+        "OTHERS": 0.0,
+        "TOTAL": 77.0
+      },
+      {
+        "timestamp": "2019-05-01 11:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 12:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 13:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 14:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 15:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 16:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 17:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 18:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 19:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 20:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 21:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 22:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-01 23:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      }
+    ]
+  },
+  {
+    "day": "2019-05-02",
+    "data": [
+      {
+        "timestamp": "2019-05-02 00:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 01:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 02:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 03:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 04:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 05:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 06:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 07:00:00",
+        "ON_FOOT": 2.0,
+        "STILL": 21.0,
+        "TILTING": 1396.0,
+        "OTHERS": 12.0,
+        "TOTAL": 1431.0
+      },
+      {
+        "timestamp": "2019-05-02 08:00:00",
+        "ON_FOOT": 6.0,
+        "STILL": 35.0,
+        "TILTING": 10.0,
+        "OTHERS": 18.0,
+        "TOTAL": 69.0
+      },
+      {
+        "timestamp": "2019-05-02 09:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 10:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 11:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 12:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 13:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 14:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 15:00:00",
+        "ON_FOOT": 7.0,
+        "STILL": 28.0,
+        "TILTING": 594.0,
+        "OTHERS": 2.0,
+        "TOTAL": 631.0
+      },
+      {
+        "timestamp": "2019-05-02 16:00:00",
+        "ON_FOOT": 5.0,
+        "STILL": 22.0,
+        "TILTING": 11.0,
+        "OTHERS": 26.0,
+        "TOTAL": 64.0
+      },
+      {
+        "timestamp": "2019-05-02 17:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 18:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 19:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 20:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 21:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 22:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-02 23:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      }
+    ]
+  },
+  {
+    "day": "2019-05-03",
+    "data": [
+      {
+        "timestamp": "2019-05-03 00:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 01:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 02:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 03:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 04:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 05:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 06:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 07:00:00",
+        "ON_FOOT": 1032.0,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 1032.0
+      },
+      {
+        "timestamp": "2019-05-03 08:00:00",
+        "ON_FOOT": null,
+        "STILL": 7.0,
+        "TILTING": 3.0,
+        "OTHERS": 0.0,
+        "TOTAL": 10.0
+      },
+      {
+        "timestamp": "2019-05-03 09:00:00",
+        "ON_FOOT": 0.0,
+        "STILL": 12.0,
+        "TILTING": 85.0,
+        "OTHERS": 4.0,
+        "TOTAL": 101.0
+      },
+      {
+        "timestamp": "2019-05-03 10:00:00",
+        "ON_FOOT": 11.0,
+        "STILL": 10.0,
+        "TILTING": 73.0,
+        "OTHERS": 44.0,
+        "TOTAL": 138.0
+      },
+      {
+        "timestamp": "2019-05-03 11:00:00",
+        "ON_FOOT": null,
+        "STILL": 20.0,
+        "TILTING": 5.0,
+        "OTHERS": 12.0,
+        "TOTAL": 37.0
+      },
+      {
+        "timestamp": "2019-05-03 12:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 13:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": 147.0,
+        "OTHERS": 0.0,
+        "TOTAL": 147.0
+      },
+      {
+        "timestamp": "2019-05-03 14:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 15:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 16:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 17:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 18:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 19:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 20:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 21:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 22:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-03 23:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      }
+    ]
+  },
+  {
+    "day": "2019-05-04",
+    "data": [
+      {
+        "timestamp": "2019-05-04 00:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 01:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 02:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 03:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 04:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 05:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 06:00:00",
+        "ON_FOOT": null,
+        "STILL": 1258.0,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 1258.0
+      },
+      {
+        "timestamp": "2019-05-04 07:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 08:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 09:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 276.0,
+        "TOTAL": 276.0
+      },
+      {
+        "timestamp": "2019-05-04 10:00:00",
+        "ON_FOOT": 12.0,
+        "STILL": 18.0,
+        "TILTING": 24.0,
+        "OTHERS": 1.0,
+        "TOTAL": 55.0
+      },
+      {
+        "timestamp": "2019-05-04 11:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 12:00:00",
+        "ON_FOOT": null,
+        "STILL": 1.0,
+        "TILTING": 165.0,
+        "OTHERS": 0.0,
+        "TOTAL": 166.0
+      },
+      {
+        "timestamp": "2019-05-04 13:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 14:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 15:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 16:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 17:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 18:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 19:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 20:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 21:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 22:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-04 23:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      }
+    ]
+  },
+  {
+    "day": "2019-05-05",
+    "data": [
+      {
+        "timestamp": "2019-05-05 00:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 01:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 02:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": 980.0,
+        "OTHERS": 0.0,
+        "TOTAL": 980.0
+      },
+      {
+        "timestamp": "2019-05-05 03:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 04:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 05:00:00",
+        "ON_FOOT": null,
+        "STILL": 2.0,
+        "TILTING": 262.0,
+        "OTHERS": 0.0,
+        "TOTAL": 264.0
+      },
+      {
+        "timestamp": "2019-05-05 06:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 07:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 08:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 09:00:00",
+        "ON_FOOT": 2.0,
+        "STILL": 19.0,
+        "TILTING": 301.0,
+        "OTHERS": 1.0,
+        "TOTAL": 323.0
+      },
+      {
+        "timestamp": "2019-05-05 10:00:00",
+        "ON_FOOT": 29.0,
+        "STILL": 64.0,
+        "TILTING": 4.0,
+        "OTHERS": 3.0,
+        "TOTAL": 100.0
+      },
+      {
+        "timestamp": "2019-05-05 11:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 12:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 13:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 14:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 15:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 16:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 17:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 18:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 19:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 20:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 21:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 22:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-05 23:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      }
+    ]
+  },
+  {
+    "day": "2019-05-06",
+    "data": [
+      {
+        "timestamp": "2019-05-06 00:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 01:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 02:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 03:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 04:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 05:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 06:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 07:00:00",
+        "ON_FOOT": 1461.0,
+        "STILL": null,
+        "TILTING": 42.0,
+        "OTHERS": 0.0,
+        "TOTAL": 1503.0
+      },
+      {
+        "timestamp": "2019-05-06 08:00:00",
+        "ON_FOOT": 37.0,
+        "STILL": 8.0,
+        "TILTING": 97.0,
+        "OTHERS": 11.0,
+        "TOTAL": 153.0
+      },
+      {
+        "timestamp": "2019-05-06 09:00:00",
+        "ON_FOOT": 52.0,
+        "STILL": 5.0,
+        "TILTING": 58.0,
+        "OTHERS": 1.0,
+        "TOTAL": 116.0
+      },
+      {
+        "timestamp": "2019-05-06 10:00:00",
+        "ON_FOOT": null,
+        "STILL": 0.0,
+        "TILTING": null,
+        "OTHERS": 11.0,
+        "TOTAL": 11.0
+      },
+      {
+        "timestamp": "2019-05-06 11:00:00",
+        "ON_FOOT": 110.0,
+        "STILL": 0.0,
+        "TILTING": 1.0,
+        "OTHERS": 0.0,
+        "TOTAL": 111.0
+      },
+      {
+        "timestamp": "2019-05-06 12:00:00",
+        "ON_FOOT": null,
+        "STILL": null,
+        "TILTING": null,
+        "OTHERS": 0.0,
+        "TOTAL": 0.0
+      },
+      {
+        "timestamp": "2019-05-06 13:00:00",
+        "ON_FOOT": null,
+        "STILL": 1.0,
+        "TILTING": 173.0,
+        "OTHERS": 9.0,
+        "TOTAL": 183.0
+      }
+    ]
+  }
+]
