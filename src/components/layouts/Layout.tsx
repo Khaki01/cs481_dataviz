@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import Navbar from '../navigation/Navbar';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
@@ -17,7 +18,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           scrollBehavior: 'smooth',
         }}
       >
-        {children}
+        <Container maxWidth="lg">{children}</Container>
       </Box>
     </>
   );

@@ -1,8 +1,28 @@
 import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { Inter, Poppins } from 'next/font/google';
+const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+});
 
+const fontFamily = [inter.style.fontFamily, poppins.style.fontFamily].join(',');
 // Create a theme instance.
 const theme = createTheme({
+  typography: {
+    fontFamily,
+    h1: {
+      wordBreak: 'break-word',
+      fontWeight: 600,
+    },
+    h4: {
+      fontWeight: 600,
+    },
+    h2: {
+      fontWeight: 600,
+      wordBreak: 'break-word',
+    },
+  },
   palette: {
     primary: {
       main: '#696CFF',
@@ -39,7 +59,11 @@ const theme = createTheme({
           margin: 0,
           padding: 0,
           height: '100%',
+          fontFamily: 'Dancing script',
           scrollBehavior: 'smooth !important',
+        },
+        main: {
+          fontFamily: 'Dancing script',
         },
       }),
     },

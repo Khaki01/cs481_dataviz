@@ -1,22 +1,4 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-import Plot from 'react-plotly.js';
-
-const HealthActivityPlot = () => {
-  const [data, setData] = useState<any>(null);
-  const dataI: any = [];
-  useEffect(() => {
-    fetch('api/health-activity')
-      .then((response) => response.json())
-      .then((jsonData) => setData(jsonData));
-  }, []);
-
-  console.log(data);
-  return <div>here</div>;
-=======
 import React, { useEffect, useMemo, useState } from 'react';
-import { ParseResult } from 'papaparse';
-import { PhysicalDays } from '../../pages/api/health-activity';
 import moment from 'moment';
 import dynamic from 'next/dynamic';
 import Stack from '@mui/material/Stack';
@@ -27,71 +9,100 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { AirbnbSlider, AirbnbThumbComponent } from '../custom/slider';
 import { useGoalContext } from '../context/GoalProvider';
-import PumpAnimation from '../animated/PumpAnimation';
 import BoopAnimation from '../animated/BoopAnimation';
-import Typography from '@mui/material/Typography';
+import { ListItem, ListItemText } from '@mui/material';
 import { PlotMouseEvent } from 'plotly.js';
 import { useRouter } from 'next/router';
 import { ScaleLoader } from 'react-spinners';
+import json from '../../../public/task1_phoneUsageBarChartByApp.json';
 import HelpIconButton from '../HelpIconButton';
-import { activityMap, ActivityType } from './HealthActivityDistAndPie';
-import { WhatshotOutlined } from '@mui/icons-material';
-import { ListItem, ListItemText } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import { useBetween } from 'use-between';
+export type AppType =
+  | 'all'
+  | '10000!'
+  | 'Chrome'
+  | 'YouTube'
+  | '리디북스'
+  | '마이리틀셰프'
+  | '문피아'
+  | '웹소설 조아라'
+  | '카카오톡'
+  | '카카오페이지'
+  | '트위터'
+  | 'Others';
 
+export type AppTypeCustom =
+  | '10000!'
+  | 'Chrome'
+  | 'YouTube'
+  | '리디북스'
+  | '마이리틀셰프'
+  | '문피아'
+  | '웹소설 조아라'
+  | '카카오톡'
+  | '카카오페이지'
+  | '트위터'
+  | 'Others';
 interface Option<T extends string> {
   label: string;
   value: T;
 }
-const HealthActivityPlot = () => {
+
+interface PhoneUsageDataByActivity {
+  name: AppType | 'Total' | 'Goal' | 'Extra';
+  data: {
+    date: string;
+    value: number;
+  }[];
+}
+
+const useLoading = () => {
+  return useState(true);
+};
+
+export const useSharedLoading = () => useBetween(useLoading);
+const PhoneUsageActivityPlot = () => {
   const { push } = useRouter();
   const daysOptions: Option<string>[] = [
     { label: 'Week', value: '7' },
     { label: '5 days', value: '5' },
     { label: '3 days', value: '3' },
   ];
-  const appOptions: Option<ActivityType>[] = [
-    { label: 'All activities', value: 'all' },
-    { label: 'Cycling', value: 'cycling' },
-    { label: 'Running', value: 'running' },
-    { label: 'Workout', value: 'workout' },
-    { label: 'Others', value: 'others' },
+  const appOptions: Option<AppType>[] = [
+    { label: 'All apps', value: 'all' },
+    { label: '10000!', value: '10000!' },
+    { label: 'Chrome', value: 'Chrome' },
+    { label: 'YouTube', value: 'YouTube' },
+    { label: '리디북스', value: '리디북스' },
+    { label: '마이리틀셰프', value: '마이리틀셰프' },
+    { label: '문피아', value: '문피아' },
+    { label: '웹소설 조아라', value: '웹소설 조아라' },
+    { label: '카카오톡', value: '카카오톡' },
+    { label: '카카오페이지', value: '카카오페이지' },
+    { label: '트위터', value: '트위터' },
+    { label: 'Others', value: 'Others' },
   ];
+  const dailyActivityData = json as PhoneUsageDataByActivity[];
   const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
-  const [data, setData] = useState<ParseResult<PhysicalDays> | null>(null);
-  const [graphLoading, setGraphLoading] = useState(true);
+  const [graphLoading, setGraphLoading] = useSharedLoading();
   const [daysFilter, setDaysFilter] = useState<number>(7);
-  const [activityFilter, setActivityFilter] = useState<ActivityType>('all');
-  const fetchData = async () => {
-    try {
-      const response = await fetch('api/health-activity');
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-  useEffect(() => {
-    fetchData().then(() => setTimeout(() => setGraphLoading(false), 500));
-  }, []);
+  const [appFilter, setAppFilter] = useState<AppType>('all');
 
-  const days = useMemo(() => {
-    return (
-      data?.data
-        ?.map((item) => moment(item.timestamp).format('MMM DD'))
-        .slice(-daysFilter) ?? []
-    );
-  }, [data?.data, daysFilter]);
+  const days = dailyActivityData
+    ?.find((item) => item)
+    ?.data.map((item) => moment(item.date).format('MMM DD'));
 
   const handleSelect = (event: SelectChangeEvent) => {
     setDaysFilter(Number(event.target.value));
   };
 
-  const handleActivitySelect = (event: SelectChangeEvent) => {
-    setActivityFilter(event.target.value as ActivityType);
+  const handleAppFilterSelect = (event: SelectChangeEvent) => {
+    setAppFilter(event.target.value as AppType);
   };
 
   const {
-    activity: [value, setValue, remove],
+    usage: [value, setValue, remove],
   } = useGoalContext();
   const handleSlider = (event: Event, newValue: number | number[]) => {
     setGraphLoading(true);
@@ -102,56 +113,68 @@ const HealthActivityPlot = () => {
   };
 
   const returnBarData = useMemo(() => {
-    const bar1Data = data?.data.map(
-      (item) =>
-        activityFilter === 'all'
-          ? item.GOAL + Number(value ?? 0)
-          : item[activityMap[activityFilter]] //Orange
-    );
-    const bar2Data = data?.data.map(
-      (item) =>
-        activityFilter === 'all'
-          ? item.EXTRA - Number(value ?? 0)
-          : item.TOTAL - item[activityMap[activityFilter]] //Green and scatter
-    );
+    const total = dailyActivityData.find((item) => item.name === 'Total');
+    const bar1Data =
+      dailyActivityData
+        .find((item) => item.name === 'Goal')
+        ?.data.map((item, idx) =>
+          appFilter === 'all'
+            ? item.value + Number(value ?? 0)
+            : Number(
+                dailyActivityData.find((item) => item.name === appFilter)?.data[idx]
+                  .value
+              )
+        ) ?? [];
+
+    const bar2Data =
+      dailyActivityData
+        .find((item) => item.name === 'Extra')
+        ?.data.map((item, idx) =>
+          appFilter === 'all'
+            ? item.value - Number(value ?? 0)
+            : Number(total?.data[idx]?.value) -
+              Number(
+                dailyActivityData.find((item) => item.name === appFilter)?.data[idx]
+                  .value
+              )
+        ) ?? [];
     return {
       bar1: bar1Data?.slice(-daysFilter),
       bar2: bar2Data?.slice(-daysFilter),
     };
-  }, [activityFilter, data?.data, daysFilter, value]);
+  }, [appFilter, dailyActivityData, daysFilter, value]);
 
+  useEffect(() => {
+    setGraphLoading(false);
+  }, [setGraphLoading]);
   const returnScatterData = useMemo(() => {
-    const scatter1Data =
-      activityFilter === 'all'
-        ? data?.data.map((item) => item.GOAL + Number(value ?? 0))
-        : [];
-    const scatter2Data = data?.data.map((item) => item.TOTAL);
+    const scatter1Data = dailyActivityData
+      .find((item) => item.name === 'Goal')
+      ?.data.map((item) => item.value + Number(value ?? 0));
+    const scatter2Data = dailyActivityData
+      .find((item) => item.name === 'Total')
+      ?.data.map((item) => item.value);
     return {
       scatter1: scatter1Data?.slice(-daysFilter),
       scatter2: scatter2Data?.slice(-daysFilter),
     };
-  }, [activityFilter, data?.data, daysFilter, value]);
+  }, [dailyActivityData, daysFilter, value]);
 
   const generatedArrayColors = useMemo(() => {
-    return activityFilter === 'all'
-      ? generateArray(
-          data?.data?.map((item) => item.EXTRA - Number(value ?? 0)) ?? [],
-          0,
-          theme.palette.success.main,
-          theme.palette.error.main
-        )?.slice(-daysFilter)
-      : extendArray(Number(days?.length), [theme.palette.info.main]).slice(
-          -daysFilter
-        );
-  }, [activityFilter, data?.data, days?.length, daysFilter, value]);
+    return generateArray(
+      dailyActivityData
+        .find((item) => item.name === 'Extra')
+        ?.data.map((item) => item.value - Number(value ?? 0)) ?? [],
+      0,
+      theme.palette.success.main,
+      theme.palette.error.main
+    )?.slice(-daysFilter);
+  }, [dailyActivityData, daysFilter, value]);
 
   const handleBarClick = async (event: Readonly<PlotMouseEvent>) => {
     setGraphLoading(true);
     const idx = event.points.find((item) => item.pointIndex)?.pointIndex ?? 0;
-    await push({ query: { idx }, href: 'health-details' }, undefined, {
-      scroll: false,
-      shallow: true,
-    });
+    await push({ query: { idx } }, undefined, { scroll: false, shallow: true });
     await setGraphLoading(false);
   };
 
@@ -161,10 +184,9 @@ const HealthActivityPlot = () => {
         <ListItemText
           primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
           secondaryTypographyProps={{ variant: 'h6' }}
-          primary="Health activity patterns"
-          secondary="Track your daily physical activity levels and progress with our interactive
-        graph!"
-        ></ListItemText>
+          primary="Phone usage patterns"
+          secondary="Visualize and analyze your daily phone usage patterns to foster digital well-being!"
+        />
         <BoopAnimation>
           <HelpIconButton>
             <Box maxWidth={150} p={2}>
@@ -184,14 +206,14 @@ const HealthActivityPlot = () => {
             </MenuItem>
           ))}
         </Select>
-        <Select size="small" onChange={handleActivitySelect} value={activityFilter}>
+        <Select size="small" onChange={handleAppFilterSelect} value={appFilter}>
           {appOptions.map((option) => (
             <MenuItem key={option.label} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
         </Select>
-        {data && (
+        {!graphLoading && (
           <Stack
             display="flex"
             alignItems="center"
@@ -199,33 +221,16 @@ const HealthActivityPlot = () => {
             direction="row"
             columnGap={2}
           >
-            <Box>
-              <PumpAnimation>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <WhatshotOutlined fontSize="large" color="error" />
-                  <Typography color="error" variant="caption">
-                    Calories
-                  </Typography>
-                </Box>
-              </PumpAnimation>
-            </Box>
             <AirbnbSlider
-              disabled={activityFilter !== 'all'}
               valueLabelDisplay="auto"
               min={0}
-              value={Number(value) ?? 0}
+              value={Number(value)}
               marks={[
                 { value: 0, label: 0 },
-                { value: 2250, label: 2250 },
-                { value: 4500, label: 4500 },
+                { value: 12, label: 12 },
               ]}
-              step={50}
-              max={4500}
+              step={1}
+              max={12}
               onChange={handleSlider}
               slots={{ thumb: AirbnbThumbComponent }}
             />
@@ -245,8 +250,6 @@ const HealthActivityPlot = () => {
       )}
       {!graphLoading && (
         <Plot
-          onHover={(h) => console.log(h)}
-          style={{ cursor: 'pointer' }}
           onClick={handleBarClick}
           data={[
             {
@@ -256,9 +259,7 @@ const HealthActivityPlot = () => {
               name: 'Goal',
               marker: {
                 color: extendArray(Number(days?.length), [
-                  activityFilter === 'all'
-                    ? theme.palette.primary.main
-                    : theme.palette.warning.main,
+                  theme.palette.primary.main,
                 ]).slice(-daysFilter),
               },
               opacity: 0.7,
@@ -303,7 +304,6 @@ const HealthActivityPlot = () => {
       )}
     </Stack>
   );
->>>>>>> main
 };
 
-export default HealthActivityPlot;
+export default PhoneUsageActivityPlot;
