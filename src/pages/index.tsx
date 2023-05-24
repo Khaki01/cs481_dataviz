@@ -1,3 +1,4 @@
+
 import Container from '@mui/material/Container';
 import TypeWriter from 'typewriter-effect';
 import Typography from '@mui/material/Typography';
@@ -251,6 +252,7 @@ export default function Home() {
           </Box>
         </Stack>
       </main>
+
     </Container>
   );
 }

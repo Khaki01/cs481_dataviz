@@ -3,16 +3,12 @@ import fs from 'fs';
 import { join } from 'path';
 import Papa, { ParseResult } from 'papaparse';
 
-
 export type PhysicalDays = {
+  type: string;
   timestamp: string;
-  ON_FOOT: number;
-  STILL: number;
-  TILTING: number;
-  OTHERS: number;
-  TOTAL: number;
-  GOAL: number;
-  EXTRA: number;
+  duration: number;
+  Calories_Diff: number;
+  reward: number;
 };
 
 const config: Papa.ParseConfig = {
@@ -23,7 +19,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ParseResult<PhysicalDays>>
 ) {
-  const physicalProcessedCsv = join(process.cwd(), 'public', 'physical_days.csv');
+  const physicalProcessedCsv = join(process.cwd(), 'public', 'physical_days2.csv');
   const physicalProcessedData = fs.readFileSync(physicalProcessedCsv, 'utf8');
   const parsedPhysicalProcessed = Papa.parse<PhysicalDays>(physicalProcessedData, {
     ...config,
@@ -32,5 +28,4 @@ export default function handler(
     ...parsedPhysicalProcessed,
     data: parsedPhysicalProcessed.data.filter((item) => item.timestamp),
   });
-
 }

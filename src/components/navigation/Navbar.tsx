@@ -1,4 +1,5 @@
 import React from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -17,6 +18,7 @@ const Navbar = () => {
       // enqueueSnackbar()
     });
   };
+
 
   const navItems: { id: string; title: string; link: string }[] = [
     {
@@ -38,16 +40,19 @@ const Navbar = () => {
 
   return (
     <AppBar
+
       sx={{
         display: 'flex',
         alignItems: 'center',
         boxShadow: (theme) => `0 1px 0 0 ${theme.palette.divider}`,
       }}
+
       position="sticky"
       elevation={0}
       component="nav"
       color="secondary"
     >
+
       <Toolbar sx={{ maxWidth: 'lg', width: '100%' }}>
         <Typography
           variant="h5"
@@ -78,6 +83,7 @@ const Navbar = () => {
             />
           ))}
         </Tabs>
+
       </Toolbar>
     </AppBar>
   );
