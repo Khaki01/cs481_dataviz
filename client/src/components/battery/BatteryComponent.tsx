@@ -5,14 +5,39 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { CalendarToday } from '@mui/icons-material';
 import { DatePicker, StaticDatePicker, DateCalendar } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
+import Badge from '@mui/material/Badge';
+
 import Wave from 'react-wavify';
 import { useSpring, animated } from 'react-spring';
+import PickersDay, { PickersDayProps, pickersDayClasses } from '@mui/lab/PickersDay';
 
 type InnerBoxInputProps = {
   color: string;
   height: number;
 };
+
+function getRandomNumber(min: number, max: number) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
+  return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      const daysInMonth = date.daysInMonth();
+      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
+
+      resolve({ daysToHighlight });
+    }, 500);
+
+    signal.onabort = () => {
+      clearTimeout(timeout);
+      reject(new DOMException('aborted', 'AbortError'));
+    };
+  });
+}
+
+const initialValue = dayjs('2019-04-30');
 
 const AnimatedText3 = ({ text }) => {
   const styles = useSpring({
@@ -349,8 +374,52 @@ const BatteryComponent = () => {
   const [physicalText, setPhysicalText] = useState([]);
   const [physicalRestHeight, setPhysicalRestHeight] = useState(0);
   const [activityList, setActivityList] = useState([]);
+  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
 
   const [isPhysicalAnimating, setIsPhysicalAnimating] = useState(false);
+  const [highlightedDates, setHighlightedDates] = useState([
+    new Date('2019-05-23'),
+    new Date('2019-05-24'),
+  ]);
+  const requestAbortController = React.useRef<AbortController | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const fetchHighlightedDays = (date: Dayjs) => {
+    const controller = new AbortController();
+    fakeFetch(date, {
+      signal: controller.signal,
+    })
+      .then(({ daysToHighlight }) => {
+        setHighlightedDays(daysToHighlight);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        // ignore the error if it's caused by `controller.abort`
+        if (error.name !== 'AbortError') {
+          throw error;
+        }
+      });
+
+    requestAbortController.current = controller;
+  };
+
+  useEffect(() => {
+    fetchHighlightedDays(initialValue);
+    // abort request on unmount
+    return () => requestAbortController.current?.abort();
+  }, []);
+
+  const handleMonthChange = (date: Dayjs) => {
+    if (requestAbortController.current) {
+      // make sure that you are aborting useless requests
+      // because it is possible to switch between months pretty quickly
+      requestAbortController.current.abort();
+    }
+
+    setIsLoading(true);
+    setHighlightedDays([]);
+    fetchHighlightedDays(date);
+  };
 
   useEffect(() => {
     let interval1: NodeJS.Timeout | null = null;
@@ -412,6 +481,25 @@ const BatteryComponent = () => {
     setIsPhysicalAnimating((prevState) => !prevState);
   };
 
+  function ServerDay(
+    props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }
+  ) {
+    const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+
+    const isSelected =
+      !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) > 0;
+
+    return (
+      <Badge
+        key={props.day.toString()}
+        overlap="circular"
+        badgeContent={isSelected ? '🌚' : undefined}
+      >
+        <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
+      </Badge>
+    );
+  }
+
   return (
     <div>
       <Typography variant="h5">{todayDate}</Typography>
@@ -464,7 +552,16 @@ const BatteryComponent = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar
             defaultValue={dayjs('2019-04-30')}
-            // value={null}
+            // renderDay={renderWeekPickerDay}
+            // slots={{
+            //   day: ServerDay,
+            // }}
+            // slotProps={{
+            //   day: {
+            //     highlightedDays,
+            //   } as any,
+            // }}
+            // tileClassName={({ date }) => (date.getMonth() === 3 ? 'highlight' : '')}
             onChange={(newValue) => {
               var myDate = new Date(`${newValue}`).toLocaleString();
               myDate = myDate.split(',')[0];
