@@ -6,10 +6,17 @@ import Link from 'next/link';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
 
 const Navbar = () => {
   const { asPath } = useRouter();
   const currentPath = asPath.split('?')[0];
+  const { enqueueSnackbar } = useSnackbar();
+  const launchNotifications = () => {
+    setTimeout(() => {
+      // enqueueSnackbar()
+    });
+  };
 
   const navItems: { id: string; title: string; link: string }[] = [
     {
@@ -46,7 +53,7 @@ const Navbar = () => {
           variant="h5"
           component={Link}
           href="/"
-          color="text.primary"
+          color="primary"
           sx={{
             textDecoration: 'none',
             ':hover': {

@@ -4,10 +4,13 @@ import Grid from '@mui/system/Unstable_Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import PhoneUsageActivityPlot from '../../components/data/PhoneUsageActivityPlot';
+import PhoneUsageDistAndPie from '../../components/data/PhoneUsageDistAndPie';
+import { useRouter } from 'next/router';
 
 const PhoneUsagePage: NextPage = () => {
+  const { query } = useRouter();
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       <Grid xs={12}>
         <Card>
           <CardContent>
@@ -15,9 +18,15 @@ const PhoneUsagePage: NextPage = () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12}>
-        <Card></Card>
-      </Grid>
+      {query?.idx && (
+        <Grid xs={12}>
+          <Card>
+            <CardContent>
+              <PhoneUsageDistAndPie />
+            </CardContent>
+          </Card>
+        </Grid>
+      )}
     </Grid>
   );
 };

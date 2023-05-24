@@ -8,7 +8,6 @@ import HealthActivityDistAndPie from '../../components/data/HealthActivityDistAn
 import { useRouter } from 'next/router';
 const HealthActivityPage: NextPage = () => {
   const { query } = useRouter();
-
   return (
     <Grid container spacing={3}>
       <Grid xs={12}>
@@ -18,11 +17,15 @@ const HealthActivityPage: NextPage = () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid xs={12}>
-        <Card>
-          <CardContent>{query?.idx && <HealthActivityDistAndPie />}</CardContent>
-        </Card>
-      </Grid>
+      {query?.idx && (
+        <Grid xs={12}>
+          <Card>
+            <CardContent>
+              <HealthActivityDistAndPie />
+            </CardContent>
+          </Card>
+        </Grid>
+      )}
     </Grid>
   );
 };

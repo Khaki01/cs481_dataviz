@@ -20,6 +20,7 @@ import { ScaleLoader } from 'react-spinners';
 import HelpIconButton from '../HelpIconButton';
 import { activityMap, ActivityType } from './HealthActivityDistAndPie';
 import { WhatshotOutlined } from '@mui/icons-material';
+import { ListItem, ListItemText } from '@mui/material';
 
 interface Option<T extends string> {
   label: string;
@@ -54,7 +55,7 @@ const HealthActivityPlot = () => {
     }
   };
   useEffect(() => {
-    fetchData().then(() => setGraphLoading(false));
+    fetchData().then(() => setTimeout(() => setGraphLoading(false), 500));
   }, []);
 
   const days = useMemo(() => {
@@ -131,37 +132,34 @@ const HealthActivityPlot = () => {
   const handleBarClick = async (event: Readonly<PlotMouseEvent>) => {
     setGraphLoading(true);
     const idx = event.points.find((item) => item.pointIndex)?.pointIndex ?? 0;
-    await push({ query: { idx } }, undefined, { scroll: false, shallow: true });
+    await push({ query: { idx }, href: 'health-details' }, undefined, {
+      scroll: false,
+      shallow: true,
+    });
     await setGraphLoading(false);
   };
 
   return (
     <Stack sx={{ minHeight: 450 }} spacing={2}>
-      <Box
-        display="flex"
-        justifyContent="space-between
-      "
-      >
-        <Typography variant="h5" color="primary">
-          Explore
-        </Typography>
-        <div>
-          <Typography></Typography>
-          <BoopAnimation>
-            <HelpIconButton>
-              <Box maxWidth={150} p={2}>
-                <Typography>
-                  You can visualize the daily data by clicking on one of the columns
-                </Typography>
-              </Box>
-            </HelpIconButton>
-          </BoopAnimation>
-        </div>
-      </Box>
+      <ListItem>
+        <ListItemText
+          primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
+          secondaryTypographyProps={{ variant: 'h6' }}
+          primary="Health activity patterns"
+          secondary="Track your daily physical activity levels and progress with our interactive
+        graph!"
+        ></ListItemText>
+        <BoopAnimation>
+          <HelpIconButton>
+            <Box maxWidth={150} p={2}>
+              <Typography>
+                You can visualize the daily data by clicking on one of the columns
+              </Typography>
+            </Box>
+          </HelpIconButton>
+        </BoopAnimation>
+      </ListItem>
 
-      <Typography variant="h6">
-        Following patterns, towards healthier life!
-      </Typography>
       <Box display="flex" flexDirection="row" alignItems="center" columnGap={2}>
         <Select size="small" onChange={handleSelect} value={String(daysFilter)}>
           {daysOptions.map((option) => (
@@ -231,6 +229,8 @@ const HealthActivityPlot = () => {
       )}
       {!graphLoading && (
         <Plot
+          onHover={(h) => console.log(h)}
+          style={{ cursor: 'pointer' }}
           onClick={handleBarClick}
           data={[
             {

@@ -9,7 +9,6 @@ import createEmotionCache from '../createEmoticonCache';
 import Layout from 'components/layouts/Layout';
 import { SnackbarProvider } from 'notistack';
 import { GoalProvider } from '../components/context/GoalProvider';
-
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,6 +31,12 @@ export default function MyApp(props: MyAppProps) {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
+        <script
+          src="https://kit.fontawesome.com/d4c536fd94.js"
+          crossOrigin="anonymous"
+          async
+        />
+
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>

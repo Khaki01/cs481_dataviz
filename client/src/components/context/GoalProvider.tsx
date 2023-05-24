@@ -11,8 +11,8 @@ export const useGoalContext = (): GoalContextType =>
   useContext(GoalContext) as GoalContextType;
 
 export const GoalProvider = ({ children }: PropsWithChildren) => {
-  const goalManager = useLocalStorage('goal', '');
-  const activityManager = useLocalStorage('activity', '');
+  const goalManager = useLocalStorage('goal', '0');
+  const activityManager = useLocalStorage('activity', '0');
   return (
     <GoalContext.Provider value={{ activity: goalManager, usage: activityManager }}>
       {children}
