@@ -5,60 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b0b28cc-d430-4fab-9798-78eb13de49c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/client/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/next.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/battery1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/battery2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/dist_app_usage.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/indoor_bike.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/nested_json_readable.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/next.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/people.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/phone_usage_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/phone_usage_dist.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/phone_usage_pie.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/phone_using.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/phoneusage_landing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/physical.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/physical.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/physical_days.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/physical_dist.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/ridi_books.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/task1-phoneUsageBarChartByCategory.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/task1_phoneUsageBarChartByApp.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/task1_phoneUsagePieChartByApp.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/HelpIconButton.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/animated/BoopAnimation.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/animated/PumpAnimation.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/context/GoalProvider.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/custom/slider.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/data/HealthActivityDistAndPie.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/data/HealthActivityPlot.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/data/MultiValuedProgressBar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/data/PhoneUsageActivityPlot.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/data/PhoneUsageDistAndPie.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/data/PieChart.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navigation/Navbar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/createEmoticonCache.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/_app.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/_document.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/api/health-activity.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/api/hello.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/battery-exploration/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/health-activity/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/phone-usage/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/styles/theme.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/utils/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
