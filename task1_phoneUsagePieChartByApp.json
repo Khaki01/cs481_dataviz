@@ -1,0 +1,121 @@
+[
+  {
+    "date": "2019-04-30",
+    "data": [
+      { "name": "10000!", "value": 0.0 },
+      { "name": "Chrome", "value": 0.175396 },
+      { "name": "YouTube", "value": 0.186177 },
+      { "name": "리디북스", "value": 0.0 },
+      { "name": "마이리틀셰프", "value": 0.0 },
+      { "name": "문피아", "value": 0.27209 },
+      { "name": "웹소설 조아라", "value": 0.0 },
+      { "name": "카카오톡", "value": 0.48612 },
+      { "name": "카카오페이지", "value": 0.000879 },
+      { "name": "트위터", "value": 0.628178 },
+      { "name": "Others", "value": 0.41204 },
+      { "name": "Total", "value": 2.160881 }
+    ]
+  },
+  {
+    "date": "2019-05-01",
+    "data": [
+      { "name": "10000!", "value": 0.143324 },
+      { "name": "Chrome", "value": 0.545205 },
+      { "name": "YouTube", "value": 0.569585 },
+      { "name": "리디북스", "value": 0.191253 },
+      { "name": "마이리틀셰프", "value": 0.652814 },
+      { "name": "문피아", "value": 1.49343 },
+      { "name": "웹소설 조아라", "value": 0.0 },
+      { "name": "카카오톡", "value": 0.095975 },
+      { "name": "카카오페이지", "value": 0.171808 },
+      { "name": "트위터", "value": 1.753078 },
+      { "name": "Others", "value": 0.952558 },
+      { "name": "Total", "value": 6.569029 }
+    ]
+  },
+  {
+    "date": "2019-05-02",
+    "data": [
+      { "name": "10000!", "value": 0.209103 },
+      { "name": "Chrome", "value": 3.008602 },
+      { "name": "YouTube", "value": 1.921879 },
+      { "name": "리디북스", "value": 0.0 },
+      { "name": "마이리틀셰프", "value": 1.588702 },
+      { "name": "문피아", "value": 0.226493 },
+      { "name": "웹소설 조아라", "value": 0.0 },
+      { "name": "카카오톡", "value": 0.348696 },
+      { "name": "카카오페이지", "value": 0.082528 },
+      { "name": "트위터", "value": 1.479571 },
+      { "name": "Others", "value": 0.935214 },
+      { "name": "Total", "value": 9.800788 }
+    ]
+  },
+  {
+    "date": "2019-05-03",
+    "data": [
+      { "name": "10000!", "value": 0.507247 },
+      { "name": "Chrome", "value": 0.714092 },
+      { "name": "YouTube", "value": 1.754986 },
+      { "name": "리디북스", "value": 0.0 },
+      { "name": "마이리틀셰프", "value": 1.110757 },
+      { "name": "문피아", "value": 0.326473 },
+      { "name": "웹소설 조아라", "value": 0.0 },
+      { "name": "카카오톡", "value": 0.386553 },
+      { "name": "카카오페이지", "value": 0.10134 },
+      { "name": "트위터", "value": 1.564667 },
+      { "name": "Others", "value": 1.031808 },
+      { "name": "Total", "value": 7.497924 }
+    ]
+  },
+  {
+    "date": "2019-05-04",
+    "data": [
+      { "name": "10000!", "value": 0.49785 },
+      { "name": "Chrome", "value": 0.25527 },
+      { "name": "YouTube", "value": 0.931386 },
+      { "name": "리디북스", "value": 0.000249 },
+      { "name": "마이리틀셰프", "value": 0.54111 },
+      { "name": "문피아", "value": 0.118535 },
+      { "name": "웹소설 조아라", "value": 1.764255 },
+      { "name": "카카오톡", "value": 0.208137 },
+      { "name": "카카오페이지", "value": 0.046768 },
+      { "name": "트위터", "value": 1.7861 },
+      { "name": "Others", "value": 0.580342 },
+      { "name": "Total", "value": 6.730002 }
+    ]
+  },
+  {
+    "date": "2019-05-05",
+    "data": [
+      { "name": "10000!", "value": 0.162681 },
+      { "name": "Chrome", "value": 0.156269 },
+      { "name": "YouTube", "value": 0.0 },
+      { "name": "리디북스", "value": 4.271217 },
+      { "name": "마이리틀셰프", "value": 2.007687 },
+      { "name": "문피아", "value": 0.987086 },
+      { "name": "웹소설 조아라", "value": 0.0 },
+      { "name": "카카오톡", "value": 0.222428 },
+      { "name": "카카오페이지", "value": 2.366485 },
+      { "name": "트위터", "value": 0.825619 },
+      { "name": "Others", "value": 0.595855 },
+      { "name": "Total", "value": 11.595326 }
+    ]
+  },
+  {
+    "date": "2019-05-06",
+    "data": [
+      { "name": "10000!", "value": 0.067236 },
+      { "name": "Chrome", "value": 0.144093 },
+      { "name": "YouTube", "value": 0.491333 },
+      { "name": "리디북스", "value": 0.00863 },
+      { "name": "마이리틀셰프", "value": 0.0 },
+      { "name": "문피아", "value": 0.680075 },
+      { "name": "웹소설 조아라", "value": 0.0 },
+      { "name": "카카오톡", "value": 0.118147 },
+      { "name": "카카오페이지", "value": 7.984604 },
+      { "name": "트위터", "value": 1.878399 },
+      { "name": "Others", "value": 0.445955 },
+      { "name": "Total", "value": 11.818472 }
+    ]
+  }
+]

@@ -13,6 +13,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           width: '100%',
           minHeight: 'calc(100vh - 64px)',
           position: 'relative',
+          background: (theme) => theme.palette.secondary.main,
           scrollBehavior: 'smooth',
         }}
       >
