@@ -1,14 +1,4 @@
-<<<<<<< HEAD
-import { Inter } from 'next/font/google';
-import Container from '@mui/material/Container';
 
-const inter = Inter({ subsets: ['latin'] });
-
-export default function Home() {
-  return (
-    <Container>
-      <main>here</main>
-=======
 import Container from '@mui/material/Container';
 import TypeWriter from 'typewriter-effect';
 import Typography from '@mui/material/Typography';
@@ -262,7 +252,7 @@ export default function Home() {
           </Box>
         </Stack>
       </main>
->>>>>>> main
+
     </Container>
   );
 }

@@ -1,19 +1,4 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-import Plot from 'react-plotly.js';
 
-const HealthActivityPlot = () => {
-  const [data, setData] = useState<any>(null);
-  const dataI: any = [];
-  useEffect(() => {
-    fetch('api/health-activity')
-      .then((response) => response.json())
-      .then((jsonData) => setData(jsonData));
-  }, []);
-
-  console.log(data);
-  return <div>here</div>;
-=======
 import React, { useEffect, useMemo, useState } from 'react';
 import { ParseResult } from 'papaparse';
 import { PhysicalDays } from '../../pages/api/health-activity';
@@ -303,7 +288,7 @@ const HealthActivityPlot = () => {
       )}
     </Stack>
   );
->>>>>>> main
+
 };
 
 export default HealthActivityPlot;
