@@ -1,27 +1,28 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { ParseResult } from "papaparse";
+import { PhysicalDays } from "../../pages/api/health-activity";
+import moment from "moment";
+import dynamic from "next/dynamic";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import theme from "styles/theme";
+import { extendArray, generateArray } from "../../utils";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Joyride from "react-joyride";
 
-import React, { useEffect, useMemo, useState } from 'react';
-import { ParseResult } from 'papaparse';
-import { PhysicalDays } from '../../pages/api/health-activity';
-import moment from 'moment';
-import dynamic from 'next/dynamic';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import theme from 'styles/theme';
-import { extendArray, generateArray } from '../../utils';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { AirbnbSlider, AirbnbThumbComponent } from '../custom/slider';
-import { useGoalContext } from '../context/GoalProvider';
-import PumpAnimation from '../animated/PumpAnimation';
-import BoopAnimation from '../animated/BoopAnimation';
-import Typography from '@mui/material/Typography';
-import { PlotMouseEvent } from 'plotly.js';
-import { useRouter } from 'next/router';
-import { ScaleLoader } from 'react-spinners';
-import HelpIconButton from '../HelpIconButton';
-import { activityMap, ActivityType } from './HealthActivityDistAndPie';
-import { WhatshotOutlined } from '@mui/icons-material';
-import { ListItem, ListItemText } from '@mui/material';
+import { AirbnbSlider, AirbnbThumbComponent } from "../custom/slider";
+import { useGoalContext } from "../context/GoalProvider";
+import PumpAnimation from "../animated/PumpAnimation";
+import BoopAnimation from "../animated/BoopAnimation";
+import Typography from "@mui/material/Typography";
+import { PlotMouseEvent } from "plotly.js";
+import { useRouter } from "next/router";
+import { ScaleLoader } from "react-spinners";
+import HelpIconButton from "../HelpIconButton";
+import { activityMap, ActivityType } from "./HealthActivityDistAndPie";
+import { WhatshotOutlined } from "@mui/icons-material";
+import { ListItem, ListItemText } from "@mui/material";
 
 interface Option<T extends string> {
   label: string;
@@ -30,25 +31,25 @@ interface Option<T extends string> {
 const HealthActivityPlot = () => {
   const { push } = useRouter();
   const daysOptions: Option<string>[] = [
-    { label: 'Week', value: '7' },
-    { label: '5 days', value: '5' },
-    { label: '3 days', value: '3' },
+    { label: "Week", value: "7" },
+    { label: "5 days", value: "5" },
+    { label: "3 days", value: "3" },
   ];
   const appOptions: Option<ActivityType>[] = [
-    { label: 'All activities', value: 'all' },
-    { label: 'Cycling', value: 'cycling' },
-    { label: 'Running', value: 'running' },
-    { label: 'Workout', value: 'workout' },
-    { label: 'Others', value: 'others' },
+    { label: "All activities", value: "all" },
+    { label: "Cycling", value: "cycling" },
+    { label: "Running", value: "running" },
+    { label: "Workout", value: "workout" },
+    { label: "Others", value: "others" },
   ];
-  const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
+  const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
   const [data, setData] = useState<ParseResult<PhysicalDays> | null>(null);
   const [graphLoading, setGraphLoading] = useState(true);
   const [daysFilter, setDaysFilter] = useState<number>(7);
-  const [activityFilter, setActivityFilter] = useState<ActivityType>('all');
+  const [activityFilter, setActivityFilter] = useState<ActivityType>("all");
   const fetchData = async () => {
     try {
-      const response = await fetch('api/health-activity');
+      const response = await fetch("api/health-activity");
       const jsonData = await response.json();
       setData(jsonData);
     } catch (e) {
@@ -62,7 +63,7 @@ const HealthActivityPlot = () => {
   const days = useMemo(() => {
     return (
       data?.data
-        ?.map((item) => moment(item.timestamp).format('MMM DD'))
+        ?.map((item) => moment(item.timestamp).format("MMM DD"))
         .slice(-daysFilter) ?? []
     );
   }, [data?.data, daysFilter]);
@@ -89,13 +90,13 @@ const HealthActivityPlot = () => {
   const returnBarData = useMemo(() => {
     const bar1Data = data?.data.map(
       (item) =>
-        activityFilter === 'all'
+        activityFilter === "all"
           ? item.GOAL + Number(value ?? 0)
           : item[activityMap[activityFilter]] //Orange
     );
     const bar2Data = data?.data.map(
       (item) =>
-        activityFilter === 'all'
+        activityFilter === "all"
           ? item.EXTRA - Number(value ?? 0)
           : item.TOTAL - item[activityMap[activityFilter]] //Green and scatter
     );
@@ -107,7 +108,7 @@ const HealthActivityPlot = () => {
 
   const returnScatterData = useMemo(() => {
     const scatter1Data =
-      activityFilter === 'all'
+      activityFilter === "all"
         ? data?.data.map((item) => item.GOAL + Number(value ?? 0))
         : [];
     const scatter2Data = data?.data.map((item) => item.TOTAL);
@@ -118,7 +119,7 @@ const HealthActivityPlot = () => {
   }, [activityFilter, data?.data, daysFilter, value]);
 
   const generatedArrayColors = useMemo(() => {
-    return activityFilter === 'all'
+    return activityFilter === "all"
       ? generateArray(
           data?.data?.map((item) => item.EXTRA - Number(value ?? 0)) ?? [],
           0,
@@ -133,162 +134,246 @@ const HealthActivityPlot = () => {
   const handleBarClick = async (event: Readonly<PlotMouseEvent>) => {
     setGraphLoading(true);
     const idx = event.points.find((item) => item.pointIndex)?.pointIndex ?? 0;
-    await push({ query: { idx }, href: 'health-details' }, undefined, {
+    await push({ query: { idx }, href: "health-details" }, undefined, {
       scroll: false,
       shallow: true,
     });
     await setGraphLoading(false);
   };
 
-  return (
-    <Stack sx={{ minHeight: 450 }} spacing={2}>
-      <ListItem>
-        <ListItemText
-          primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
-          secondaryTypographyProps={{ variant: 'h6' }}
-          primary="Health activity patterns"
-          secondary="Track your daily physical activity levels and progress with our interactive
-        graph!"
-        ></ListItemText>
-        <BoopAnimation>
-          <HelpIconButton>
-            <Box maxWidth={150} p={2}>
-              <Typography>
-                You can visualize the daily data by clicking on one of the columns
-              </Typography>
-            </Box>
-          </HelpIconButton>
-        </BoopAnimation>
-      </ListItem>
+  const [domLoaded, setDomLoaded] = useState(false);
+  const [runJoyride, setRunJoyride] = useState(false);
 
-      <Box display="flex" flexDirection="row" alignItems="center" columnGap={2}>
-        <Select size="small" onChange={handleSelect} value={String(daysFilter)}>
-          {daysOptions.map((option) => (
-            <MenuItem key={option.label} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-        <Select size="small" onChange={handleActivitySelect} value={activityFilter}>
-          {appOptions.map((option) => (
-            <MenuItem key={option.label} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-        {data && (
-          <Stack
+  useEffect(() => {
+    setRunJoyride(false);
+    setDomLoaded(true);
+  }, []);
+
+  const steps = [
+    {
+      target: "#hpstep1",
+      content: "Welcome to the first page of your results display. ",
+      disableBeacon: true,
+    },
+    {
+      target: "#hpstep2",
+      content: "Freely set the filters here.",
+      disableBeacon: true,
+    },
+    {
+      target: "#hpstep3",
+      content: "This another awesome feature!",
+      disableBeacon: true,
+    },
+    {
+      target: "#hpstep4",
+      content: "This another awesome feature!",
+      disableBeacon: false,
+    },
+  ];
+
+  const handleStartJoyride = () => {
+    console.log("clicked1");
+
+    setRunJoyride(true);
+  };
+
+  const handleJoyrideCallback = (data: any) => {
+    const { action, status } = data;
+
+    if (status === "finished" || status === "skipped") {
+      setRunJoyride(false);
+    }
+  };
+
+  return (
+    <div>
+      <Stack sx={{ minHeight: 450 }} spacing={2}>
+        <ListItem>
+          <ListItemText
+            primaryTypographyProps={{
+              variant: "h5",
+              color: "primary",
+              id: "hpstep1",
+            }}
+            secondaryTypographyProps={{ variant: "h6" }}
+            primary="Health activity patterns"
+            secondary="Track your daily physical activity levels and progress with our interactive
+        graph!"
+          ></ListItemText>
+          <BoopAnimation>
+            <HelpIconButton onStart={handleStartJoyride}>
+              <Box maxWidth={150} p={2}>
+                <Typography>
+                  You can visualize the daily data by clicking on one of the
+                  columns
+                </Typography>
+              </Box>
+            </HelpIconButton>
+          </BoopAnimation>
+        </ListItem>
+
+        <Box
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          columnGap={2}
+        >
+          <Select
+            size="small"
+            onChange={handleSelect}
+            value={String(daysFilter)}
+            id="hpstep2"
+          >
+            {daysOptions.map((option) => (
+              <MenuItem key={option.label} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            size="small"
+            onChange={handleActivitySelect}
+            value={activityFilter}
+            id="hpstep3"
+          >
+            {appOptions.map((option) => (
+              <MenuItem key={option.label} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          {data && (
+            <Stack
+              display="flex"
+              alignItems="center"
+              width="100%"
+              direction="row"
+              columnGap={2}
+              id="hpstep4"
+            >
+              <Box>
+                <PumpAnimation>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <WhatshotOutlined fontSize="large" color="error" />
+                    <Typography color="error" variant="caption">
+                      Calories
+                    </Typography>
+                  </Box>
+                </PumpAnimation>
+              </Box>
+              <AirbnbSlider
+                disabled={activityFilter !== "all"}
+                valueLabelDisplay="auto"
+                min={0}
+                value={Number(value) ?? 0}
+                marks={[
+                  { value: 0, label: 0 },
+                  { value: 2250, label: 2250 },
+                  { value: 4500, label: 4500 },
+                ]}
+                step={50}
+                max={4500}
+                onChange={handleSlider}
+                slots={{ thumb: AirbnbThumbComponent }}
+              />
+            </Stack>
+          )}
+        </Box>
+        {graphLoading && (
+          <Box
+            height={450}
             display="flex"
+            justifyContent="center"
             alignItems="center"
             width="100%"
-            direction="row"
-            columnGap={2}
           >
-            <Box>
-              <PumpAnimation>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <WhatshotOutlined fontSize="large" color="error" />
-                  <Typography color="error" variant="caption">
-                    Calories
-                  </Typography>
-                </Box>
-              </PumpAnimation>
-            </Box>
-            <AirbnbSlider
-              disabled={activityFilter !== 'all'}
-              valueLabelDisplay="auto"
-              min={0}
-              value={Number(value) ?? 0}
-              marks={[
-                { value: 0, label: 0 },
-                { value: 2250, label: 2250 },
-                { value: 4500, label: 4500 },
-              ]}
-              step={50}
-              max={4500}
-              onChange={handleSlider}
-              slots={{ thumb: AirbnbThumbComponent }}
+            <ScaleLoader
+              color={theme.palette.primary.main}
+              loading={graphLoading}
             />
-          </Stack>
+          </Box>
         )}
-      </Box>
-      {graphLoading && (
-        <Box
-          height={450}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          width="100%"
-        >
-          <ScaleLoader color={theme.palette.primary.main} loading={graphLoading} />
-        </Box>
-      )}
-      {!graphLoading && (
-        <Plot
-          onHover={(h) => console.log(h)}
-          style={{ cursor: 'pointer' }}
-          onClick={handleBarClick}
-          data={[
-            {
-              type: 'bar',
-              x: days,
-              y: returnBarData.bar1,
-              name: 'Goal',
-              marker: {
-                color: extendArray(Number(days?.length), [
-                  activityFilter === 'all'
-                    ? theme.palette.primary.main
-                    : theme.palette.warning.main,
-                ]).slice(-daysFilter),
+        {!graphLoading && (
+          <Plot
+            divId="hpstep??"
+            onHover={(h) => console.log(h)}
+            style={{ cursor: "pointer" }}
+            onClick={handleBarClick}
+            data={[
+              {
+                type: "bar",
+                x: days,
+                y: returnBarData.bar1,
+                name: "Goal",
+                marker: {
+                  color: extendArray(Number(days?.length), [
+                    activityFilter === "all"
+                      ? theme.palette.primary.main
+                      : theme.palette.warning.main,
+                  ]).slice(-daysFilter),
+                },
+                opacity: 0.7,
               },
-              opacity: 0.7,
-            },
-            {
-              type: 'bar',
-              x: days,
-              y: returnBarData.bar2,
-              name: 'Extra/Left',
-              marker: {
-                color: generatedArrayColors,
+              {
+                type: "bar",
+                x: days,
+                y: returnBarData.bar2,
+                name: "Extra/Left",
+                marker: {
+                  color: generatedArrayColors,
+                },
+                opacity: 0.7,
               },
-              opacity: 0.7,
-            },
-            {
-              type: 'scatter',
-              x: days,
-              y: returnScatterData.scatter1,
-              name: 'Goal',
-              marker: {
-                color: theme.palette.info.main,
+              {
+                type: "scatter",
+                x: days,
+                y: returnScatterData.scatter1,
+                name: "Goal",
+                marker: {
+                  color: theme.palette.info.main,
+                },
               },
-            },
-            {
-              type: 'scatter',
-              x: days,
-              y: returnScatterData.scatter2,
-              name: 'Done',
-              marker: {
-                color: theme.palette.error.main,
+              {
+                type: "scatter",
+                x: days,
+                y: returnScatterData.scatter2,
+                name: "Done",
+                marker: {
+                  color: theme.palette.error.main,
+                },
               },
-            },
-          ]}
-          config={{ displayModeBar: false }}
-          layout={{
-            autosize: true,
-            barmode: 'stack',
-            bargap: 0.3,
-            margin: { t: 0 },
-          }}
-        />
-      )}
-    </Stack>
+            ]}
+            config={{ displayModeBar: false }}
+            layout={{
+              autosize: true,
+              barmode: "stack",
+              bargap: 0.3,
+              margin: { t: 0 },
+            }}
+          />
+        )}
+      </Stack>
+      <>
+        {domLoaded && (
+          <div>
+            <Joyride
+              steps={steps}
+              continuous
+              run={runJoyride}
+              callback={handleJoyrideCallback}
+              disableScrolling={true}
+            />
+          </div>
+        )}
+      </>
+    </div>
   );
-
 };
 
 export default HealthActivityPlot;
