@@ -6,9 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="8b0b28cc-d430-4fab-9798-78eb13de49c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/battery/BatteryComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/BatteryComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/battery/BatteryComponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/battery/CalendarComponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navigation/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navigation/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/battery-data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/battery-phone-usage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/battery_physicaldata.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/battery-physical-activity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/battery-exploration/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,10 +25,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
-        <option value="TypeScript JSX File" />
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -44,7 +51,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/olzhas/WebstormProjects/cs481_dataviz/client/public",
+    "last_opened_file_path": "/Users/olzhas/WebstormProjects/cs481_dataviz/public",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
@@ -53,19 +60,22 @@
     "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/olzhas/WebstormProjects/cs481_dataviz/client/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.sourceCode.JavaScript",
+    "prettierjs.PrettierConfiguration.Package": "/Users/olzhas/WebstormProjects/cs481_dataviz/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.sourceCode.TypeScript",
     "ts.external.directory.path": "/Users/olzhas/WebstormProjects/cs481_dataviz/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/client/public" />
       <recent name="$PROJECT_DIR$/client" />
       <recent name="$PROJECT_DIR$/client/src/data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/battery-exploration" />
       <recent name="$PROJECT_DIR$/client/src/components/animated" />
       <recent name="$PROJECT_DIR$/client/public" />
       <recent name="$PROJECT_DIR$/client/public/data" />
@@ -83,6 +93,14 @@
       <workItem from="1684740269889" duration="10357000" />
       <workItem from="1684753143381" duration="24009000" />
       <workItem from="1684828558930" duration="56975000" />
+      <workItem from="1685081866185" duration="884000" />
+      <workItem from="1685082757973" duration="216000" />
+      <workItem from="1685082994603" duration="7800000" />
+      <workItem from="1685114508762" duration="3375000" />
+      <workItem from="1685183715197" duration="1538000" />
+      <workItem from="1685279242639" duration="3052000" />
+      <workItem from="1685409964334" duration="3000" />
+      <workItem from="1685874167703" duration="16290000" />
     </task>
     <servers />
   </component>

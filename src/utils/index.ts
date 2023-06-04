@@ -18,3 +18,22 @@ export const extendArray = <T>(n: number, arr: T[]): T[] => {
   }
   return newArray;
 };
+
+export const percentageToColor = (
+  percentage: number,
+  maxHue = 120,
+  minHue = 0
+): string => {
+  const hue = percentage * (maxHue - minHue) + minHue;
+  return `hsl(${hue}, 100%, 50%)`;
+};
+
+export const groupBy = <T>(
+  array: T[],
+  predicate: (value: T, index: number, array: T[]) => string
+) => {
+  return array?.reduce((acc, value, index, array) => {
+    (acc[predicate(value, index, array)] ||= []).push(value);
+    return acc;
+  }, {} as { [key: string]: T[] });
+};
