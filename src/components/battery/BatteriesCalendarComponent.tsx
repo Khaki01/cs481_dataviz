@@ -4,6 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { PickerSelectionState } from '@mui/x-date-pickers/internals/hooks/usePicker/usePickerValue.types';
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import dayjs, { Dayjs } from 'dayjs';
+import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -35,7 +36,9 @@ const roundToNearest = (n: number) => {
   return nearestNumber;
 };
 
-const batteryMap: { [key: number | string]: React.ReactNode } = {
+const batteryMap: {
+  [key: number | string]: React.ReactElement<any, any>;
+} = {
   absent: <BatteryAlertIcon fontSize="small" color="action" />,
   20: <BatteryCharging20Icon fontSize="small" color="error" />,
   30: <BatteryCharging30Icon fontSize="small" color="error" />,
@@ -52,7 +55,13 @@ const renderDay = ({ day, ...rest }: PickersDayProps<Dayjs>) => {
     jsonCalendar?.find((item) => item.date == day.format('YYYY-MM-DD')) ?? null;
   return (
     <Box display="flex" flexDirection="column" alignItems="center" rowGap={0.5}>
-      {date ? batteryMap[roundToNearest(date.value)] : batteryMap['absent']}
+      {date ? (
+        <Tooltip placement="left-start" title={`${date.value.toFixed(1)}%`}>
+          {batteryMap[roundToNearest(date.value)]}
+        </Tooltip>
+      ) : (
+        batteryMap['absent']
+      )}
       <PickersDay disabled day={day} {...rest} />
     </Box>
   );
@@ -85,7 +94,7 @@ const BatteriesCalendarComponent = () => {
     );
   };
   return (
-    <>
+    <Stack spacing={5}>
       <Typography variant="h4">{date?.format('MMM DD')}</Typography>
       <Stack
         height="100%"
@@ -115,7 +124,7 @@ const BatteriesCalendarComponent = () => {
         </LocalizationProvider>
         <PhysicalBattery date={date.format('YYYY-MM-DD')} loading={loading} />
       </Stack>
-    </>
+    </Stack>
   );
 };
 

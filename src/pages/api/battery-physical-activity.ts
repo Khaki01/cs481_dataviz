@@ -3,8 +3,10 @@ import fs from 'fs';
 import { join } from 'path';
 import Papa, { ParseResult } from 'papaparse';
 
+export type ActivityBatteryType = 'RUNNING' | 'CYCLING' | 'WORKOUT' | 'OTHERS';
+
 export type PhysicalActivityBattery = {
-  type: string;
+  type: ActivityBatteryType;
   timestamp: string;
   duration: number;
   Calories_Diff: number;

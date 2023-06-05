@@ -6,12 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8b0b28cc-d430-4fab-9798-78eb13de49c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/battery/AnimatedBattery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/AnimatedBattery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/battery/BatteriesCalendarComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/BatteriesCalendarComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/battery/MemoizedWave.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/MemoizedWave.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/battery/PhoneBattery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/PhoneBattery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/battery/PhysicalBattery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/PhysicalBattery.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/battery-exploration/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/battery-exploration/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/battery-phone-usage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/battery-phone-usage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/battery-physical-activity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/battery-physical-activity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +97,7 @@
       <workItem from="1685279242639" duration="3052000" />
       <workItem from="1685409964334" duration="3000" />
       <workItem from="1685874167703" duration="16402000" />
-      <workItem from="1685935906305" duration="5707000" />
+      <workItem from="1685935906305" duration="12554000" />
     </task>
     <servers />
   </component>

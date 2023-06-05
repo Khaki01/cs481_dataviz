@@ -3,11 +3,12 @@ import fs from 'fs';
 import { join } from 'path';
 import Papa, { ParseResult } from 'papaparse';
 
+export type PhoneBatteryCategory = 'Communication' | 'Entertainment' | 'Other';
 export type PhoneUsageBattery = {
   name: string;
   duration_ms: number;
   datetime: string;
-  category: string;
+  category: PhoneBatteryCategory;
   penalty_points: number;
 };
 
