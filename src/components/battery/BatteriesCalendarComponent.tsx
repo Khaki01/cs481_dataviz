@@ -15,8 +15,8 @@ import BatteryCharging80Icon from '@mui/icons-material/BatteryCharging80';
 import BatteryCharging90Icon from '@mui/icons-material/BatteryCharging90';
 import BatteryChargingFullIcon from '@mui/icons-material/BatteryChargingFull';
 import BatteryAlertIcon from '@mui/icons-material/BatteryAlert';
-import PhysicalBattery from './PhysicalBattery';
-import PhoneBattery from './PhoneBattery';
+import PhysicalBattery, { useSharedAnimatePhysicalData } from './PhysicalBattery';
+import PhoneBattery, { useSharedAnimatePhoneData } from './PhoneBattery';
 import json from '../../../public/calendar_total.json';
 
 const roundToNearest = (n: number) => {
@@ -61,12 +61,16 @@ const renderDay = ({ day, ...rest }: PickersDayProps<Dayjs>) => {
 const BatteriesCalendarComponent = () => {
   const [date, setDate] = useState<Dayjs>(dayjs('2019-05-02'));
   const [loading, setLoading] = useState(false);
+  const [, setAnimatePhysicalData] = useSharedAnimatePhysicalData();
+  const [, setAnimatePhoneData] = useSharedAnimatePhoneData();
   const handleChange = async <TDate,>(
     value: TDate | null,
     selectionState?: PickerSelectionState
   ) => {
     await setLoading(true);
     setDate(value as Dayjs);
+    setAnimatePhoneData(false);
+    setAnimatePhysicalData(false);
     setTimeout(() => {
       setLoading(false);
     }, 800);
@@ -83,10 +87,16 @@ const BatteriesCalendarComponent = () => {
   return (
     <>
       <Typography variant="h4">{date?.format('MMM DD')}</Typography>
-      <Stack direction={{ md: 'row', xs: 'column' }} alignItems="center" rowGap={4}>
+      <Stack
+        height="100%"
+        direction={{ md: 'row', xs: 'column' }}
+        alignItems="flex-start"
+        rowGap={4}
+      >
         <PhoneBattery date={date.format('YYYY-MM-DD')} loading={loading} />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar
+            showDaysOutsideCurrentMonth
             shouldDisableDate={shouldDisableDate}
             sx={{
               '& > *': {

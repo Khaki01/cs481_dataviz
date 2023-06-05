@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import BatteryContainer from 'components/battery/FancyBatteryContainer';
-import MemoizedWave from './MemoizedWave';
+import MemoizedWave, { BatteryType } from './MemoizedWave';
 import PumpAnimation from 'components/animated/PumpAnimation';
 import { ScaleLoader } from 'react-spinners';
 import theme from 'styles/theme';
@@ -10,12 +10,14 @@ interface AnimatedBatteryProps {
   percentage: number;
   Icon: React.ReactNode;
   inverse?: boolean;
+  type?: BatteryType;
 }
 const AnimatedBattery = ({
   percentage,
   Icon,
   loading,
   inverse = false,
+  type = 'physical',
 }: AnimatedBatteryProps) => {
   return (
     <Box height="100%" alignItems="flex-end">
@@ -32,7 +34,7 @@ const AnimatedBattery = ({
           </Box>
         ) : (
           <>
-            <MemoizedWave percentage={percentage} inverse={inverse} />
+            <MemoizedWave type={type} percentage={percentage} inverse={inverse} />
             <Box
               sx={{
                 position: 'absolute',
