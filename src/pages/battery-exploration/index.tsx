@@ -4,13 +4,7 @@ import BatteriesCalendarComponent from 'components/battery/BatteriesCalendarComp
 
 const BatterPage = () => {
   return (
-    <Box
-      display="flex"
-      height="calc(100vh - 112px)"
-      flexDirection="column"
-      width="100%"
-      rowGap={2}
-    >
+    <Box display="flex" flexDirection="column" width="100%" rowGap={2}>
       <BatteriesCalendarComponent />
     </Box>
   );
