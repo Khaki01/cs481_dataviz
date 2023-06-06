@@ -2,15 +2,15 @@ import React, { useMemo, useState, useEffect } from 'react';
 import json from '../../../public/dist_app_usage.json';
 import Stack from '@mui/material/Stack';
 import PieChart, { pieColors } from 'components/data/PieChart';
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 import { PlotData } from 'plotly.js';
 import { AppTypeCustom } from './PhoneUsageActivityPlot';
 import Joyride from 'react-joyride';
 import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import moment from 'moment/moment';
-import BoopAnimation from '../animated/BoopAnimation';
-import HelpIconButton from '../HelpIconButton';
+import BoopAnimation from 'components/animated/BoopAnimation';
+import HelpIconButton from 'components/HelpIconButton';
 import Box from '@mui/material/Box';
 import { ScaleLoader } from 'react-spinners';
 import { useSharedIdx } from 'components/data/HealthActivityPlot';
@@ -138,13 +138,7 @@ const PhoneUsageDistAndPie = () => {
               {moment(dayData?.day).format('MMM DD')}
             </Typography>
             <BoopAnimation>
-              <HelpIconButton onStart={handleStartJoyride}>
-                <Box maxWidth={150} p={2}>
-                  <Typography>
-                    You can visualize activities by clicking on pie chart
-                  </Typography>
-                </Box>
-              </HelpIconButton>
+              <HelpIconButton onStart={handleStartJoyride} />
             </BoopAnimation>
           </Box>
         )}

@@ -10,8 +10,8 @@ import { extendArray, generateArray } from 'utils';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Joyride from 'react-joyride';
-import { AirbnbSlider, AirbnbThumbComponent } from '../custom/slider';
-import { useGoalContext } from '../context/GoalProvider';
+import { AirbnbSlider, AirbnbThumbComponent } from 'components/custom/slider';
+import { useGoalContext } from 'components/context/GoalProvider';
 import PumpAnimation from 'components/animated/PumpAnimation';
 import BoopAnimation from 'components/animated/BoopAnimation';
 import Typography from '@mui/material/Typography';
@@ -229,13 +229,7 @@ const HealthActivityPlot = () => {
         graph!"
           />
           <BoopAnimation>
-            <HelpIconButton onStart={handleStartJoyride}>
-              <Box maxWidth={150} p={2}>
-                <Typography>
-                  You can visualize the daily data by clicking on one of the columns
-                </Typography>
-              </Box>
-            </HelpIconButton>
+            <HelpIconButton onStart={handleStartJoyride} />
           </BoopAnimation>
         </ListItem>
 

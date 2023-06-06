@@ -5,10 +5,10 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from 'styles/theme';
-import createEmotionCache from '../createEmoticonCache';
+import createEmotionCache from 'createEmoticonCache';
 import Layout from 'components/layouts/Layout';
 import { SnackbarProvider } from 'notistack';
-import { GoalProvider } from '../components/context/GoalProvider';
+import { GoalProvider } from 'components/context/GoalProvider';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 import 'bootstrap/dist/css/bootstrap.min.css';

@@ -5,13 +5,11 @@ import { PickerSelectionState } from '@mui/x-date-pickers/internals/hooks/usePic
 import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import dayjs, { Dayjs } from 'dayjs';
 import Tooltip from '@mui/material/Tooltip';
-import { Grid } from '@mui/material';
 import BoopAnimation from 'components/animated/BoopAnimation';
 import HelpIconButton from 'components/HelpIconButton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Joyride from 'react-joyride';
-
 import Box from '@mui/material/Box';
 import BatteryCharging20Icon from '@mui/icons-material/BatteryCharging20';
 import BatteryCharging30Icon from '@mui/icons-material/BatteryCharging30';
@@ -128,7 +126,6 @@ const BatteriesCalendarComponent = () => {
       target: '#bpstep2',
       content: (
         <Typography>
-          {' '}
           You can select the day of interest to see the details for that day. Days
           with no data are shown with gray battery. Hover over to see the average
           charge of phone usage and physical activity.
@@ -165,33 +162,17 @@ const BatteriesCalendarComponent = () => {
 
   return (
     <div>
-      <Stack height="100%" spacing={5}>
-        <Grid container direction="row" justifyContent="space-between" spacing={2}>
-          <Grid item>
-            {<Typography variant="h4">{date?.format('MMM DD')}</Typography>}
-          </Grid>
-          <Grid item>
-            {
-              <BoopAnimation>
-                <HelpIconButton onStart={handleStartJoyride}>
-                  <Box maxWidth={150} p={2}>
-                    <Typography>
-                      You can visualize activities by clicking on progress plot or
-                      badge
-                    </Typography>
-                  </Box>
-                </HelpIconButton>
-              </BoopAnimation>
-            }
-          </Grid>
-        </Grid>
-
+      <Stack display="flex" justifyContent="space-between" height="100%" spacing={5}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography variant="h4">{date?.format('MMM DD')}</Typography>
+          <BoopAnimation>
+            <HelpIconButton onStart={handleStartJoyride} />
+          </BoopAnimation>
+        </Box>
         <Stack
           height="100%"
           direction={{ md: 'row', xs: 'column' }}
-          // alignItems="flex-start"
           justifyContent="space-between"
-          // justifyContent="center"
           rowGap={4}
         >
           <PhoneBattery date={date.format('YYYY-MM-DD')} loading={loading} />

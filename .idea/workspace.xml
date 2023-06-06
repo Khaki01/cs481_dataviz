@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b0b28cc-d430-4fab-9798-78eb13de49c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HelpIconButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HelpIconButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/battery/BatteriesCalendarComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/BatteriesCalendarComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/HealthActivityDistAndPie.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/HealthActivityDistAndPie.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/PhoneUsageDistAndPie.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PhoneUsageDistAndPie.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/PieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layouts/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layouts/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +101,7 @@
       <workItem from="1685409964334" duration="3000" />
       <workItem from="1685874167703" duration="16402000" />
       <workItem from="1685935906305" duration="12554000" />
-      <workItem from="1686055213016" duration="1388000" />
+      <workItem from="1686055213016" duration="2501000" />
     </task>
     <servers />
   </component>

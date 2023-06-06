@@ -7,15 +7,15 @@ import theme from 'styles/theme';
 import { extendArray, generateArray } from 'utils';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { AirbnbSlider, AirbnbThumbComponent } from '../custom/slider';
-import { useGoalContext } from '../context/GoalProvider';
-import BoopAnimation from '../animated/BoopAnimation';
+import { AirbnbSlider, AirbnbThumbComponent } from 'components/custom/slider';
+import { useGoalContext } from 'components/context/GoalProvider';
+import BoopAnimation from 'components/animated/BoopAnimation';
 import { ListItem, ListItemText } from '@mui/material';
 import { PlotMouseEvent } from 'plotly.js';
 import { useRouter } from 'next/router';
 import { ScaleLoader } from 'react-spinners';
 import json from '../../../public/task1_phoneUsageBarChartByApp.json';
-import HelpIconButton from '../HelpIconButton';
+import HelpIconButton from 'components/HelpIconButton';
 import Typography from '@mui/material/Typography';
 import { useBetween } from 'use-between';
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded';
@@ -151,7 +151,9 @@ const PhoneUsageActivityPlot = () => {
   }, [appFilter, dailyActivityData, daysFilter, value]);
 
   useEffect(() => {
-    setGraphLoading(false);
+    setTimeout(() => {
+      setGraphLoading(false);
+    }, 500);
     setSliderLoading(false);
   }, [setGraphLoading]);
   const returnScatterData = useMemo(() => {
@@ -266,13 +268,7 @@ const PhoneUsageActivityPlot = () => {
             id="ppstep1"
           />
           <BoopAnimation>
-            <HelpIconButton onStart={handleStartJoyride}>
-              <Box maxWidth={150} p={2}>
-                <Typography>
-                  You can visualize the daily data by clicking on one of the columns
-                </Typography>
-              </Box>
-            </HelpIconButton>
+            <HelpIconButton onStart={handleStartJoyride} />
           </BoopAnimation>
         </ListItem>
 

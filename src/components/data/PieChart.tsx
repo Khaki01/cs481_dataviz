@@ -8,7 +8,7 @@ import { Chip } from '@mui/material';
 import Grid from '@mui/system/Unstable_Grid';
 import Box from '@mui/material/Box';
 import { ScaleLoader } from 'react-spinners';
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 import { useSharedIdx } from 'components/data/HealthActivityPlot';
 import { useSharedApp } from 'components/data/PhoneUsageDistAndPie';
 import { AppTypeCustom } from 'components/data/PhoneUsageActivityPlot';

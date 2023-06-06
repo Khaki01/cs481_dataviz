@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Stack from '@mui/material/Stack';
-import theme from '../../styles/theme';
+import theme from 'styles/theme';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import MultiValuedProgressBar, {
@@ -12,7 +12,7 @@ import json from '../../../public/nested_json_readable.json';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
 import { PlotData } from 'plotly.js';
-import { useGoalContext } from '../context/GoalProvider';
+import { useGoalContext } from 'components/context/GoalProvider';
 import Box from '@mui/material/Box';
 import { ScaleLoader } from 'react-spinners';
 import HelpIconButton from 'components/HelpIconButton';
@@ -176,14 +176,7 @@ const HealthActivityDistAndPie = () => {
                 {moment(dayData?.day).format('MMM DD')}
               </Typography>
               <BoopAnimation>
-                <HelpIconButton onStart={handleStartJoyride}>
-                  <Box maxWidth={150} p={2}>
-                    <Typography>
-                      You can visualize activities by clicking on progress plot or
-                      badge
-                    </Typography>
-                  </Box>
-                </HelpIconButton>
+                <HelpIconButton onStart={handleStartJoyride} />
               </BoopAnimation>
             </Box>
 

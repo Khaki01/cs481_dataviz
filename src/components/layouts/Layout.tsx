@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import Navbar from '../navigation/Navbar';
+import Navbar from 'components/navigation/Navbar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
