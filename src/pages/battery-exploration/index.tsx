@@ -1,10 +1,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import BatteriesCalendarComponent from '../../components/battery/BatteriesCalendarComponent';
+import BatteriesCalendarComponent from 'components/battery/BatteriesCalendarComponent';
 
 const BatterPage = () => {
   return (
-    <Box display="flex" height="100%" flexDirection="column" width="100%" rowGap={2}>
+    <Box display="flex" flexDirection="column" width="100%" rowGap={2}>
       <BatteriesCalendarComponent />
     </Box>
   );

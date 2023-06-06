@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ParseResult } from 'papaparse';
-import { PhysicalDays } from '../../pages/api/health-activity';
+import { PhysicalDays } from 'pages/api/health-activity';
 import moment from 'moment';
 import dynamic from 'next/dynamic';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import theme from 'styles/theme';
-import { extendArray, generateArray } from '../../utils';
+import { extendArray, generateArray } from 'utils';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Joyride from 'react-joyride';
@@ -22,8 +22,15 @@ import { ScaleLoader } from 'react-spinners';
 import HelpIconButton from '../HelpIconButton';
 import { activityMap, ActivityType } from './HealthActivityDistAndPie';
 import { WhatshotOutlined } from '@mui/icons-material';
-import { ListItem, ListItemText } from '@mui/material';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { useBetween } from 'use-between';
 
+const useIdx = () => {
+  return useState<number>();
+};
+
+export const useSharedIdx = () => useBetween(useIdx);
 interface Option<T extends string> {
   label: string;
   value: T;
@@ -47,6 +54,7 @@ const HealthActivityPlot = () => {
   const [graphLoading, setGraphLoading] = useState(true);
   const [daysFilter, setDaysFilter] = useState<number>(7);
   const [activityFilter, setActivityFilter] = useState<ActivityType>('all');
+  const [idx, setIdx] = useSharedIdx();
   const fetchData = async () => {
     try {
       const response = await fetch('api/health-activity');
@@ -77,7 +85,7 @@ const HealthActivityPlot = () => {
   };
 
   const {
-    activity: [value, setValue, remove],
+    activity: [value, setValue],
   } = useGoalContext();
   const handleSlider = (event: Event, newValue: number | number[]) => {
     setGraphLoading(true);
@@ -133,12 +141,16 @@ const HealthActivityPlot = () => {
 
   const handleBarClick = async (event: Readonly<PlotMouseEvent>) => {
     setGraphLoading(true);
+
     const idx = event.points.find((item) => item.pointIndex)?.pointIndex ?? 0;
-    await push({ query: { idx }, href: 'health-details' }, undefined, {
+    setIdx(idx);
+    await push({ hash: 'health-details' }, undefined, {
       scroll: false,
       shallow: true,
     });
-    await setGraphLoading(false);
+    setTimeout(() => {
+      setGraphLoading(false);
+    }, 200);
   };
 
   const [domLoaded, setDomLoaded] = useState(false);
@@ -207,6 +219,27 @@ const HealthActivityPlot = () => {
     WebkitAppearance: 'none',
   };
 
+  // return (
+  //   <Stack sx={{ minHeight: 450 }} spacing={2}>
+  //     <ListItem>
+  //       <ListItemText
+  //         primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
+  //         secondaryTypographyProps={{ variant: 'h6' }}
+  //         primary="Health activity patterns"
+  //         secondary="Track your daily physical activity levels and progress with our interactive
+  //       graph!"
+  //       />
+  //       <BoopAnimation>
+  //         <HelpIconButton>
+  //           <Box maxWidth={150} p={2}>
+  //             <Typography>
+  //               You can visualize the daily data by clicking on one of the columns
+  //             </Typography>
+  //           </Box>
+  //         </HelpIconButton>
+  //       </BoopAnimation>
+  //     </ListItem>
+
   return (
     <div>
       <Stack sx={{ minHeight: 450 }} spacing={2}>
@@ -221,7 +254,7 @@ const HealthActivityPlot = () => {
             primary="Health activity patterns"
             secondary="Track your daily physical activity levels and progress with our interactive
         graph!"
-          ></ListItemText>
+          />
           <BoopAnimation>
             <HelpIconButton onStart={handleStartJoyride}>
               <Box maxWidth={150} p={2}>
@@ -267,33 +300,31 @@ const HealthActivityPlot = () => {
               columnGap={2}
               id="hpstep4"
             >
-              <Box>
-                <PumpAnimation>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <WhatshotOutlined fontSize="large" color="error" />
-                    <Typography color="error" variant="caption">
-                      Calories
-                    </Typography>
-                  </Box>
-                </PumpAnimation>
-              </Box>
+              <PumpAnimation>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <WhatshotOutlined fontSize="large" color="error" />
+                  <Typography color="error" variant="caption">
+                    Calories
+                  </Typography>
+                </Box>
+              </PumpAnimation>
               <AirbnbSlider
                 disabled={activityFilter !== 'all'}
                 valueLabelDisplay="auto"
+                valueLabelFormat={(value) => value + 2000}
                 min={0}
                 value={Number(value) ?? 0}
                 marks={[
-                  { value: 0, label: 0 },
-                  { value: 2250, label: 2250 },
-                  { value: 4500, label: 4500 },
+                  { value: 0, label: 2000 },
+                  { value: 2500, label: 4500 },
                 ]}
                 step={50}
-                max={4500}
+                max={2500}
                 onChange={handleSlider}
                 slots={{ thumb: AirbnbThumbComponent }}
               />
@@ -312,86 +343,66 @@ const HealthActivityPlot = () => {
           </Box>
         )}
         {!graphLoading && (
-          <Plot
-            divId="hpstep5"
-            onHover={(h) => console.log(h)}
-            style={{ cursor: 'pointer' }}
-            onClick={handleBarClick}
-            data={[
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar1,
-                name: 'Goal',
-                marker: {
-                  color: extendArray(Number(days?.length), [
-                    activityFilter === 'all'
-                      ? theme.palette.primary.main
-                      : theme.palette.warning.main,
-                  ]).slice(-daysFilter),
+          <Box minHeight={450}>
+            <Plot
+              divId="hpstep5"
+              style={{ width: '100%' }}
+              onClick={handleBarClick}
+              data={[
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar1,
+                  name: 'Goal',
+                  marker: {
+                    color: extendArray(Number(days?.length), [
+                      activityFilter === 'all'
+                        ? theme.palette.primary.main
+                        : theme.palette.warning.main,
+                    ]).slice(-daysFilter),
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar2,
-                name: 'Extra/Left',
-                marker: {
-                  color: generatedArrayColors,
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar2,
+                  name: 'Extra/Left',
+                  marker: {
+                    color: generatedArrayColors,
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter1,
-                name: 'Goal',
-                marker: {
-                  color: theme.palette.info.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter1,
+                  name: 'Goal',
+                  marker: {
+                    color: theme.palette.info.main,
+                  },
                 },
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter2,
-                name: 'Done',
-                marker: {
-                  color: theme.palette.error.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter2,
+                  name: 'Done',
+                  marker: {
+                    color: theme.palette.error.main,
+                  },
                 },
-              },
-            ]}
-            config={{ displayModeBar: false }}
-            layout={{
-              autosize: true,
-              barmode: 'stack',
-              bargap: 0.3,
-              margin: { t: 0 },
-            }}
-          />
-        )}
-      </Stack>
-      <>
-        {domLoaded && (
-          <div>
-            <Joyride
-              steps={steps}
-              continuous
-              run={runJoyride}
-              callback={handleJoyrideCallback}
-              // disableScrolling={true}
-              styles={{
-                options: {
-                  primaryColor: '#6A6DFF',
-                  textColor: '#000',
-                  width: '100%',
-                  zIndex: 1000,
-                },
+              ]}
+              config={{ displayModeBar: false }}
+              layout={{
+                autosize: true,
+                barmode: 'stack',
+                bargap: 0.3,
+                margin: { t: 0 },
               }}
             />
-          </div>
+          </Box>
         )}
-      </>
+      </Stack>
     </div>
   );
 };

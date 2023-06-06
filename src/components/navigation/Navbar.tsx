@@ -11,22 +11,31 @@ import { useSnackbar } from 'notistack';
 
 const Navbar = () => {
   const { asPath } = useRouter();
-  const currentPath = asPath.split('?')[0];
+  const currentPath = asPath.split('?')[0].split('#')[0];
   const { enqueueSnackbar } = useSnackbar();
   const launchNotifications = () => {
     setTimeout(() => {
-      enqueueSnackbar('Doing well, just charged 15%!', { variant: 'success', anchorOrigin: { horizontal: 'center', vertical: 'top'}, transitionDuration: 2000})
+      enqueueSnackbar('Doing well, just charged 15%!', {
+        variant: 'success',
+        anchorOrigin: { horizontal: 'center', vertical: 'top' },
+        transitionDuration: 2000,
+      });
+      setTimeout(() => {
+        enqueueSnackbar('Feeling good today? Time to walk!', {
+          variant: 'info',
+          anchorOrigin: { horizontal: 'center', vertical: 'top' },
+          transitionDuration: 2000,
+        });
         setTimeout(() => {
-            enqueueSnackbar('Feeling good today? Time to walk!', { variant: 'info', anchorOrigin: { horizontal: 'center', vertical: 'top'}, transitionDuration: 2000})
-            setTimeout(() => {
-                enqueueSnackbar('You just used 5% for instagram, care to exercise more!', { variant: 'warning', anchorOrigin: { horizontal: 'center', vertical: 'top'}, transitionDuration: 2000})
-            }, 3000);
+          enqueueSnackbar('You just used 5% for instagram, care to exercise more!', {
+            variant: 'warning',
+            anchorOrigin: { horizontal: 'center', vertical: 'top' },
+            transitionDuration: 2000,
+          });
         }, 3000);
+      }, 3000);
     }, 3000);
-
-
   };
-
 
   const navItems: { id: string; title: string; link: string }[] = [
     {
@@ -53,13 +62,11 @@ const Navbar = () => {
         alignItems: 'center',
         boxShadow: (theme) => `0 1px 0 0 ${theme.palette.divider}`,
       }}
-
       position="sticky"
       elevation={0}
       component="nav"
       color="secondary"
     >
-
       <Toolbar sx={{ maxWidth: 'lg', width: '100%' }}>
         <Typography
           onClick={launchNotifications}
@@ -91,7 +98,6 @@ const Navbar = () => {
             />
           ))}
         </Tabs>
-
       </Toolbar>
     </AppBar>
   );

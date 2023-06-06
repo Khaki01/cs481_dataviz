@@ -145,7 +145,7 @@ const BatteriesCalendarComponent = () => {
 
   return (
     <div>
-      <Stack spacing={5}>
+      <Stack height="100%" spacing={5}>
         <Grid container direction="row" justifyContent="space-between" spacing={2}>
           <Grid item>
             {<Typography variant="h4">{date?.format('MMM DD')}</Typography>}
@@ -171,6 +171,7 @@ const BatteriesCalendarComponent = () => {
           direction={{ md: 'row', xs: 'column' }}
           // alignItems="flex-start"
           justifyContent="space-between"
+          // justifyContent="center"
           rowGap={4}
         >
           <PhoneBattery date={date.format('YYYY-MM-DD')} loading={loading} />

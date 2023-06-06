@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import theme from 'styles/theme';
-import { extendArray, generateArray } from '../../utils';
+import { extendArray, generateArray } from 'utils';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { AirbnbSlider, AirbnbThumbComponent } from '../custom/slider';
@@ -18,6 +18,10 @@ import json from '../../../public/task1_phoneUsageBarChartByApp.json';
 import HelpIconButton from '../HelpIconButton';
 import Typography from '@mui/material/Typography';
 import { useBetween } from 'use-between';
+import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded';
+import { WhatshotOutlined } from '@mui/icons-material';
+import PumpAnimation from 'components/animated/PumpAnimation';
+import { useSharedIdx } from 'components/data/HealthActivityPlot';
 import Joyride from 'react-joyride';
 
 export type AppType =
@@ -90,7 +94,7 @@ const PhoneUsageActivityPlot = () => {
   const [graphLoading, setGraphLoading] = useSharedLoading();
   const [daysFilter, setDaysFilter] = useState<number>(7);
   const [appFilter, setAppFilter] = useState<AppType>('all');
-
+  const [idx, setSharedIdx] = useSharedIdx();
   const days = dailyActivityData
     ?.find((item) => item)
     ?.data.map((item) => moment(item.date).format('MMM DD'));
@@ -105,7 +109,7 @@ const PhoneUsageActivityPlot = () => {
   };
 
   const {
-    usage: [value, setValue, remove],
+    usage: [value, setValue],
   } = useGoalContext();
   const handleSlider = (event: Event, newValue: number | number[]) => {
     setGraphLoading(true);
@@ -178,7 +182,11 @@ const PhoneUsageActivityPlot = () => {
   const handleBarClick = async (event: Readonly<PlotMouseEvent>) => {
     setGraphLoading(true);
     const idx = event.points.find((item) => item.pointIndex)?.pointIndex ?? 0;
-    await push({ query: { idx } }, undefined, { scroll: false, shallow: true });
+    await push({ hash: 'phone-usage' }, undefined, {
+      scroll: false,
+      shallow: true,
+    });
+    setSharedIdx(idx);
     await setGraphLoading(false);
   };
 
@@ -297,6 +305,20 @@ const PhoneUsageActivityPlot = () => {
               columnGap={2}
               id="ppstep4"
             >
+              <PumpAnimation>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <HourglassBottomRoundedIcon fontSize="large" color="info" />
+                  <Typography color="info.main" variant="caption">
+                    Hours
+                  </Typography>
+                </Box>
+              </PumpAnimation>
+
               <AirbnbSlider
                 valueLabelDisplay="auto"
                 disabled={appFilter !== 'all'}
@@ -326,59 +348,62 @@ const PhoneUsageActivityPlot = () => {
           </Box>
         )}
         {!graphLoading && (
-          <Plot
-            divId="ppstep5"
-            onClick={handleBarClick}
-            data={[
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar1,
-                name: 'Goal',
-                marker: {
-                  color: extendArray(Number(days?.length), [
-                    theme.palette.primary.main,
-                  ]).slice(-daysFilter),
+          <Box minHeight={450}>
+            <Plot
+              divId="ppstep5"
+              style={{ width: '100%' }}
+              onClick={handleBarClick}
+              data={[
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar1,
+                  name: 'Goal',
+                  marker: {
+                    color: extendArray(Number(days?.length), [
+                      theme.palette.primary.main,
+                    ]).slice(-daysFilter),
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar2,
-                name: 'Extra/Left',
-                marker: {
-                  color: generatedArrayColors,
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar2,
+                  name: 'Extra/Left',
+                  marker: {
+                    color: generatedArrayColors,
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter1,
-                name: 'Goal',
-                marker: {
-                  color: theme.palette.info.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter1,
+                  name: 'Goal',
+                  marker: {
+                    color: theme.palette.info.main,
+                  },
                 },
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter2,
-                name: 'Done',
-                marker: {
-                  color: theme.palette.error.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter2,
+                  name: 'Done',
+                  marker: {
+                    color: theme.palette.error.main,
+                  },
                 },
-              },
-            ]}
-            config={{ displayModeBar: false }}
-            layout={{
-              autosize: true,
-              barmode: 'stack',
-              bargap: 0.3,
-              margin: { t: 0 },
-            }}
-          />
+              ]}
+              config={{ displayModeBar: false }}
+              layout={{
+                autosize: true,
+                barmode: 'stack',
+                bargap: 0.3,
+                margin: { t: 0 },
+              }}
+            />
+          </Box>
         )}
       </Stack>
       <>
