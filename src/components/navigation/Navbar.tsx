@@ -15,8 +15,16 @@ const Navbar = () => {
   const { enqueueSnackbar } = useSnackbar();
   const launchNotifications = () => {
     setTimeout(() => {
-      // enqueueSnackbar()
-    });
+      enqueueSnackbar('Doing well, just charged 15%!', { variant: 'success', anchorOrigin: { horizontal: 'center', vertical: 'top'}, transitionDuration: 2000})
+        setTimeout(() => {
+            enqueueSnackbar('Feeling good today? Time to walk!', { variant: 'info', anchorOrigin: { horizontal: 'center', vertical: 'top'}, transitionDuration: 2000})
+            setTimeout(() => {
+                enqueueSnackbar('You just used 5% for instagram, care to exercise more!', { variant: 'warning', anchorOrigin: { horizontal: 'center', vertical: 'top'}, transitionDuration: 2000})
+            }, 3000);
+        }, 3000);
+    }, 3000);
+
+
   };
 
 
@@ -40,7 +48,6 @@ const Navbar = () => {
 
   return (
     <AppBar
-
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -55,6 +62,7 @@ const Navbar = () => {
 
       <Toolbar sx={{ maxWidth: 'lg', width: '100%' }}>
         <Typography
+          onClick={launchNotifications}
           variant="h5"
           component={Link}
           href="/"

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from 'react';
 import { ParseResult } from 'papaparse';
 import { PhysicalDays } from '../../pages/api/health-activity';
@@ -230,7 +229,6 @@ const HealthActivityPlot = () => {
       )}
       {!graphLoading && (
         <Plot
-          onHover={(h) => console.log(h)}
           style={{ cursor: 'pointer' }}
           onClick={handleBarClick}
           data={[
@@ -288,7 +286,6 @@ const HealthActivityPlot = () => {
       )}
     </Stack>
   );
-
 };
 
 export default HealthActivityPlot;

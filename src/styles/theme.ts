@@ -26,6 +26,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#696CFF',
+      contrastText: '#FFFFFF',
     },
     secondary: {
       main: '#FFFFFF',
@@ -46,6 +47,34 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiButtonBase: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '&:hover': {
+            color: theme.palette.primary.main,
+          },
+        }),
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        textPrimary: ({ theme }) => ({
+          '&:hover': {
+            color: theme.palette.primary.main,
+          },
+        }),
+        containedPrimary: ({ theme }) => ({
+          '&:hover': {
+            color: theme.palette.secondary.main,
+          },
+        }),
+        outlinedPrimary: ({ theme }) => ({
+          '&:hover': {
+            color: theme.palette.primary.main,
+          },
+        }),
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: ({ theme }) => ({
