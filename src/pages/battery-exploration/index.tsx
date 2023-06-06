@@ -1,18 +1,13 @@
 import React from 'react';
-import { NextPage } from 'next';
+import Box from '@mui/material/Box';
+import BatteriesCalendarComponent from '../../components/battery/BatteriesCalendarComponent';
 
-import BatteryComponent from 'components/battery/BatteryComponent';
-import CalendarComponent from 'components/battery/CalendarComponent';
-
-const BatteryExplorationPage: NextPage = () => {
+const BatterPage = () => {
   return (
-    <div>
-      <h1>My Calendar App</h1>
-      <BatteryComponent />
-      {/* <CalendarComponent /> */}
-    </div>
+    <Box display="flex" height="100%" flexDirection="column" width="100%" rowGap={2}>
+      <BatteriesCalendarComponent />
+    </Box>
   );
-
 };
 
-export default BatteryExplorationPage;
+export default BatterPage;

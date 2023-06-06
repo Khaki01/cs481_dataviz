@@ -97,6 +97,7 @@ const PhoneUsageActivityPlot = () => {
     setDaysFilter(Number(event.target.value));
   };
 
+  const [sliderLoading, setSliderLoading] = useState(true)
   const handleAppFilterSelect = (event: SelectChangeEvent) => {
     setAppFilter(event.target.value as AppType);
   };
@@ -146,6 +147,7 @@ const PhoneUsageActivityPlot = () => {
 
   useEffect(() => {
     setGraphLoading(false);
+    setSliderLoading(false)
   }, [setGraphLoading]);
   const returnScatterData = useMemo(() => {
     const scatter1Data = dailyActivityData
@@ -155,10 +157,10 @@ const PhoneUsageActivityPlot = () => {
       .find((item) => item.name === 'Total')
       ?.data.map((item) => item.value);
     return {
-      scatter1: scatter1Data?.slice(-daysFilter),
+      scatter1: appFilter === 'all' ? scatter1Data?.slice(-daysFilter) : [],
       scatter2: scatter2Data?.slice(-daysFilter),
     };
-  }, [dailyActivityData, daysFilter, value]);
+  }, [dailyActivityData, daysFilter, value, appFilter]);
 
   const generatedArrayColors = useMemo(() => {
     return generateArray(
@@ -213,7 +215,7 @@ const PhoneUsageActivityPlot = () => {
             </MenuItem>
           ))}
         </Select>
-        {!graphLoading && (
+        {!sliderLoading && (
           <Stack
             display="flex"
             alignItems="center"
@@ -223,6 +225,7 @@ const PhoneUsageActivityPlot = () => {
           >
             <AirbnbSlider
               valueLabelDisplay="auto"
+              disabled={appFilter !== 'all'}
               min={0}
               value={Number(value)}
               marks={[
