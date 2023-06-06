@@ -18,6 +18,7 @@ import { ScaleLoader } from 'react-spinners';
 import HelpIconButton from '../HelpIconButton';
 import BoopAnimation from '../animated/BoopAnimation';
 import Joyride from 'react-joyride';
+
 import { useSharedIdx } from 'components/data/HealthActivityPlot';
 
 interface DailyActivity {
@@ -139,11 +140,6 @@ const HealthActivityDistAndPie = () => {
       disableBeacon: true,
       showProgress: true,
     },
-    // {
-    //   target: '#hp2step7',
-    //   content: 'Freely set the filters here.',
-    //   disableBeacon: true,
-    // },
   ];
 
   const handleStartJoyride = () => {
@@ -184,138 +180,71 @@ const HealthActivityDistAndPie = () => {
               </BoopAnimation>
             </Box>
 
-          {graphLoading && (
-            <Box
-              height={450}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              width="100%"
-            >
-              <ScaleLoader color={theme.palette.primary.main} loading={true} />
-            </Box>
-          )}
-          {!graphLoading && (
-            <Box height={450} width="100%">
-              <Plot
-                data={[
-                  {
-                    x: Array.from(Array(24).keys()),
-                    y: dayData.data.map((item) => item.TOTAL),
-                    type: 'scatter',
-                    name: 'total',
-                    mode: 'lines',
-                    line: {
-                      color: theme.palette.text.primary,
-                      shape: 'spline',
-                      width: 3,
-                    },
-                    fill: 'tozeroy',
-                    fillcolor: `${theme.palette.text.primary}80`,
-                  },
-                  distData,
-                ]}
-                style={{ minHeight: 450 }}
-                config={{ displayModeBar: false }}
-                layout={{
-                  autosize: true,
-                  margin: { t: 0 },
-                  xaxis: {
-                    showgrid: false,
-                    title: 'Hours',
-                    titlefont: {
-                      color: theme.palette.text.primary,
-                    },
-                    range: [1, 24],
-                  },
-                  yaxis: {
-                    showgrid: false,
-                    title: 'Calories',
-                    titlefont: {
-                      color: theme.palette.text.primary,
-                    },
-                  },
-                }}
-              />
-            </Box>
-          )}
-          {progressBarValues.values && (
-            <MultiValuedProgressBar
-              setGraphLoading={setGraphLoading}
-              values={progressBarValues.values}
-            />
-          )}
-          <div id="health-details" />
-        </>
-      )}
-    </Stack>
             {graphLoading && (
               <Box
-                height={506}
+                height={450}
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
                 width="100%"
               >
-                <ScaleLoader
-                  color={theme.palette.primary.main}
-                  loading={graphLoading}
-                />
+                <ScaleLoader color={theme.palette.primary.main} loading={true} />
               </Box>
             )}
             {!graphLoading && (
-              <Plot
-                divId="hp2step6"
-                onInitialized={() => setGraphLoading(false)}
-                data={[
-                  {
-                    x: Array.from(Array(24).keys()),
-                    y: dayData.data.map((item) => item.TOTAL),
-                    type: 'scatter',
-                    name: 'total',
-                    mode: 'lines',
-                    line: {
-                      color: theme.palette.text.primary,
-                      shape: 'spline',
-                      width: 3,
+              <Box height={450} width="100%">
+                <Plot
+                  divId="hp2step6"
+                  data={[
+                    {
+                      x: Array.from(Array(24).keys()),
+                      y: dayData.data.map((item) => item.TOTAL),
+                      type: 'scatter',
+                      name: 'total',
+                      mode: 'lines',
+                      line: {
+                        color: theme.palette.text.primary,
+                        shape: 'spline',
+                        width: 3,
+                      },
+                      fill: 'tozeroy',
+                      fillcolor: `${theme.palette.text.primary}80`,
                     },
-                    fill: 'tozeroy',
-                    fillcolor: `${theme.palette.text.primary}80`,
-                  },
-                  distData,
-                ]}
-                config={{ displayModeBar: false }}
-                layout={{
-                  autosize: true,
-                  margin: { t: 0 },
-                  xaxis: {
-                    showgrid: false,
-                    title: 'Hours',
-                    titlefont: {
-                      color: theme.palette.text.primary,
-                      // family: 'Inter',
+                    distData,
+                  ]}
+                  style={{ minHeight: 450 }}
+                  config={{ displayModeBar: false }}
+                  layout={{
+                    autosize: true,
+                    margin: { t: 0 },
+                    xaxis: {
+                      showgrid: false,
+                      title: 'Hours',
+                      titlefont: {
+                        color: theme.palette.text.primary,
+                      },
+                      range: [1, 24],
                     },
-                    range: [1, 24],
-                  },
-                  yaxis: {
-                    showgrid: false,
-                    title: 'Calories',
-                    titlefont: {
-                      color: theme.palette.text.primary,
-                      // family: 'Inter',
+                    yaxis: {
+                      showgrid: false,
+                      title: 'Calories',
+                      titlefont: {
+                        color: theme.palette.text.primary,
+                      },
                     },
-                  },
-                }}
-              />
-            )}
-            {progressBarValues.values && !graphLoading && (
-              <MultiValuedProgressBar
-                setGraphLoading={setGraphLoading}
-                values={progressBarValues.values}
-              />
+                  }}
+                />
+              </Box>
             )}
           </>
         )}
+        {progressBarValues.values && (
+          <MultiValuedProgressBar
+            setGraphLoading={setGraphLoading}
+            values={progressBarValues.values}
+          />
+        )}
+        <div id="health-details" />
       </Stack>
       <>
         {domLoaded && (

@@ -219,27 +219,6 @@ const HealthActivityPlot = () => {
     WebkitAppearance: 'none',
   };
 
-  // return (
-  //   <Stack sx={{ minHeight: 450 }} spacing={2}>
-  //     <ListItem>
-  //       <ListItemText
-  //         primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
-  //         secondaryTypographyProps={{ variant: 'h6' }}
-  //         primary="Health activity patterns"
-  //         secondary="Track your daily physical activity levels and progress with our interactive
-  //       graph!"
-  //       />
-  //       <BoopAnimation>
-  //         <HelpIconButton>
-  //           <Box maxWidth={150} p={2}>
-  //             <Typography>
-  //               You can visualize the daily data by clicking on one of the columns
-  //             </Typography>
-  //           </Box>
-  //         </HelpIconButton>
-  //       </BoopAnimation>
-  //     </ListItem>
-
   return (
     <div>
       <Stack sx={{ minHeight: 450 }} spacing={2}>
@@ -403,6 +382,41 @@ const HealthActivityPlot = () => {
           </Box>
         )}
       </Stack>
+      <>
+        {domLoaded && (
+          <div>
+            <Joyride
+              steps={steps}
+              continuous
+              run={runJoyride}
+              callback={handleJoyrideCallback}
+              // disableScrolling={true}
+              styles={{
+                options: {
+                  primaryColor: '#6A6DFF',
+                  textColor: '#000',
+                  width: '100%',
+                  zIndex: 1000,
+                },
+                // overlay: {
+                //   // marginTop: 40,
+                //   top: 40,
+                // },
+                // beaconInner: {
+                //   top: 40,
+                //   transform: 'translate(-30%, -30%)',
+                // },
+                // beaconOuter: {
+                //   top: 40,
+                // },
+                // tooltipContainer: {
+
+                // }
+              }}
+            />
+          </div>
+        )}
+      </>
     </div>
   );
 };
