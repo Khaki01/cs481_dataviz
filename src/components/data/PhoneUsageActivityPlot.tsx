@@ -183,12 +183,13 @@ const PhoneUsageActivityPlot = () => {
   const handleBarClick = async (event: Readonly<PlotMouseEvent>) => {
     setGraphLoading(true);
     const idx = event.points.find((item) => item.pointIndex)?.pointIndex ?? 0;
+    setSharedIdx(idx);
     await push({ hash: 'phone-usage' }, undefined, {
-      scroll: false,
       shallow: true,
     });
-    setSharedIdx(idx);
-    await setGraphLoading(false);
+    setTimeout(() => {
+      setGraphLoading(false);
+    }, 200);
   };
 
   const [domLoaded, setDomLoaded] = useState(false);
@@ -323,10 +324,10 @@ const PhoneUsageActivityPlot = () => {
               <AirbnbSlider
                 valueLabelDisplay="auto"
                 disabled={appFilter !== 'all'}
-                min={0}
+                min={2}
                 value={Number(value)}
                 marks={[
-                  { value: 0, label: 0 },
+                  { value: 2, label: 2 },
                   { value: 12, label: 12 },
                 ]}
                 step={1}

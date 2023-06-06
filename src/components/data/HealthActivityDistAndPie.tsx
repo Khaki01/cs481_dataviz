@@ -7,7 +7,7 @@ import MultiValuedProgressBar, {
   MultiValuedProgressBarProps,
   progressBarColors,
   useSharedActivity,
-} from './MultiValuedProgressBar';
+} from 'components/data/MultiValuedProgressBar';
 import json from '../../../public/nested_json_readable.json';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
@@ -113,9 +113,13 @@ const HealthActivityDistAndPie = () => {
     type: 'scatter',
     name: activity,
     mode: 'lines',
-    line: { color: theme.palette.primary.main, shape: 'spline', width: 3 },
+    line: {
+      color: `${progressBarColors[idxColor].color}`,
+      shape: 'spline',
+      width: 3,
+    },
     fill: 'tozeroy',
-    fillcolor: `${progressBarColors[idxColor]}`,
+    fillcolor: `${progressBarColors[idxColor].color}80`,
   };
 
   const [domLoaded, setDomLoaded] = useState(false);
@@ -131,9 +135,8 @@ const HealthActivityDistAndPie = () => {
       target: '#hp2step5',
       content: (
         <Typography>
-          {' '}
           Check what each activity accounts for throughout the day. Click on one of
-          them to see its distribution throgh the day.
+          them to see its distribution through the day.
         </Typography>
       ),
       disableBeacon: true,

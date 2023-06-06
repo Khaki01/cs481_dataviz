@@ -140,11 +140,9 @@ const HealthActivityPlot = () => {
 
   const handleBarClick = async (event: Readonly<PlotMouseEvent>) => {
     setGraphLoading(true);
-
     const idx = event.points.find((item) => item.pointIndex)?.pointIndex ?? 0;
     setIdx(idx);
     await push({ hash: 'health-details' }, undefined, {
-      scroll: false,
       shallow: true,
     });
     setTimeout(() => {

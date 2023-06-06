@@ -110,7 +110,7 @@ const PieChart = () => {
               sx={{
                 background: pieColors[idx],
                 color: 'secondary.main',
-                '&:hover': { background: pieColors[idx] },
+                '&:hover': { background: pieColors[idx], color: 'secondary.main' },
               }}
               label={`${item.name} - ${(
                 (item.value * 100) /
