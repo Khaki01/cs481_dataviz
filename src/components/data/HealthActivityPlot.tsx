@@ -10,16 +10,15 @@ import { extendArray, generateArray } from 'utils';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Joyride from 'react-joyride';
-
 import { AirbnbSlider, AirbnbThumbComponent } from '../custom/slider';
 import { useGoalContext } from '../context/GoalProvider';
-import PumpAnimation from '../animated/PumpAnimation';
-import BoopAnimation from '../animated/BoopAnimation';
+import PumpAnimation from 'components/animated/PumpAnimation';
+import BoopAnimation from 'components/animated/BoopAnimation';
 import Typography from '@mui/material/Typography';
 import { PlotMouseEvent } from 'plotly.js';
 import { useRouter } from 'next/router';
 import { ScaleLoader } from 'react-spinners';
-import HelpIconButton from '../HelpIconButton';
+import HelpIconButton from 'components/HelpIconButton';
 import { activityMap, ActivityType } from './HealthActivityDistAndPie';
 import { WhatshotOutlined } from '@mui/icons-material';
 import ListItem from '@mui/material/ListItem';
@@ -54,7 +53,7 @@ const HealthActivityPlot = () => {
   const [graphLoading, setGraphLoading] = useState(true);
   const [daysFilter, setDaysFilter] = useState<number>(7);
   const [activityFilter, setActivityFilter] = useState<ActivityType>('all');
-  const [idx, setIdx] = useSharedIdx();
+  const [, setIdx] = useSharedIdx();
   const fetchData = async () => {
     try {
       const response = await fetch('api/health-activity');
@@ -165,32 +164,38 @@ const HealthActivityPlot = () => {
   const steps = [
     {
       target: '#hpstep1',
-      content: 'Welcome to the first page of your results display. ',
+      content: (
+        <Typography> Welcome to the first page of your results display. </Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
     },
     {
       target: '#hpstep2',
-      content: 'Freely set the time filters here.',
+      content: <Typography>Freely set the time filters here.</Typography>,
       disableBeacon: true,
       showProgress: true,
     },
     {
       target: '#hpstep3',
-      content: 'Select the type of activity.',
+      content: <Typography>Select the type of activity.</Typography>,
       disableBeacon: true,
       showProgress: true,
     },
     {
       target: '#hpstep4',
-      content: 'Slide the bar to set your target goal.',
+      content: <Typography>Slide the bar to set your target goal.</Typography>,
       disableBeacon: true,
       showProgress: true,
     },
     {
       target: '#hpstep5',
-      content:
-        'Explore the graph to get fresh insights. Click on a bar to see the details for the day.',
+      content: (
+        <Typography>
+          Explore the graph to get fresh insights. Click on a bar to see the details
+          for the day.
+        </Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
     },
@@ -201,22 +206,11 @@ const HealthActivityPlot = () => {
   };
 
   const handleJoyrideCallback = (data: any) => {
-    const { action, status } = data;
+    const { status } = data;
 
     if (status === 'finished' || status === 'skipped') {
       setRunJoyride(false);
     }
-  };
-
-  const buttonReset = {
-    backgroundColor: 'transparent',
-    border: 0,
-    borderRadius: 0,
-    color: '#555',
-    outline: 'none',
-    lineHeight: 1,
-    padding: 8,
-    WebkitAppearance: 'none',
   };
 
   return (
@@ -276,7 +270,7 @@ const HealthActivityPlot = () => {
               alignItems="center"
               width="100%"
               direction="row"
-              columnGap={2}
+              columnGap={3}
               id="hpstep4"
             >
               <PumpAnimation>
@@ -390,28 +384,13 @@ const HealthActivityPlot = () => {
               continuous
               run={runJoyride}
               callback={handleJoyrideCallback}
-              // disableScrolling={true}
               styles={{
                 options: {
-                  primaryColor: '#6A6DFF',
-                  textColor: '#000',
+                  primaryColor: theme.palette.primary.main,
+                  textColor: theme.palette.text.secondary,
                   width: '100%',
-                  zIndex: 1000,
+                  zIndex: theme.zIndex.appBar + 1,
                 },
-                // overlay: {
-                //   // marginTop: 40,
-                //   top: 40,
-                // },
-                // beaconInner: {
-                //   top: 40,
-                //   transform: 'translate(-30%, -30%)',
-                // },
-                // beaconOuter: {
-                //   top: 40,
-                // },
-                // tooltipContainer: {
-
-                // }
               }}
             />
           </div>

@@ -6,7 +6,6 @@ import theme from '../../styles/theme';
 import { PlotData } from 'plotly.js';
 import { AppTypeCustom } from './PhoneUsageActivityPlot';
 import Joyride from 'react-joyride';
-
 import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import moment from 'moment/moment';
@@ -118,7 +117,7 @@ const PhoneUsageDistAndPie = () => {
   };
 
   const handleJoyrideCallback = (data: any) => {
-    const { action, status } = data;
+    const { status } = data;
 
     if (status === 'finished' || status === 'skipped') {
       setRunJoyride1(false);
@@ -216,13 +215,12 @@ const PhoneUsageDistAndPie = () => {
               continuous
               run={runJoyride1}
               callback={handleJoyrideCallback}
-              // disableScrolling={true}
               styles={{
                 options: {
-                  primaryColor: '#6A6DFF',
-                  textColor: '#000',
+                  primaryColor: theme.palette.primary.main,
+                  textColor: theme.palette.text.secondary,
                   width: '100%',
-                  zIndex: 1000,
+                  zIndex: theme.zIndex.appBar + 1,
                 },
               }}
             />

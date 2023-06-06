@@ -43,7 +43,7 @@ const theme = createTheme({
     },
     text: {
       primary: '#566A7F',
-      secondary: '',
+      secondary: '#000000',
     },
   },
   components: {
@@ -88,11 +88,11 @@ const theme = createTheme({
           margin: 0,
           padding: 0,
           height: '100%',
-          fontFamily: 'Dancing script',
+          fontFamily,
           scrollBehavior: 'smooth !important',
         },
         main: {
-          fontFamily: 'Dancing script',
+          fontFamily,
         },
       }),
     },

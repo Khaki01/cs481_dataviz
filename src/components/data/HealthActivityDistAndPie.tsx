@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import theme from '../../styles/theme';
 import dynamic from 'next/dynamic';
@@ -15,8 +15,8 @@ import { PlotData } from 'plotly.js';
 import { useGoalContext } from '../context/GoalProvider';
 import Box from '@mui/material/Box';
 import { ScaleLoader } from 'react-spinners';
-import HelpIconButton from '../HelpIconButton';
-import BoopAnimation from '../animated/BoopAnimation';
+import HelpIconButton from 'components/HelpIconButton';
+import BoopAnimation from 'components/animated/BoopAnimation';
 import Joyride from 'react-joyride';
 
 import { useSharedIdx } from 'components/data/HealthActivityPlot';
@@ -129,14 +129,21 @@ const HealthActivityDistAndPie = () => {
   const steps = [
     {
       target: '#hp2step5',
-      content:
-        'Check what each activity accounts for throughout the day. Click on one of them to see its distribution throgh the day.',
+      content: (
+        <Typography>
+          {' '}
+          Check what each activity accounts for throughout the day. Click on one of
+          them to see its distribution throgh the day.
+        </Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
     },
     {
       target: '#hp2step6',
-      content: 'Explore the distribution of activity by each hour. ',
+      content: (
+        <Typography>Explore the distribution of activity by each hour.</Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
     },
@@ -147,7 +154,7 @@ const HealthActivityDistAndPie = () => {
   };
 
   const handleJoyrideCallback = (data: any) => {
-    const { action, status } = data;
+    const { status } = data;
 
     if (status === 'finished' || status === 'skipped') {
       setRunJoyride1(false);
@@ -254,13 +261,12 @@ const HealthActivityDistAndPie = () => {
               continuous
               run={runJoyride1}
               callback={handleJoyrideCallback}
-              // disableScrolling={true}
               styles={{
                 options: {
-                  primaryColor: '#6A6DFF',
-                  textColor: '#000',
+                  primaryColor: theme.palette.primary.main,
+                  textColor: theme.palette.text.secondary,
                   width: '100%',
-                  zIndex: 1000,
+                  zIndex: theme.zIndex.appBar + 1,
                 },
               }}
             />

@@ -19,7 +19,6 @@ import HelpIconButton from '../HelpIconButton';
 import Typography from '@mui/material/Typography';
 import { useBetween } from 'use-between';
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded';
-import { WhatshotOutlined } from '@mui/icons-material';
 import PumpAnimation from 'components/animated/PumpAnimation';
 import { useSharedIdx } from 'components/data/HealthActivityPlot';
 import Joyride from 'react-joyride';
@@ -202,36 +201,42 @@ const PhoneUsageActivityPlot = () => {
   const steps = [
     {
       target: '#ppstep1',
-      content: 'Welcome to the phone usage page of yours. ',
+      content: <Typography>Welcome to the phone usage page of yours.</Typography>,
       disableBeacon: true,
       showProgress: true,
       scrollOffset: 400,
     },
     {
       target: '#ppstep2',
-      content: 'Freely set the time filters here.',
+      content: <Typography>Freely set the time filters here.</Typography>,
       disableBeacon: true,
       showProgress: true,
       scrollOffset: 400,
     },
     {
       target: '#ppstep3',
-      content: 'Filter by the apps you are interested.',
+      content: <Typography>Filter by the apps you are interested.</Typography>,
       disableBeacon: true,
       showProgress: true,
       scrollOffset: 400,
     },
     {
       target: '#ppstep4',
-      content: 'Slide the bar to the the phone usage goals in hours.',
+      content: (
+        <Typography>Slide the bar to the the phone usage goals in hours.</Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
       scrollOffset: 400,
     },
     {
       target: '#ppstep5',
-      content:
-        'Explore the graph to get fresh insights. Click on a bar to see the details for the day.',
+      content: (
+        <Typography>
+          Explore the graph to get fresh insights. Click on a bar to see the details
+          for the day.
+        </Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
       scrollOffset: 400,
@@ -243,7 +248,7 @@ const PhoneUsageActivityPlot = () => {
   };
 
   const handleJoyrideCallback = (data: any) => {
-    const { action, status } = data;
+    const { status } = data;
 
     if (status === 'finished' || status === 'skipped') {
       setRunJoyride(false);
@@ -302,7 +307,7 @@ const PhoneUsageActivityPlot = () => {
               alignItems="center"
               width="100%"
               direction="row"
-              columnGap={2}
+              columnGap={3}
               id="ppstep4"
             >
               <PumpAnimation>
@@ -414,28 +419,13 @@ const PhoneUsageActivityPlot = () => {
               continuous
               run={runJoyride}
               callback={handleJoyrideCallback}
-              // disableScrolling={true}
               styles={{
                 options: {
-                  primaryColor: '#6A6DFF',
-                  textColor: '#000',
+                  primaryColor: theme.palette.primary.main,
+                  textColor: theme.palette.text.secondary,
                   width: '100%',
-                  zIndex: 1000,
+                  zIndex: theme.zIndex.appBar + 1,
                 },
-                // overlay: {
-                //   // marginTop: 40,
-                //   top: 40,
-                // },
-                // beaconInner: {
-                //   top: 40,
-                //   transform: 'translate(-30%, -30%)',
-                // },
-                // beaconOuter: {
-                //   top: 40,
-                // },
-                // tooltipContainer: {
-
-                // }
               }}
             />
           </div>

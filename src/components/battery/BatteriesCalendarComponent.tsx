@@ -24,6 +24,7 @@ import BatteryAlertIcon from '@mui/icons-material/BatteryAlert';
 import PhysicalBattery, { useSharedAnimatePhysicalData } from './PhysicalBattery';
 import PhoneBattery, { useSharedAnimatePhoneData } from './PhoneBattery';
 import json from '../../../public/calendar_total.json';
+import theme from 'styles/theme';
 
 const roundToNearest = (n: number) => {
   const numbers = [20, 30, 50, 60, 80, 90, 100];
@@ -110,22 +111,41 @@ const BatteriesCalendarComponent = () => {
   const steps = [
     {
       target: '#bpstep1',
-      content:
-        'Shows daily phone usage score. The result is calculated using a simple penalty system. Apps are classified by categories and each category has a penalty factor. For example, health/food category has a low penalty factor. Final penalty is calculated using the total daily duration of app usage and multiplying by its penalty factor. The charge starts to decrease only after exceeding the target daily usage hours. ',
+      content: (
+        <Typography>
+          Shows daily phone usage score. The result is calculated using a simple
+          penalty system. Apps are classified by categories and each category has a
+          penalty factor. For example, health/food category has a low penalty factor.
+          Final penalty is calculated using the total daily duration of app usage and
+          multiplying by its penalty factor. The charge starts to decrease only after
+          exceeding the target daily usage hours.
+        </Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
     },
     {
       target: '#bpstep2',
-      content:
-        'You can select the day of interest to see the details for that day. Days with no data are shown with gray battery. Hover over to see the average charge of phone usage and physical activity.',
+      content: (
+        <Typography>
+          {' '}
+          You can select the day of interest to see the details for that day. Days
+          with no data are shown with gray battery. Hover over to see the average
+          charge of phone usage and physical activity.
+        </Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
     },
     {
       target: '#bpstep3',
-      content:
-        'Shows daily physical activity. Given the set calorie goal, each physical activity accounts for that goal are calculated. If reaching and exceeding the goal, charge remains at 100%',
+      content: (
+        <Typography>
+          Shows daily physical activity. Given the set calorie goal, each physical
+          activity accounts for that goal are calculated. If reaching and exceeding
+          the goal, charge remains at 100%
+        </Typography>
+      ),
       disableBeacon: true,
       showProgress: true,
     },
@@ -136,7 +156,7 @@ const BatteriesCalendarComponent = () => {
   };
 
   const handleJoyrideCallback = (data: any) => {
-    const { action, status } = data;
+    const { status } = data;
 
     if (status === 'finished' || status === 'skipped') {
       setRunJoyride1(false);
@@ -207,13 +227,12 @@ const BatteriesCalendarComponent = () => {
               continuous
               run={runJoyride1}
               callback={handleJoyrideCallback}
-              // disableScrolling={true}
               styles={{
                 options: {
-                  primaryColor: '#6A6DFF',
-                  textColor: '#000',
+                  primaryColor: theme.palette.primary.main,
+                  textColor: theme.palette.text.secondary,
                   width: '500px',
-                  zIndex: 1000,
+                  zIndex: theme.zIndex.appBar + 1,
                 },
               }}
             />
