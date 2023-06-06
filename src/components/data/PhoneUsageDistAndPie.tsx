@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import json from '../../../public/dist_app_usage.json';
 import Stack from '@mui/material/Stack';
-import { useRouter } from 'next/router';
 import PieChart, { pieColors } from 'components/data/PieChart';
 import theme from '../../styles/theme';
 import { PlotData } from 'plotly.js';
 import { AppTypeCustom } from './PhoneUsageActivityPlot';
-
 import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import moment from 'moment/moment';
@@ -14,6 +12,9 @@ import BoopAnimation from '../animated/BoopAnimation';
 import HelpIconButton from '../HelpIconButton';
 import Box from '@mui/material/Box';
 import { ScaleLoader } from 'react-spinners';
+import { useSharedIdx } from 'components/data/HealthActivityPlot';
+import { useBetween } from 'use-between';
+
 interface DistDataType {
   day: string;
   data: {
@@ -45,40 +46,46 @@ const appTypesCustom = [
   '카카오페이지',
   '트위터',
 ];
+
+const useApp = () => {
+  return useState<AppTypeCustom>();
+};
+
+export const useSharedApp = () => useBetween(useApp);
 const PhoneUsageDistAndPie = () => {
-  const { query } = useRouter();
   const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
-  const [graphLoading, setGraphLoading] = useState(false);
+  const [app, setApp] = useSharedApp();
+  const [graphLoading] = useState(false);
   const distData = json as DistDataType[];
+  const [idx] = useSharedIdx();
   const dayData = useMemo<DistDataType>(() => {
-    const day = Number(query?.idx ?? 0);
+    const day = Number(idx);
     if (day >= 0 && day <= 6) {
       return distData[day];
     }
     return { day: '', data: [] };
-  }, [distData, query?.idx]);
+  }, [distData, idx]);
 
   const activityData = useMemo(() => {
-    const activity = query?.app as AppTypeCustom;
-    return activity ? dayData.data.map((item) => item[activity] ?? 0) : [];
-  }, [dayData.data, query?.app]);
+    return app ? dayData.data.map((item) => item[app] ?? 0) : [];
+  }, [app, dayData.data]);
 
   const distAppData: Partial<PlotData> = useMemo(() => {
     return {
       x: Array.from(Array(24).keys()),
       y: activityData,
       type: 'scatter',
-      name: String(query?.app),
+      name: String(app),
       mode: 'lines',
       line: {
-        color: pieColors[appTypesCustom.indexOf(String(query?.app))],
+        color: pieColors[appTypesCustom.indexOf(String(app))],
         shape: 'spline',
         width: 3,
       },
       fill: 'tozeroy',
-      fillcolor: `${pieColors[appTypesCustom.indexOf(String(query?.app))]}80`,
+      fillcolor: `${pieColors[appTypesCustom.indexOf(String(app))]}80`,
     };
-  }, [activityData, query?.app]);
+  }, [activityData, app]);
 
   return (
     <Stack width="100%" spacing={2}>
@@ -115,47 +122,50 @@ const PhoneUsageDistAndPie = () => {
         </Box>
       )}
       {!graphLoading && (
-        <Plot
-          onInitialized={() => setGraphLoading(false)}
-          data={[
-            {
-              x: Array.from(Array(24).keys()),
-              y: dayData.data.map((item) => item.Total),
-              type: 'scatter',
-              name: 'total',
-              mode: 'lines',
-              line: {
-                color: theme.palette.text.primary,
-                shape: 'spline',
-                width: 3,
+        <Box minHeight={450}>
+          <Plot
+            style={{ width: '100%' }}
+            data={[
+              {
+                x: Array.from(Array(24).keys()),
+                y: dayData.data.map((item) => item.Total),
+                type: 'scatter',
+                name: 'total',
+                mode: 'lines',
+                line: {
+                  color: theme.palette.text.primary,
+                  shape: 'spline',
+                  width: 3,
+                },
+                fill: 'tozeroy',
+                fillcolor: `${theme.palette.text.primary}80`,
               },
-              fill: 'tozeroy',
-              fillcolor: `${theme.palette.text.primary}80`,
-            },
-            distAppData,
-          ]}
-          config={{ displayModeBar: false }}
-          layout={{
-            autosize: true,
-            margin: { t: 0 },
-            xaxis: {
-              showgrid: false,
-              title: 'Hours',
-              titlefont: {
-                color: theme.palette.text.primary,
+              distAppData,
+            ]}
+            config={{ displayModeBar: false }}
+            layout={{
+              autosize: true,
+              margin: { t: 0 },
+              xaxis: {
+                showgrid: false,
+                title: 'Hours',
+                titlefont: {
+                  color: theme.palette.text.primary,
+                },
+                range: [1, 23],
               },
-              range: [1, 23],
-            },
-            yaxis: {
-              showgrid: false,
-              title: 'Minutes',
-              titlefont: {
-                color: theme.palette.text.primary,
+              yaxis: {
+                showgrid: false,
+                title: 'Minutes',
+                titlefont: {
+                  color: theme.palette.text.primary,
+                },
               },
-            },
-          }}
-        />
+            }}
+          />
+        </Box>
       )}
+      <div id="phone-usage" />
       <PieChart />
     </Stack>
   );

@@ -1,11 +1,11 @@
-import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
+import React, { Dispatch, MouseEventHandler, SetStateAction, useState } from 'react';
 import ProgressBar, { ProgressBarProps } from 'react-bootstrap/ProgressBar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/system/Unstable_Grid';
 import { Badge } from 'react-bootstrap';
-import { useRouter } from 'next/router';
 import { ActivityType } from './HealthActivityDistAndPie';
+import { useBetween } from 'use-between';
 
 export interface MultiValuedProgressBarProps {
   setGraphLoading: Dispatch<SetStateAction<boolean>>;
@@ -15,20 +15,27 @@ export interface MultiValuedProgressBarProps {
   }[];
 }
 
-const colors: ProgressBarProps['color'][] = ['success', 'danger', 'warning', 'info'];
+export const progressBarColors: ProgressBarProps['color'][] = [
+  'success',
+  'danger',
+  'warning',
+  'info',
+];
 
+const useActivity = () => {
+  return useState<ActivityType>('running');
+};
+
+export const useSharedActivity = () => useBetween(useActivity);
 const MultiValuedProgressBar = ({
   values,
   setGraphLoading,
 }: MultiValuedProgressBarProps) => {
-  const { query, push } = useRouter();
+  const [, setActivity] = useSharedActivity();
   const handleClick: (label: ActivityType) => MouseEventHandler<HTMLInputElement> =
     (label) => async (event) => {
       setGraphLoading(true);
-      await push({ query: { ...query, act: label } }, undefined, {
-        scroll: false,
-        shallow: true,
-      });
+      setActivity(label);
       setTimeout(() => {
         setGraphLoading(false);
       }, 250);
@@ -42,7 +49,7 @@ const MultiValuedProgressBar = ({
             style={{ cursor: 'pointer' }}
             striped
             onClick={handleClick(item.name)}
-            variant={colors[idx]}
+            variant={progressBarColors[idx]}
             animated
             key={item.value}
             now={Math.round(item.value) ?? 1}
@@ -56,7 +63,7 @@ const MultiValuedProgressBar = ({
               defaultValue={item.name}
               onClick={handleClick(item.name)}
               style={{ cursor: 'pointer' }}
-              bg={colors[idx]}
+              bg={progressBarColors[idx]}
             >
               <Typography>
                 {item.name} {item.value.toFixed(2)}%

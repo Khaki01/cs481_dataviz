@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import Stack from '@mui/material/Stack';
 import theme from '../../styles/theme';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import MultiValuedProgressBar, {
   MultiValuedProgressBarProps,
+  progressBarColors,
+  useSharedActivity,
 } from './MultiValuedProgressBar';
 import json from '../../../public/nested_json_readable.json';
 import Typography from '@mui/material/Typography';
@@ -15,6 +17,7 @@ import Box from '@mui/material/Box';
 import { ScaleLoader } from 'react-spinners';
 import HelpIconButton from '../HelpIconButton';
 import BoopAnimation from '../animated/BoopAnimation';
+import { useSharedIdx } from 'components/data/HealthActivityPlot';
 
 interface DailyActivity {
   day: string;
@@ -39,15 +42,16 @@ export const activityMap: { [key in ActivityType]: ActivityProp } = {
 const HealthActivityDistAndPie = () => {
   const { query } = useRouter();
   const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
-
   const dailyActivityData = json as DailyActivity[];
+  const [activity] = useSharedActivity();
+  const [idx] = useSharedIdx();
   const dayData = useMemo<DailyActivity>(() => {
-    const day = Number(query?.idx);
+    const day = Number(idx);
     if (day >= 0 && day <= 6) {
       return dailyActivityData[day];
     }
     return { day: '', data: [] };
-  }, [dailyActivityData, query?.idx]);
+  }, [dailyActivityData, idx]);
 
   const [graphLoading, setGraphLoading] = useState(true);
   useEffect(() => {
@@ -56,22 +60,10 @@ const HealthActivityDistAndPie = () => {
     }, 250);
   }, []);
   const activityData = useMemo(() => {
-    const activity = query?.act as ActivityType;
     return activity
       ? dayData.data.map((item) => item[activityMap[activity]] ?? 0)
       : [];
-  }, [dayData.data, query?.act]);
-
-  const distData: Partial<PlotData> = {
-    x: Array.from(Array(24).keys()),
-    y: activityData,
-    type: 'scatter',
-    name: String(query?.act),
-    mode: 'lines',
-    line: { color: theme.palette.primary.main, shape: 'spline', width: 3 },
-    fill: 'tozeroy',
-    fillcolor: `${theme.palette.primary.main}80`,
-  };
+  }, [activity, dayData.data]);
 
   const {
     activity: [value],
@@ -107,6 +99,23 @@ const HealthActivityDistAndPie = () => {
     };
   }, [dayData.data, value]);
 
+  const idxColor = useMemo(() => {
+    return (
+      progressBarValues?.values?.map((item) => item.name).indexOf(activity) ?? 0
+    );
+  }, [activity, progressBarValues?.values]);
+
+  const distData: Partial<PlotData> = {
+    x: Array.from(Array(24).keys()),
+    y: activityData,
+    type: 'scatter',
+    name: activity,
+    mode: 'lines',
+    line: { color: theme.palette.primary.main, shape: 'spline', width: 3 },
+    fill: 'tozeroy',
+    fillcolor: `${progressBarColors[idxColor]}`,
+  };
+
   return (
     <Stack width="100%" spacing={2}>
       {dayData && (
@@ -134,72 +143,70 @@ const HealthActivityDistAndPie = () => {
 
           {graphLoading && (
             <Box
-              height={506}
+              height={450}
               display="flex"
               justifyContent="center"
               alignItems="center"
               width="100%"
             >
-              <ScaleLoader
-                color={theme.palette.primary.main}
-                loading={graphLoading}
-              />
+              <ScaleLoader color={theme.palette.primary.main} loading={true} />
             </Box>
           )}
           {!graphLoading && (
-            <Plot
-              onInitialized={() => setGraphLoading(false)}
-              data={[
-                {
-                  x: Array.from(Array(24).keys()),
-                  y: dayData.data.map((item) => item.TOTAL),
-                  type: 'scatter',
-                  name: 'total',
-                  mode: 'lines',
-                  line: {
-                    color: theme.palette.text.primary,
-                    shape: 'spline',
-                    width: 3,
+            <Box height={450} width="100%">
+              <Plot
+                data={[
+                  {
+                    x: Array.from(Array(24).keys()),
+                    y: dayData.data.map((item) => item.TOTAL),
+                    type: 'scatter',
+                    name: 'total',
+                    mode: 'lines',
+                    line: {
+                      color: theme.palette.text.primary,
+                      shape: 'spline',
+                      width: 3,
+                    },
+                    fill: 'tozeroy',
+                    fillcolor: `${theme.palette.text.primary}80`,
                   },
-                  fill: 'tozeroy',
-                  fillcolor: `${theme.palette.text.primary}80`,
-                },
-                distData,
-              ]}
-              config={{ displayModeBar: false }}
-              layout={{
-                autosize: true,
-                margin: { t: 0 },
-                xaxis: {
-                  showgrid: false,
-                  title: 'Hours',
-                  titlefont: {
-                    color: theme.palette.text.primary,
-                    // family: 'Inter',
+                  distData,
+                ]}
+                style={{ minHeight: 450 }}
+                config={{ displayModeBar: false }}
+                layout={{
+                  autosize: true,
+                  margin: { t: 0 },
+                  xaxis: {
+                    showgrid: false,
+                    title: 'Hours',
+                    titlefont: {
+                      color: theme.palette.text.primary,
+                    },
+                    range: [1, 24],
                   },
-                  range: [1, 24],
-                },
-                yaxis: {
-                  showgrid: false,
-                  title: 'Calories',
-                  titlefont: {
-                    color: theme.palette.text.primary,
-                    // family: 'Inter',
+                  yaxis: {
+                    showgrid: false,
+                    title: 'Calories',
+                    titlefont: {
+                      color: theme.palette.text.primary,
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </Box>
           )}
-          {progressBarValues.values && !graphLoading && (
+          {progressBarValues.values && (
             <MultiValuedProgressBar
               setGraphLoading={setGraphLoading}
               values={progressBarValues.values}
             />
           )}
+          <div id="health-details" />
         </>
       )}
     </Stack>
   );
 };
 
-export default HealthActivityDistAndPie;
+export default React.memo(HealthActivityDistAndPie);

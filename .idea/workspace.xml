@@ -9,9 +9,17 @@
       <change beforePath="$PROJECT_DIR$/src/components/battery/BatteriesCalendarComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/BatteriesCalendarComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/battery/PhoneBattery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/PhoneBattery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/battery/PhysicalBattery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/battery/PhysicalBattery.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/battery-phone-usage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/battery-phone-usage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/battery-physical-activity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/battery-physical-activity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/HealthActivityDistAndPie.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/HealthActivityDistAndPie.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/MultiValuedProgressBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/MultiValuedProgressBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/PhoneUsageDistAndPie.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PhoneUsageDistAndPie.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/PieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navigation/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navigation/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/health-activity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/health-activity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/battery-exploration/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/battery-exploration/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/health-activity/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/health-activity/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/phone-usage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/phone-usage/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
