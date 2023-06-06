@@ -119,6 +119,7 @@ const PhoneBattery = ({ loading, date }: PhoneBatteryProps) => {
       direction="column"
       alignItems="center"
       spacing={2}
+      id="bpstep1"
     >
       <Typography variant="h5">Daily phone usage</Typography>
       <AnimatedBattery

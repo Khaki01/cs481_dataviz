@@ -149,32 +149,42 @@ const HealthActivityPlot = () => {
     setDomLoaded(true);
   }, []);
 
+  // match component ids with order and content of steps
   const steps = [
     {
       target: '#hpstep1',
       content: 'Welcome to the first page of your results display. ',
       disableBeacon: true,
+      showProgress: true,
     },
     {
       target: '#hpstep2',
-      content: 'Freely set the filters here.',
+      content: 'Freely set the time filters here.',
       disableBeacon: true,
+      showProgress: true,
     },
     {
       target: '#hpstep3',
-      content: 'This another awesome feature!',
+      content: 'Select the type of activity.',
       disableBeacon: true,
+      showProgress: true,
     },
     {
       target: '#hpstep4',
-      content: 'This another awesome feature!',
-      disableBeacon: false,
+      content: 'Slide the bar to set your target goal.',
+      disableBeacon: true,
+      showProgress: true,
+    },
+    {
+      target: '#hpstep5',
+      content:
+        'Explore the graph to get fresh insights. Click on a bar to see the details for the day.',
+      disableBeacon: true,
+      showProgress: true,
     },
   ];
 
   const handleStartJoyride = () => {
-    console.log('clicked1');
-
     setRunJoyride(true);
   };
 
@@ -184,6 +194,17 @@ const HealthActivityPlot = () => {
     if (status === 'finished' || status === 'skipped') {
       setRunJoyride(false);
     }
+  };
+
+  const buttonReset = {
+    backgroundColor: 'transparent',
+    border: 0,
+    borderRadius: 0,
+    color: '#555',
+    outline: 'none',
+    lineHeight: 1,
+    padding: 8,
+    WebkitAppearance: 'none',
   };
 
   return (
@@ -292,7 +313,7 @@ const HealthActivityPlot = () => {
         )}
         {!graphLoading && (
           <Plot
-            divId="hpstep??"
+            divId="hpstep5"
             onHover={(h) => console.log(h)}
             style={{ cursor: 'pointer' }}
             onClick={handleBarClick}
@@ -358,7 +379,15 @@ const HealthActivityPlot = () => {
               continuous
               run={runJoyride}
               callback={handleJoyrideCallback}
-              disableScrolling={true}
+              // disableScrolling={true}
+              styles={{
+                options: {
+                  primaryColor: '#6A6DFF',
+                  textColor: '#000',
+                  width: '100%',
+                  zIndex: 1000,
+                },
+              }}
             />
           </div>
         )}

@@ -1,11 +1,11 @@
-import React, { Dispatch, MouseEventHandler, SetStateAction } from "react";
-import ProgressBar, { ProgressBarProps } from "react-bootstrap/ProgressBar";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Grid from "@mui/system/Unstable_Grid";
-import { Badge } from "react-bootstrap";
-import { useRouter } from "next/router";
-import { ActivityType } from "./HealthActivityDistAndPie";
+import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
+import ProgressBar, { ProgressBarProps } from 'react-bootstrap/ProgressBar';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Grid from '@mui/system/Unstable_Grid';
+import { Badge } from 'react-bootstrap';
+import { useRouter } from 'next/router';
+import { ActivityType } from './HealthActivityDistAndPie';
 
 export interface MultiValuedProgressBarProps {
   setGraphLoading: Dispatch<SetStateAction<boolean>>;
@@ -15,30 +15,24 @@ export interface MultiValuedProgressBarProps {
   }[];
 }
 
-const colors: ProgressBarProps["color"][] = [
-  "success",
-  "danger",
-  "warning",
-  "info",
-];
+const colors: ProgressBarProps['color'][] = ['success', 'danger', 'warning', 'info'];
 
 const MultiValuedProgressBar = ({
   values,
   setGraphLoading,
 }: MultiValuedProgressBarProps) => {
   const { query, push } = useRouter();
-  const handleClick: (
-    label: ActivityType
-  ) => MouseEventHandler<HTMLInputElement> = (label) => async (event) => {
-    setGraphLoading(true);
-    await push({ query: { ...query, act: label } }, undefined, {
-      scroll: false,
-      shallow: true,
-    });
-    setTimeout(() => {
-      setGraphLoading(false);
-    }, 250);
-  };
+  const handleClick: (label: ActivityType) => MouseEventHandler<HTMLInputElement> =
+    (label) => async (event) => {
+      setGraphLoading(true);
+      await push({ query: { ...query, act: label } }, undefined, {
+        scroll: false,
+        shallow: true,
+      });
+      setTimeout(() => {
+        setGraphLoading(false);
+      }, 250);
+    };
 
   return (
     <Box
@@ -46,12 +40,12 @@ const MultiValuedProgressBar = ({
       flexDirection="column"
       rowGap={2}
       maxWidth="50%"
-      id="hpstep5"
+      id="hp2step5"
     >
       <ProgressBar>
         {values.map((item, idx) => (
           <ProgressBar
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             striped
             onClick={handleClick(item.name)}
             variant={colors[idx]}
@@ -67,7 +61,7 @@ const MultiValuedProgressBar = ({
             <Badge
               defaultValue={item.name}
               onClick={handleClick(item.name)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
               bg={colors[idx]}
             >
               <Typography>

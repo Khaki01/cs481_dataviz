@@ -89,6 +89,7 @@ const PhysicalBattery = ({ loading, date }: PhysicalBatteryProps) => {
       direction="column"
       alignItems="center"
       spacing={2}
+      id="bpstep3"
     >
       <Typography variant="h5">Daily physical activity</Typography>
       <AnimatedBattery
