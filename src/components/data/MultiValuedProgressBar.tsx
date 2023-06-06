@@ -42,7 +42,13 @@ const MultiValuedProgressBar = ({
     };
 
   return (
-    <Box display="flex" flexDirection="column" rowGap={2} maxWidth="50%">
+    <Box
+      display="flex"
+      flexDirection="column"
+      rowGap={2}
+      maxWidth="50%"
+      id="hp2step5"
+    >
       <ProgressBar>
         {values.map((item, idx) => (
           <ProgressBar

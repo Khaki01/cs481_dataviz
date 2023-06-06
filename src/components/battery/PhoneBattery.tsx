@@ -113,7 +113,14 @@ const PhoneBattery = ({ loading, date }: PhoneBatteryProps) => {
   }, []);
 
   return (
-    <Stack width={300} direction="column" alignItems="center" spacing={2}>
+    <Stack
+      height="100%"
+      width={300}
+      direction="column"
+      alignItems="center"
+      spacing={2}
+      id="bpstep1"
+    >
       <Typography variant="h5">Daily phone usage</Typography>
       <AnimatedBattery
         type="phone"

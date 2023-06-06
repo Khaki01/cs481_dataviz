@@ -17,6 +17,8 @@ import Box from '@mui/material/Box';
 import { ScaleLoader } from 'react-spinners';
 import HelpIconButton from '../HelpIconButton';
 import BoopAnimation from '../animated/BoopAnimation';
+import Joyride from 'react-joyride';
+
 import { useSharedIdx } from 'components/data/HealthActivityPlot';
 
 interface DailyActivity {
@@ -116,96 +118,156 @@ const HealthActivityDistAndPie = () => {
     fillcolor: `${progressBarColors[idxColor]}`,
   };
 
-  return (
-    <Stack width="100%" spacing={2}>
-      {dayData && (
-        <>
-          <Box
-            alignItems="center"
-            width="100%"
-            display="flex"
-            justifyContent="space-between"
-          >
-            <Typography variant="h6">
-              {moment(dayData?.day).format('MMM DD')}
-            </Typography>
-            <BoopAnimation>
-              <HelpIconButton>
-                <Box maxWidth={150} p={2}>
-                  <Typography>
-                    You can visualize activities by clicking on progress plot or
-                    badge
-                  </Typography>
-                </Box>
-              </HelpIconButton>
-            </BoopAnimation>
-          </Box>
+  const [domLoaded, setDomLoaded] = useState(false);
+  const [runJoyride1, setRunJoyride1] = useState(false);
 
-          {graphLoading && (
+  useEffect(() => {
+    setRunJoyride1(false);
+    setDomLoaded(true);
+  }, []);
+
+  const steps = [
+    {
+      target: '#hp2step5',
+      content:
+        'Check what each activity accounts for throughout the day. Click on one of them to see its distribution throgh the day.',
+      disableBeacon: true,
+      showProgress: true,
+    },
+    {
+      target: '#hp2step6',
+      content: 'Explore the distribution of activity by each hour. ',
+      disableBeacon: true,
+      showProgress: true,
+    },
+  ];
+
+  const handleStartJoyride = () => {
+    setRunJoyride1(true);
+  };
+
+  const handleJoyrideCallback = (data: any) => {
+    const { action, status } = data;
+
+    if (status === 'finished' || status === 'skipped') {
+      setRunJoyride1(false);
+    }
+  };
+
+  return (
+    <div>
+      <Stack width="100%" spacing={2}>
+        {dayData && (
+          <>
             <Box
-              height={450}
-              display="flex"
-              justifyContent="center"
               alignItems="center"
               width="100%"
+              display="flex"
+              justifyContent="space-between"
             >
-              <ScaleLoader color={theme.palette.primary.main} loading={true} />
+              <Typography variant="h6">
+                {moment(dayData?.day).format('MMM DD')}
+              </Typography>
+              <BoopAnimation>
+                <HelpIconButton onStart={handleStartJoyride}>
+                  <Box maxWidth={150} p={2}>
+                    <Typography>
+                      You can visualize activities by clicking on progress plot or
+                      badge
+                    </Typography>
+                  </Box>
+                </HelpIconButton>
+              </BoopAnimation>
             </Box>
-          )}
-          {!graphLoading && (
-            <Box height={450} width="100%">
-              <Plot
-                data={[
-                  {
-                    x: Array.from(Array(24).keys()),
-                    y: dayData.data.map((item) => item.TOTAL),
-                    type: 'scatter',
-                    name: 'total',
-                    mode: 'lines',
-                    line: {
-                      color: theme.palette.text.primary,
-                      shape: 'spline',
-                      width: 3,
+
+            {graphLoading && (
+              <Box
+                height={450}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                width="100%"
+              >
+                <ScaleLoader color={theme.palette.primary.main} loading={true} />
+              </Box>
+            )}
+            {!graphLoading && (
+              <Box height={450} width="100%">
+                <Plot
+                  divId="hp2step6"
+                  data={[
+                    {
+                      x: Array.from(Array(24).keys()),
+                      y: dayData.data.map((item) => item.TOTAL),
+                      type: 'scatter',
+                      name: 'total',
+                      mode: 'lines',
+                      line: {
+                        color: theme.palette.text.primary,
+                        shape: 'spline',
+                        width: 3,
+                      },
+                      fill: 'tozeroy',
+                      fillcolor: `${theme.palette.text.primary}80`,
                     },
-                    fill: 'tozeroy',
-                    fillcolor: `${theme.palette.text.primary}80`,
-                  },
-                  distData,
-                ]}
-                style={{ minHeight: 450 }}
-                config={{ displayModeBar: false }}
-                layout={{
-                  autosize: true,
-                  margin: { t: 0 },
-                  xaxis: {
-                    showgrid: false,
-                    title: 'Hours',
-                    titlefont: {
-                      color: theme.palette.text.primary,
+                    distData,
+                  ]}
+                  style={{ minHeight: 450 }}
+                  config={{ displayModeBar: false }}
+                  layout={{
+                    autosize: true,
+                    margin: { t: 0 },
+                    xaxis: {
+                      showgrid: false,
+                      title: 'Hours',
+                      titlefont: {
+                        color: theme.palette.text.primary,
+                      },
+                      range: [1, 24],
                     },
-                    range: [1, 24],
-                  },
-                  yaxis: {
-                    showgrid: false,
-                    title: 'Calories',
-                    titlefont: {
-                      color: theme.palette.text.primary,
+                    yaxis: {
+                      showgrid: false,
+                      title: 'Calories',
+                      titlefont: {
+                        color: theme.palette.text.primary,
+                      },
                     },
-                  },
-                }}
-              />
-            </Box>
-          )}
-          {progressBarValues.values && (
-            <MultiValuedProgressBar
-              setGraphLoading={setGraphLoading}
-              values={progressBarValues.values}
+                  }}
+                />
+              </Box>
+            )}
+          </>
+        )}
+        {progressBarValues.values && (
+          <MultiValuedProgressBar
+            setGraphLoading={setGraphLoading}
+            values={progressBarValues.values}
+          />
+        )}
+        <div id="health-details" />
+      </Stack>
+      <>
+        {domLoaded && (
+          <div>
+            <Joyride
+              steps={steps}
+              continuous
+              run={runJoyride1}
+              callback={handleJoyrideCallback}
+              // disableScrolling={true}
+              styles={{
+                options: {
+                  primaryColor: '#6A6DFF',
+                  textColor: '#000',
+                  width: '100%',
+                  zIndex: 1000,
+                },
+              }}
             />
-          )}
-          <div id="health-details" />
-        </>
-      )}
-    </Stack>
+          </div>
+        )}
+      </>
+    </div>
   );
 };
 

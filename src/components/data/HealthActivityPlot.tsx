@@ -9,6 +9,8 @@ import theme from 'styles/theme';
 import { extendArray, generateArray } from 'utils';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Joyride from 'react-joyride';
+
 import { AirbnbSlider, AirbnbThumbComponent } from '../custom/slider';
 import { useGoalContext } from '../context/GoalProvider';
 import PumpAnimation from '../animated/PumpAnimation';
@@ -151,152 +153,271 @@ const HealthActivityPlot = () => {
     }, 200);
   };
 
-  return (
-    <Stack sx={{ minHeight: 450 }} spacing={2}>
-      <ListItem>
-        <ListItemText
-          primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
-          secondaryTypographyProps={{ variant: 'h6' }}
-          primary="Health activity patterns"
-          secondary="Track your daily physical activity levels and progress with our interactive
-        graph!"
-        />
-        <BoopAnimation>
-          <HelpIconButton>
-            <Box maxWidth={150} p={2}>
-              <Typography>
-                You can visualize the daily data by clicking on one of the columns
-              </Typography>
-            </Box>
-          </HelpIconButton>
-        </BoopAnimation>
-      </ListItem>
+  const [domLoaded, setDomLoaded] = useState(false);
+  const [runJoyride, setRunJoyride] = useState(false);
 
-      <Box display="flex" flexDirection="row" alignItems="center" columnGap={2}>
-        <Select size="small" onChange={handleSelect} value={String(daysFilter)}>
-          {daysOptions.map((option) => (
-            <MenuItem key={option.label} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-        <Select size="small" onChange={handleActivitySelect} value={activityFilter}>
-          {appOptions.map((option) => (
-            <MenuItem key={option.label} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-        {data && (
-          <Stack
-            display="flex"
-            alignItems="center"
-            width="100%"
-            direction="row"
-            columnGap={2}
-          >
-            <PumpAnimation>
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <WhatshotOutlined fontSize="large" color="error" />
-                <Typography color="error" variant="caption">
-                  Calories
+  useEffect(() => {
+    setRunJoyride(false);
+    setDomLoaded(true);
+  }, []);
+
+  // match component ids with order and content of steps
+  const steps = [
+    {
+      target: '#hpstep1',
+      content: 'Welcome to the first page of your results display. ',
+      disableBeacon: true,
+      showProgress: true,
+    },
+    {
+      target: '#hpstep2',
+      content: 'Freely set the time filters here.',
+      disableBeacon: true,
+      showProgress: true,
+    },
+    {
+      target: '#hpstep3',
+      content: 'Select the type of activity.',
+      disableBeacon: true,
+      showProgress: true,
+    },
+    {
+      target: '#hpstep4',
+      content: 'Slide the bar to set your target goal.',
+      disableBeacon: true,
+      showProgress: true,
+    },
+    {
+      target: '#hpstep5',
+      content:
+        'Explore the graph to get fresh insights. Click on a bar to see the details for the day.',
+      disableBeacon: true,
+      showProgress: true,
+    },
+  ];
+
+  const handleStartJoyride = () => {
+    setRunJoyride(true);
+  };
+
+  const handleJoyrideCallback = (data: any) => {
+    const { action, status } = data;
+
+    if (status === 'finished' || status === 'skipped') {
+      setRunJoyride(false);
+    }
+  };
+
+  const buttonReset = {
+    backgroundColor: 'transparent',
+    border: 0,
+    borderRadius: 0,
+    color: '#555',
+    outline: 'none',
+    lineHeight: 1,
+    padding: 8,
+    WebkitAppearance: 'none',
+  };
+
+  return (
+    <div>
+      <Stack sx={{ minHeight: 450 }} spacing={2}>
+        <ListItem>
+          <ListItemText
+            primaryTypographyProps={{
+              variant: 'h5',
+              color: 'primary',
+              id: 'hpstep1',
+            }}
+            secondaryTypographyProps={{ variant: 'h6' }}
+            primary="Health activity patterns"
+            secondary="Track your daily physical activity levels and progress with our interactive
+        graph!"
+          />
+          <BoopAnimation>
+            <HelpIconButton onStart={handleStartJoyride}>
+              <Box maxWidth={150} p={2}>
+                <Typography>
+                  You can visualize the daily data by clicking on one of the columns
                 </Typography>
               </Box>
-            </PumpAnimation>
-            <AirbnbSlider
-              disabled={activityFilter !== 'all'}
-              valueLabelDisplay="auto"
-              valueLabelFormat={(value) => value + 2000}
-              min={0}
-              value={Number(value) ?? 0}
-              marks={[
-                { value: 0, label: 2000 },
-                { value: 2500, label: 4500 },
-              ]}
-              step={50}
-              max={2500}
-              onChange={handleSlider}
-              slots={{ thumb: AirbnbThumbComponent }}
-            />
-          </Stack>
+            </HelpIconButton>
+          </BoopAnimation>
+        </ListItem>
+
+        <Box display="flex" flexDirection="row" alignItems="center" columnGap={2}>
+          <Select
+            size="small"
+            onChange={handleSelect}
+            value={String(daysFilter)}
+            id="hpstep2"
+          >
+            {daysOptions.map((option) => (
+              <MenuItem key={option.label} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            size="small"
+            onChange={handleActivitySelect}
+            value={activityFilter}
+            id="hpstep3"
+          >
+            {appOptions.map((option) => (
+              <MenuItem key={option.label} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          {data && (
+            <Stack
+              display="flex"
+              alignItems="center"
+              width="100%"
+              direction="row"
+              columnGap={2}
+              id="hpstep4"
+            >
+              <PumpAnimation>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <WhatshotOutlined fontSize="large" color="error" />
+                  <Typography color="error" variant="caption">
+                    Calories
+                  </Typography>
+                </Box>
+              </PumpAnimation>
+              <AirbnbSlider
+                disabled={activityFilter !== 'all'}
+                valueLabelDisplay="auto"
+                valueLabelFormat={(value) => value + 2000}
+                min={0}
+                value={Number(value) ?? 0}
+                marks={[
+                  { value: 0, label: 2000 },
+                  { value: 2500, label: 4500 },
+                ]}
+                step={50}
+                max={2500}
+                onChange={handleSlider}
+                slots={{ thumb: AirbnbThumbComponent }}
+              />
+            </Stack>
+          )}
+        </Box>
+        {graphLoading && (
+          <Box
+            height={450}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+          >
+            <ScaleLoader color={theme.palette.primary.main} loading={graphLoading} />
+          </Box>
         )}
-      </Box>
-      {graphLoading && (
-        <Box
-          height={450}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          width="100%"
-        >
-          <ScaleLoader color={theme.palette.primary.main} loading={graphLoading} />
-        </Box>
-      )}
-      {!graphLoading && (
-        <Box minHeight={450}>
-          <Plot
-            style={{ width: '100%' }}
-            onClick={handleBarClick}
-            data={[
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar1,
-                name: 'Goal',
-                marker: {
-                  color: extendArray(Number(days?.length), [
-                    activityFilter === 'all'
-                      ? theme.palette.primary.main
-                      : theme.palette.warning.main,
-                  ]).slice(-daysFilter),
+        {!graphLoading && (
+          <Box minHeight={450}>
+            <Plot
+              divId="hpstep5"
+              style={{ width: '100%' }}
+              onClick={handleBarClick}
+              data={[
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar1,
+                  name: 'Goal',
+                  marker: {
+                    color: extendArray(Number(days?.length), [
+                      activityFilter === 'all'
+                        ? theme.palette.primary.main
+                        : theme.palette.warning.main,
+                    ]).slice(-daysFilter),
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar2,
-                name: 'Extra/Left',
-                marker: {
-                  color: generatedArrayColors,
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar2,
+                  name: 'Extra/Left',
+                  marker: {
+                    color: generatedArrayColors,
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter1,
-                name: 'Goal',
-                marker: {
-                  color: theme.palette.info.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter1,
+                  name: 'Goal',
+                  marker: {
+                    color: theme.palette.info.main,
+                  },
                 },
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter2,
-                name: 'Done',
-                marker: {
-                  color: theme.palette.error.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter2,
+                  name: 'Done',
+                  marker: {
+                    color: theme.palette.error.main,
+                  },
                 },
-              },
-            ]}
-            config={{ displayModeBar: false }}
-            layout={{
-              autosize: true,
-              barmode: 'stack',
-              bargap: 0.3,
-              margin: { t: 0 },
-            }}
-          />
-        </Box>
-      )}
-    </Stack>
+              ]}
+              config={{ displayModeBar: false }}
+              layout={{
+                autosize: true,
+                barmode: 'stack',
+                bargap: 0.3,
+                margin: { t: 0 },
+              }}
+            />
+          </Box>
+        )}
+      </Stack>
+      <>
+        {domLoaded && (
+          <div>
+            <Joyride
+              steps={steps}
+              continuous
+              run={runJoyride}
+              callback={handleJoyrideCallback}
+              // disableScrolling={true}
+              styles={{
+                options: {
+                  primaryColor: '#6A6DFF',
+                  textColor: '#000',
+                  width: '100%',
+                  zIndex: 1000,
+                },
+                // overlay: {
+                //   // marginTop: 40,
+                //   top: 40,
+                // },
+                // beaconInner: {
+                //   top: 40,
+                //   transform: 'translate(-30%, -30%)',
+                // },
+                // beaconOuter: {
+                //   top: 40,
+                // },
+                // tooltipContainer: {
+
+                // }
+              }}
+            />
+          </div>
+        )}
+      </>
+    </div>
   );
 };
 

@@ -62,7 +62,7 @@ const PieChart = () => {
   };
   const total = pieData[Number(idx)].data.find((item) => item.name === 'Total');
   return (
-    <Stack direction="row" display="flex" alignItems="center">
+    <Stack direction="row" display="flex" alignItems="center" id="pp1step5">
       {pieLoading && (
         <Box
           display="flex"

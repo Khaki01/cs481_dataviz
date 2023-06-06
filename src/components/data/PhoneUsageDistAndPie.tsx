@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import json from '../../../public/dist_app_usage.json';
 import Stack from '@mui/material/Stack';
 import PieChart, { pieColors } from 'components/data/PieChart';
 import theme from '../../styles/theme';
 import { PlotData } from 'plotly.js';
 import { AppTypeCustom } from './PhoneUsageActivityPlot';
+import Joyride from 'react-joyride';
+
 import dynamic from 'next/dynamic';
 import Typography from '@mui/material/Typography';
 import moment from 'moment/moment';
@@ -87,87 +89,147 @@ const PhoneUsageDistAndPie = () => {
     };
   }, [activityData, app]);
 
+  const [domLoaded, setDomLoaded] = useState(false);
+  const [runJoyride1, setRunJoyride1] = useState(false);
+
+  useEffect(() => {
+    setRunJoyride1(false);
+    setDomLoaded(true);
+  }, []);
+
+  const steps = [
+    {
+      target: '#pp1step5',
+      content:
+        'Check what each application accounts for throughout the day. Click on one of them to see its distribution throgh the day.',
+      disableBeacon: true,
+      showProgress: true,
+    },
+    {
+      target: '#pp1step6',
+      content: 'Explore the distribution of phone usage by each hour. ',
+      disableBeacon: true,
+      showProgress: true,
+    },
+  ];
+
+  const handleStartJoyride = () => {
+    setRunJoyride1(true);
+  };
+
+  const handleJoyrideCallback = (data: any) => {
+    const { action, status } = data;
+
+    if (status === 'finished' || status === 'skipped') {
+      setRunJoyride1(false);
+    }
+  };
+
   return (
-    <Stack width="100%" spacing={2}>
-      {dayData?.data && (
-        <Box
-          alignItems="center"
-          width="100%"
-          display="flex"
-          justifyContent="space-between"
-        >
-          <Typography variant="h6">
-            {moment(dayData?.day).format('MMM DD')}
-          </Typography>
-          <BoopAnimation>
-            <HelpIconButton>
-              <Box maxWidth={150} p={2}>
-                <Typography>
-                  You can visualize activities by clicking on pie chart
-                </Typography>
-              </Box>
-            </HelpIconButton>
-          </BoopAnimation>
-        </Box>
-      )}
-      {graphLoading && (
-        <Box
-          height={950}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          width="100%"
-        >
-          <ScaleLoader color={theme.palette.primary.main} loading={graphLoading} />
-        </Box>
-      )}
-      {!graphLoading && (
-        <Box minHeight={450}>
-          <Plot
-            style={{ width: '100%' }}
-            data={[
-              {
-                x: Array.from(Array(24).keys()),
-                y: dayData.data.map((item) => item.Total),
-                type: 'scatter',
-                name: 'total',
-                mode: 'lines',
-                line: {
-                  color: theme.palette.text.primary,
-                  shape: 'spline',
-                  width: 3,
+    <div>
+      <Stack width="100%" spacing={2}>
+        {dayData?.data && (
+          <Box
+            alignItems="center"
+            width="100%"
+            display="flex"
+            justifyContent="space-between"
+          >
+            <Typography variant="h6">
+              {moment(dayData?.day).format('MMM DD')}
+            </Typography>
+            <BoopAnimation>
+              <HelpIconButton onStart={handleStartJoyride}>
+                <Box maxWidth={150} p={2}>
+                  <Typography>
+                    You can visualize activities by clicking on pie chart
+                  </Typography>
+                </Box>
+              </HelpIconButton>
+            </BoopAnimation>
+          </Box>
+        )}
+        {graphLoading && (
+          <Box
+            height={950}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+          >
+            <ScaleLoader color={theme.palette.primary.main} loading={graphLoading} />
+          </Box>
+        )}
+        {!graphLoading && (
+          <Box minHeight={450}>
+            <Plot
+              divId="pp1step6"
+              style={{ width: '100%' }}
+              data={[
+                {
+                  x: Array.from(Array(24).keys()),
+                  y: dayData.data.map((item) => item.Total),
+                  type: 'scatter',
+                  name: 'total',
+                  mode: 'lines',
+                  line: {
+                    color: theme.palette.text.primary,
+                    shape: 'spline',
+                    width: 3,
+                  },
+                  fill: 'tozeroy',
+                  fillcolor: `${theme.palette.text.primary}80`,
                 },
-                fill: 'tozeroy',
-                fillcolor: `${theme.palette.text.primary}80`,
-              },
-              distAppData,
-            ]}
-            config={{ displayModeBar: false }}
-            layout={{
-              autosize: true,
-              margin: { t: 0 },
-              xaxis: {
-                showgrid: false,
-                title: 'Hours',
-                titlefont: {
-                  color: theme.palette.text.primary,
+                distAppData,
+              ]}
+              config={{ displayModeBar: false }}
+              layout={{
+                autosize: true,
+                margin: { t: 0 },
+                xaxis: {
+                  showgrid: false,
+                  title: 'Hours',
+                  titlefont: {
+                    color: theme.palette.text.primary,
+                  },
+                  range: [1, 23],
                 },
-                range: [1, 23],
-              },
-              yaxis: {
-                showgrid: false,
-                title: 'Minutes',
-                titlefont: {
-                  color: theme.palette.text.primary,
+                yaxis: {
+                  showgrid: false,
+                  title: 'Minutes',
+                  titlefont: {
+                    color: theme.palette.text.primary,
+                  },
                 },
-              },
-            }}
-          />
-        </Box>
-      )}
-      <div id="phone-usage" />
-      <PieChart />
-    </Stack>
+              }}
+            />
+          </Box>
+        )}
+        <div id="phone-usage" />
+        <PieChart />
+      </Stack>
+      <>
+        {domLoaded && (
+          <div>
+            <Joyride
+              steps={steps}
+              continuous
+              run={runJoyride1}
+              callback={handleJoyrideCallback}
+              // disableScrolling={true}
+              styles={{
+                options: {
+                  primaryColor: '#6A6DFF',
+                  textColor: '#000',
+                  width: '100%',
+                  zIndex: 1000,
+                },
+              }}
+            />
+          </div>
+        )}
+      </>
+    </div>
   );
 };
 

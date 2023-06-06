@@ -22,6 +22,7 @@ import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRound
 import { WhatshotOutlined } from '@mui/icons-material';
 import PumpAnimation from 'components/animated/PumpAnimation';
 import { useSharedIdx } from 'components/data/HealthActivityPlot';
+import Joyride from 'react-joyride';
 
 export type AppType =
   | 'all'
@@ -189,149 +190,258 @@ const PhoneUsageActivityPlot = () => {
     await setGraphLoading(false);
   };
 
-  return (
-    <Stack sx={{ minHeight: 450 }} spacing={2}>
-      <ListItem>
-        <ListItemText
-          primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
-          secondaryTypographyProps={{ variant: 'h6' }}
-          primary="Phone usage patterns"
-          secondary="Visualize and analyze your daily phone usage patterns to foster digital well-being!"
-        />
-        <BoopAnimation>
-          <HelpIconButton>
-            <Box maxWidth={150} p={2}>
-              <Typography>
-                You can visualize the daily data by clicking on one of the columns
-              </Typography>
-            </Box>
-          </HelpIconButton>
-        </BoopAnimation>
-      </ListItem>
+  const [domLoaded, setDomLoaded] = useState(false);
+  const [runJoyride, setRunJoyride] = useState(false);
 
-      <Box display="flex" flexDirection="row" alignItems="center" columnGap={2}>
-        <Select size="small" onChange={handleSelect} value={String(daysFilter)}>
-          {daysOptions.map((option) => (
-            <MenuItem key={option.label} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-        <Select size="small" onChange={handleAppFilterSelect} value={appFilter}>
-          {appOptions.map((option) => (
-            <MenuItem key={option.label} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-        {!sliderLoading && (
-          <Stack
-            display="flex"
-            alignItems="center"
-            width="100%"
-            direction="row"
-            columnGap={2}
-          >
-            <PumpAnimation>
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <HourglassBottomRoundedIcon fontSize="large" color="info" />
-                <Typography color="info.main" variant="caption">
-                  Hours
+  useEffect(() => {
+    setRunJoyride(false);
+    setDomLoaded(true);
+  }, []);
+
+  // match component ids with order and content of steps
+  const steps = [
+    {
+      target: '#ppstep1',
+      content: 'Welcome to the phone usage page of yours. ',
+      disableBeacon: true,
+      showProgress: true,
+      scrollOffset: 400,
+    },
+    {
+      target: '#ppstep2',
+      content: 'Freely set the time filters here.',
+      disableBeacon: true,
+      showProgress: true,
+      scrollOffset: 400,
+    },
+    {
+      target: '#ppstep3',
+      content: 'Filter by the apps you are interested.',
+      disableBeacon: true,
+      showProgress: true,
+      scrollOffset: 400,
+    },
+    {
+      target: '#ppstep4',
+      content: 'Slide the bar to the the phone usage goals in hours.',
+      disableBeacon: true,
+      showProgress: true,
+      scrollOffset: 400,
+    },
+    {
+      target: '#ppstep5',
+      content:
+        'Explore the graph to get fresh insights. Click on a bar to see the details for the day.',
+      disableBeacon: true,
+      showProgress: true,
+      scrollOffset: 400,
+    },
+  ];
+
+  const handleStartJoyride = () => {
+    setRunJoyride(true);
+  };
+
+  const handleJoyrideCallback = (data: any) => {
+    const { action, status } = data;
+
+    if (status === 'finished' || status === 'skipped') {
+      setRunJoyride(false);
+    }
+  };
+  return (
+    <div>
+      <Stack sx={{ minHeight: 450 }} spacing={2}>
+        <ListItem>
+          <ListItemText
+            primaryTypographyProps={{ variant: 'h5', color: 'primary' }}
+            secondaryTypographyProps={{ variant: 'h6' }}
+            primary="Phone usage patterns"
+            secondary="Visualize and analyze your daily phone usage patterns to foster digital well-being!"
+            id="ppstep1"
+          />
+          <BoopAnimation>
+            <HelpIconButton onStart={handleStartJoyride}>
+              <Box maxWidth={150} p={2}>
+                <Typography>
+                  You can visualize the daily data by clicking on one of the columns
                 </Typography>
               </Box>
-            </PumpAnimation>
+            </HelpIconButton>
+          </BoopAnimation>
+        </ListItem>
 
-            <AirbnbSlider
-              valueLabelDisplay="auto"
-              disabled={appFilter !== 'all'}
-              min={0}
-              value={Number(value)}
-              marks={[
-                { value: 0, label: 0 },
-                { value: 12, label: 12 },
-              ]}
-              step={1}
-              max={12}
-              onChange={handleSlider}
-              slots={{ thumb: AirbnbThumbComponent }}
-            />
-          </Stack>
+        <Box display="flex" flexDirection="row" alignItems="center" columnGap={2}>
+          <Select
+            size="small"
+            onChange={handleSelect}
+            value={String(daysFilter)}
+            id="ppstep2"
+          >
+            {daysOptions.map((option) => (
+              <MenuItem key={option.label} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          <Select
+            size="small"
+            onChange={handleAppFilterSelect}
+            value={appFilter}
+            id="ppstep3"
+          >
+            {appOptions.map((option) => (
+              <MenuItem key={option.label} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+          {!sliderLoading && (
+            <Stack
+              display="flex"
+              alignItems="center"
+              width="100%"
+              direction="row"
+              columnGap={2}
+              id="ppstep4"
+            >
+              <PumpAnimation>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <HourglassBottomRoundedIcon fontSize="large" color="info" />
+                  <Typography color="info.main" variant="caption">
+                    Hours
+                  </Typography>
+                </Box>
+              </PumpAnimation>
+
+              <AirbnbSlider
+                valueLabelDisplay="auto"
+                disabled={appFilter !== 'all'}
+                min={0}
+                value={Number(value)}
+                marks={[
+                  { value: 0, label: 0 },
+                  { value: 12, label: 12 },
+                ]}
+                step={1}
+                max={12}
+                onChange={handleSlider}
+                slots={{ thumb: AirbnbThumbComponent }}
+              />
+            </Stack>
+          )}
+        </Box>
+        {graphLoading && (
+          <Box
+            height={450}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+          >
+            <ScaleLoader color={theme.palette.primary.main} loading={graphLoading} />
+          </Box>
         )}
-      </Box>
-      {graphLoading && (
-        <Box
-          height={450}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          width="100%"
-        >
-          <ScaleLoader color={theme.palette.primary.main} loading={graphLoading} />
-        </Box>
-      )}
-      {!graphLoading && (
-        <Box minHeight={450}>
-          <Plot
-            style={{ width: '100%' }}
-            onClick={handleBarClick}
-            data={[
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar1,
-                name: 'Goal',
-                marker: {
-                  color: extendArray(Number(days?.length), [
-                    theme.palette.primary.main,
-                  ]).slice(-daysFilter),
+        {!graphLoading && (
+          <Box minHeight={450}>
+            <Plot
+              divId="ppstep5"
+              style={{ width: '100%' }}
+              onClick={handleBarClick}
+              data={[
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar1,
+                  name: 'Goal',
+                  marker: {
+                    color: extendArray(Number(days?.length), [
+                      theme.palette.primary.main,
+                    ]).slice(-daysFilter),
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'bar',
-                x: days,
-                y: returnBarData.bar2,
-                name: 'Extra/Left',
-                marker: {
-                  color: generatedArrayColors,
+                {
+                  type: 'bar',
+                  x: days,
+                  y: returnBarData.bar2,
+                  name: 'Extra/Left',
+                  marker: {
+                    color: generatedArrayColors,
+                  },
+                  opacity: 0.7,
                 },
-                opacity: 0.7,
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter1,
-                name: 'Goal',
-                marker: {
-                  color: theme.palette.info.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter1,
+                  name: 'Goal',
+                  marker: {
+                    color: theme.palette.info.main,
+                  },
                 },
-              },
-              {
-                type: 'scatter',
-                x: days,
-                y: returnScatterData.scatter2,
-                name: 'Done',
-                marker: {
-                  color: theme.palette.error.main,
+                {
+                  type: 'scatter',
+                  x: days,
+                  y: returnScatterData.scatter2,
+                  name: 'Done',
+                  marker: {
+                    color: theme.palette.error.main,
+                  },
                 },
-              },
-            ]}
-            config={{ displayModeBar: false }}
-            layout={{
-              autosize: true,
-              barmode: 'stack',
-              bargap: 0.3,
-              margin: { t: 0 },
-            }}
-          />
-        </Box>
-      )}
-    </Stack>
+              ]}
+              config={{ displayModeBar: false }}
+              layout={{
+                autosize: true,
+                barmode: 'stack',
+                bargap: 0.3,
+                margin: { t: 0 },
+              }}
+            />
+          </Box>
+        )}
+      </Stack>
+      <>
+        {domLoaded && (
+          <div>
+            <Joyride
+              steps={steps}
+              continuous
+              run={runJoyride}
+              callback={handleJoyrideCallback}
+              // disableScrolling={true}
+              styles={{
+                options: {
+                  primaryColor: '#6A6DFF',
+                  textColor: '#000',
+                  width: '100%',
+                  zIndex: 1000,
+                },
+                // overlay: {
+                //   // marginTop: 40,
+                //   top: 40,
+                // },
+                // beaconInner: {
+                //   top: 40,
+                //   transform: 'translate(-30%, -30%)',
+                // },
+                // beaconOuter: {
+                //   top: 40,
+                // },
+                // tooltipContainer: {
+
+                // }
+              }}
+            />
+          </div>
+        )}
+      </>
+    </div>
   );
 };
 
