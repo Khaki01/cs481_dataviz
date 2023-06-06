@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8b0b28cc-d430-4fab-9798-78eb13de49c5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/context/GoalProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/context/GoalProvider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/data/HealthActivityDistAndPie.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/HealthActivityDistAndPie.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/HealthActivityPlot.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/data/MultiValuedProgressBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/MultiValuedProgressBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PhoneUsageActivityPlot.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/data/PieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/PieChart.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +95,8 @@
       <workItem from="1685874167703" duration="16402000" />
       <workItem from="1685935906305" duration="12554000" />
       <workItem from="1686055213016" duration="2501000" />
-      <workItem from="1686071425621" duration="2945000" />
+      <workItem from="1686071425621" duration="3042000" />
+      <workItem from="1686094472601" duration="700000" />
     </task>
     <servers />
   </component>

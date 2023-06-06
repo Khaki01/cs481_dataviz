@@ -1,7 +1,6 @@
 import React, { createContext, PropsWithChildren, useContext } from 'react';
 import { useLocalStorage } from 'react-use';
 
-
 type GoalContextType = {
   activity: ReturnType<typeof useLocalStorage<string>>;
   usage: ReturnType<typeof useLocalStorage<string>>;
@@ -12,12 +11,11 @@ export const useGoalContext = (): GoalContextType =>
   useContext(GoalContext) as GoalContextType;
 
 export const GoalProvider = ({ children }: PropsWithChildren) => {
-  const goalManager = useLocalStorage('goal', '0');
-  const activityManager = useLocalStorage('activity', '0');
+  const usageManager = useLocalStorage('usage', '3');
+  const activityManager = useLocalStorage('activity', '50');
   return (
-    <GoalContext.Provider value={{ activity: goalManager, usage: activityManager }}>
+    <GoalContext.Provider value={{ activity: activityManager, usage: usageManager }}>
       {children}
     </GoalContext.Provider>
   );
-
 };

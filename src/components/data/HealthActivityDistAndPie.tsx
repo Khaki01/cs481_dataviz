@@ -76,25 +76,25 @@ const HealthActivityDistAndPie = () => {
         {
           value:
             (dayData.data.reduce((acc, cur) => acc + (cur?.ON_FOOT ?? 0), 0) * 100) /
-            Number(value),
+            Math.max(Number(value), 50),
           name: 'running',
         },
         {
           value:
             (dayData.data.reduce((acc, cur) => acc + (cur?.OTHERS ?? 0), 0) * 100) /
-            Number(value),
+            Math.max(Number(value), 50),
           name: 'others',
         },
         {
           value:
             (dayData.data.reduce((acc, cur) => acc + (cur?.STILL ?? 0), 0) * 100) /
-            Number(value),
+            Math.max(Number(value), 50),
           name: 'workout',
         },
         {
           value:
             (dayData.data.reduce((acc, cur) => acc + (cur?.TILTING ?? 0), 0) * 100) /
-            Number(value),
+            Math.max(Number(value), 50),
           name: 'cycling',
         },
       ],
@@ -164,6 +164,7 @@ const HealthActivityDistAndPie = () => {
     }
   };
 
+  console.log(progressBarValues.values);
   return (
     <div>
       <Stack width="100%" spacing={2}>
