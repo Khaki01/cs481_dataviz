@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 import { join } from 'path';
 import Papa, { ParseResult } from 'papaparse';
-
+import { activityMap } from 'components/data/HealthActivityDistAndPie';
 
 export type PhysicalDays = {
   timestamp: string;
@@ -32,5 +32,4 @@ export default function handler(
     ...parsedPhysicalProcessed,
     data: parsedPhysicalProcessed.data.filter((item) => item.timestamp),
   });
-
 }

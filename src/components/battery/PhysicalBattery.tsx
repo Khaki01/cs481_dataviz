@@ -83,13 +83,7 @@ const PhysicalBattery = ({ loading, date }: PhysicalBatteryProps) => {
   }, []);
 
   return (
-    <Stack
-      height="100%"
-      width={300}
-      direction="column"
-      alignItems="center"
-      spacing={2}
-    >
+    <Stack width={300} direction="column" alignItems="center" spacing={2}>
       <Typography variant="h5">Daily physical activity</Typography>
       <AnimatedBattery
         loading={loading || !physicalData}

@@ -3,12 +3,12 @@ import { NextPage } from 'next';
 import Grid from '@mui/system/Unstable_Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
-import HealthActivityPlot from '../../components/data/HealthActivityPlot';
-import HealthActivityDistAndPie from '../../components/data/HealthActivityDistAndPie';
-import { useRouter } from 'next/router';
+import HealthActivityPlot, {
+  useSharedIdx,
+} from 'components/data/HealthActivityPlot';
+import HealthActivityDistAndPie from 'components/data/HealthActivityDistAndPie';
 const HealthActivityPage: NextPage = () => {
-  const { query } = useRouter();
+  const [idx] = useSharedIdx();
   return (
     <Grid container spacing={3}>
       <Grid xs={12}>
@@ -18,7 +18,7 @@ const HealthActivityPage: NextPage = () => {
           </CardContent>
         </Card>
       </Grid>
-      {query?.idx && (
+      {typeof idx === 'number' && (
         <Grid xs={12}>
           <Card>
             <CardContent>
@@ -27,7 +27,6 @@ const HealthActivityPage: NextPage = () => {
           </Card>
         </Grid>
       )}
-
     </Grid>
   );
 };

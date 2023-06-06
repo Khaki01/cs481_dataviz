@@ -94,12 +94,12 @@ const BatteriesCalendarComponent = () => {
     );
   };
   return (
-    <Stack spacing={5}>
+    <Stack height="100%" spacing={5}>
       <Typography variant="h4">{date?.format('MMM DD')}</Typography>
       <Stack
-        height="100%"
         direction={{ md: 'row', xs: 'column' }}
-        alignItems="flex-start"
+        alignItems="center"
+        justifyContent="center"
         rowGap={4}
       >
         <PhoneBattery date={date.format('YYYY-MM-DD')} loading={loading} />
