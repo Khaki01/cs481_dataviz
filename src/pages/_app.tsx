@@ -36,6 +36,7 @@ export default function MyApp(props: MyAppProps) {
           crossOrigin="anonymous"
           async
         />
+        <title>2/cent - Explore patterns to foster productivity!</title>
         <meta property="og:title" content="2/cent" key="title" />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
