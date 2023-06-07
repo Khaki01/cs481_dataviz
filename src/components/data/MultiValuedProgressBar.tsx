@@ -90,7 +90,11 @@ const MultiValuedProgressBar = ({
               }}
               label={
                 <Typography color="inherit">
-                  {item.name} {item.value.toFixed(2)}%
+                  {item.name}{' '}
+                  {Number(item.value.toFixed(2)) > 100
+                    ? '>100'
+                    : item.value.toFixed(2)}
+                  %
                 </Typography>
               }
               onClick={handleClick(item.name)}
